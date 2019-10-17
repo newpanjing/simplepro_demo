@@ -33,3 +33,13 @@ python manage.py runserver 8000
 在用户名和密码的框框输入
 + 用户名：simpleui
 + 密码：demo123456
+
+## 也可以在linux或者macOS环境下直接运行脚本
+会自动安装依赖包和进入虚拟环境，启动端口为9001
+```shell script
+sh start.sh
+```
+运行后无报错访问：
+```shell script
+http://127.0.0.1:9001
+```
