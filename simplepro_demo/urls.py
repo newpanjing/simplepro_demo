@@ -26,6 +26,6 @@ def test(request):
 
 
 urlpatterns = [
-    path('', admin.site.urls),
+    path('simplepro/', admin.site.urls),
     path('test', test)
 ]

@@ -37,6 +37,9 @@ python manage.py runserver 8000
 ## 也可以在linux或者macOS环境下直接运行脚本
 会自动安装依赖包和进入虚拟环境，启动端口为9001
 ```shell script
+pip3 install virtualenv
+virtualenv venv
+
 sh start.sh
 ```
 运行后无报错访问：

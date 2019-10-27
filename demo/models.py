@@ -1,3 +1,6 @@
+import datetime
+
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -98,3 +101,50 @@ class Employe(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Customers(models.Model):
+    """
+    客户表，自定义主键
+    """
+    CS_STATUS = (
+        (1, '合作'),
+        (2, '终止'),
+        (3, '开发'),
+    )
+    CS_TYPE = (
+        (1, '采购商'),
+        (2, '供应商'),
+        (3, '采购&供应'),
+    )
+    type = models.IntegerField('客户类别', choices=CS_TYPE)
+    name = models.CharField('公司名称', max_length=100, default='选填')
+    lite_name = models.CharField(
+        '公司简称', max_length=20, primary_key=True, help_text='如无公司则填联系人或CEO名称')
+    address = models.CharField('公司地址', max_length=200, default='选填')
+    phone = models.CharField('公司电话', max_length=40, default='选填')
+    website = models.URLField('网址', max_length=200, default='example.com')
+    business = models.CharField('主营业务', max_length=64)
+    ceo = models.CharField('CEO', max_length=50, default='选填')
+    email = models.EmailField('CEO邮箱', max_length=100,
+                              default='example@email.com')
+    ceo_phone = models.CharField('CEO电话', max_length=20, default='选填')
+    contact_name = models.CharField('联系人', max_length=100)
+    contact_email = models.EmailField('联系人邮箱', max_length=100)
+    contact_phone = models.CharField('联系人电话', max_length=50)
+    status = models.IntegerField('合作状态', choices=CS_STATUS)
+    sales = models.ForeignKey(User, verbose_name='业务',
+                              on_delete=models.CASCADE, null=True, blank=True)
+    line_credits = models.DecimalField(
+        '信用额度', default=0, max_digits=10, decimal_places=2)
+    input_time = models.DateField('添加日期', default=datetime.datetime.now)
+    text = models.CharField('备注', max_length=480, default='选填')
+    # 让模型代码用objects能自动补全
+    objects = models.Manager()
+
+    class Meta:
+        verbose_name = '客户信息'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.lite_name

@@ -43,7 +43,43 @@ class TitleAdmin(admin.ModelAdmin):
     ]
 
 
+@admin.register(Customers)
+class CustomersAdmin(admin.ModelAdmin):
+    """
+    字段过多的情况下，可以用simplepro的特性，将列进行固定
+
+    左边固定公司名称，右边固定联系电话
+
+    文档参考地址：https://github.com/newpanjing/simplepro/blob/master/table.md#fields_options%E5%AD%97%E6%AE%B5
+    """
+
+    fields_options = {
+        'name': {
+            'fixed': 'left',
+            'width': '80px',
+            'align': 'center'
+        },
+        'contact_name': {
+            'fixed': 'right',
+            'width': '200px',
+            'align': 'left'
+        }
+    }
+
+    list_display = (
+        'type', 'name', 'lite_name', 'address', 'phone', 'website', 'business', 'ceo', 'email', 'ceo_phone',
+        'contact_name',
+        'contact_email', 'contact_phone', 'status', 'sales', 'line_credits', 'input_time', 'text')
+
+    list_per_page = 20
+    search_fields = ('name', 'lite_name')
+    list_filter = ('type',)
+
+
 class AgeListFilter(admin.SimpleListFilter):
+    """
+    配置自定义的过滤器
+    """
     title = u'最近生日'
     parameter_name = 'ages'
 
@@ -72,6 +108,10 @@ class AgeListFilter(admin.SimpleListFilter):
 
 
 class ProxyResource(resources.ModelResource):
+    """
+    配置导入导出
+    """
+
     class Meta:
         model = Employe
 
@@ -80,12 +120,23 @@ class ProxyResource(resources.ModelResource):
 class EmployeAdmin(ImportExportActionModelAdmin):
 
     def delete_queryset(self, request, queryset):
+        """
+        重写delete方法
+        :param request:
+        :param queryset:
+        :return:
+        """
         queryset.delete()
         pass
 
     def get_queryset(self, request):
+        """
+        重写默认查询方法，可以用于数据权限控制
+        例如张三登录后，只显示张三的数据，李四登录后就只显示李四的数据
+        :param request:
+        :return:
+        """
         qs = super().get_queryset(request)
-
         return qs.filter(id__gte=1)
 
     class Media:
@@ -168,6 +219,11 @@ class EmployeAdmin(ImportExportActionModelAdmin):
         # 这里可以对value的值进行判断，比如日期格式化等
         if field_name == 'department_id':
             return format_html('<span style="font-weight:700">{}</span>', value)
+
+        # 模拟报错
+        # if 1 == 1:
+        #     raise Exception('test')
+
         return value
 
     # 显示隐藏action，默认为True，只有显式指定为False的时候才隐藏
