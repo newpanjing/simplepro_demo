@@ -206,3 +206,6 @@ SIMPLEUI_ICON = {
 # 不填该项或者为False的时候，默认从第三方的cdn获取
 
 SIMPLEUI_STATIC_OFFLINE = True
+
+# 隐藏所有simpleui和simplepro相关的信息
+# SIMPLEPRO_INFO = False

@@ -119,6 +119,8 @@ class ProxyResource(resources.ModelResource):
 @admin.register(Employe)
 class EmployeAdmin(ImportExportActionModelAdmin):
 
+    # save_on_top = True
+
     def delete_queryset(self, request, queryset):
         """
         重写delete方法
@@ -215,16 +217,16 @@ class EmployeAdmin(ImportExportActionModelAdmin):
     make_copy.short_description = '复制员工'
 
     # simplepro 增加属性
-    def formatter(self, obj, field_name, value):
-        # 这里可以对value的值进行判断，比如日期格式化等
-        if field_name == 'department_id':
-            return format_html('<span style="font-weight:700">{}</span>', value)
+    # def formatter(self, obj, field_name, value):
+    #     # 这里可以对value的值进行判断，比如日期格式化等
+    #     if field_name == 'department_id':
+    #         return format_html('<span style="font-weight:700">{}</span>', value)
 
         # 模拟报错
         # if 1 == 1:
         #     raise Exception('test')
 
-        return value
+        # return value
 
     # 显示隐藏action，默认为True，只有显式指定为False的时候才隐藏
     # actions_show = False

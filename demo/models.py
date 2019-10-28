@@ -16,6 +16,13 @@ class Department(models.Model):
         verbose_name = "部门"
         verbose_name_plural = "部门管理"
 
+    """
+        如果有__unicode__ 方法，将会优先调用，没有在调用__str__方法
+    """
+
+    def __unicode__(self):
+        return '部门' + self.name
+
     def __str__(self):
         return self.name
 
