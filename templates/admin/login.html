@@ -17,3 +17,12 @@
         <div>账号：test，密码：test123456</div>
     </div>
 {% endblock %}
+
+{% block particles %}
+    <script type="text/javascript">
+        window.addEventListener('load', function () {
+            loginApp.username = 'test';
+            loginApp.password = 'test123456';
+        });
+    </script>
+{% endblock %}

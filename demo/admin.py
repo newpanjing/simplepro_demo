@@ -1,6 +1,6 @@
 import datetime
 
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.db import transaction
 from django.urls import reverse
 
@@ -141,6 +141,21 @@ class EmployeAdmin(ImportExportActionModelAdmin):
         qs = super().get_queryset(request)
         return qs.filter(id__gte=1)
 
+    def message_test(self, request, queryset):
+        messages.add_message(request, messages.SUCCESS, '操作成功123123123123')
+        messages.add_message(request, messages.ERROR, '操作成功123123123123')
+        messages.add_message(request, messages.DEBUG, '操作成功123123123123')
+        messages.add_message(request, messages.WARNING, '操作成功123123123123')
+        messages.add_message(request, messages.INFO, '操作成功123123123123')
+
+    message_test.short_description = '消息测试'
+
+    # 设置按钮默认是否可点击，如果默认可点击，获取到的queryset将会是一个空的
+    message_test.enable = True
+
+    # 给按钮增加确认
+    message_test.confirm = '你是否执意要点击这个按钮？'
+
     class Media:
         js = ('/js/test.js',)
         # css = ('test.css',)
@@ -176,7 +191,7 @@ class EmployeAdmin(ImportExportActionModelAdmin):
         }
 
     # 增加自定义按钮
-    actions = [test, 'make_copy', 'custom_button']
+    actions = [test, 'make_copy', 'custom_button', 'message_test', 'exception_test']
 
     def custom_button(self, request, queryset):
         pass
@@ -201,6 +216,7 @@ class EmployeAdmin(ImportExportActionModelAdmin):
     custom_button.action_url = 'https://www.baidu.com'
 
     def make_copy(self, request, queryset):
+        messages.add_message(request, messages.SUCCESS, '复制员工成功！')
         # 这里是需要判断是否选中全部，选中全部后，ids将无法获取，界面就会弹出错误提示
         ids = request.POST.get('ids').split(',')
         for id in ids:
@@ -216,17 +232,22 @@ class EmployeAdmin(ImportExportActionModelAdmin):
 
     make_copy.short_description = '复制员工'
 
+    def exception_test(self, request, qs):
+        raise Exception('错误测试')
+
+    exception_test.short_description = '点击报错'
+
     # simplepro 增加属性
     # def formatter(self, obj, field_name, value):
     #     # 这里可以对value的值进行判断，比如日期格式化等
     #     if field_name == 'department_id':
     #         return format_html('<span style="font-weight:700">{}</span>', value)
 
-        # 模拟报错
-        # if 1 == 1:
-        #     raise Exception('test')
+    # 模拟报错
+    # if 1 == 1:
+    #     raise Exception('test')
 
-        # return value
+    # return value
 
     # 显示隐藏action，默认为True，只有显式指定为False的时候才隐藏
     # actions_show = False
