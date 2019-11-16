@@ -89,10 +89,14 @@ class Employe(models.Model):
         if self.title:
             return format_html('<span style="color:red;">{}</span>', self.title.name)
         else:
-            return format_html('<span style="color:red;">{}</span>', self.department.name)
+            if self.department:
+                return format_html('<span style="color:red;">{}</span>', self.department.name)
 
     def department_id(self):
-        return self.department.id
+        if self.department:
+            return self.department.id
+
+        return ""
 
     department_id.short_description = '部门id'
     test2.short_description = '测试'
