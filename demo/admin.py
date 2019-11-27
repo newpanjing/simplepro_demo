@@ -6,12 +6,12 @@ from django.urls import reverse
 
 from .models import *
 from import_export import resources
-from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
+from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin, ExportActionModelAdmin
 
 
 # Register your models here.
 @admin.register(Department)
-class DepartmentAdmin(admin.ModelAdmin):
+class DepartmentAdmin(ImportExportActionModelAdmin):
     # 要显示的字段
     list_display = ('id', 'name', 'create_time')
     list_filter = ('name',)

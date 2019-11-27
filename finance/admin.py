@@ -2,7 +2,7 @@ from django.contrib import admin
 from finance.models import *
 
 from import_export import resources
-from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
+from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin, ExportActionModelAdmin
 
 
 class ProxyResource(resources.ModelResource):
@@ -14,7 +14,8 @@ class ProxyResource(resources.ModelResource):
 @admin.register(Record)
 # class RecordAdmin(admin.ModelAdmin):
 # class RecordAdmin(ImportExportModelAdmin):
-class RecordAdmin(ImportExportActionModelAdmin):
+# class RecordAdmin(ImportExportActionModelAdmin):
+class RecordAdmin(ExportActionModelAdmin):
 
     resource_class = ProxyResource
 

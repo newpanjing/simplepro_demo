@@ -1,8 +1,6 @@
 import os
 import importlib
 
-from django.utils.module_loading import import_string
-
 DATA = {}
 
 IS_READY = False
@@ -27,8 +25,7 @@ def __scan():
     扫描插件包目录，动态加载和注册url
     :return:
     """
-    path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    plugins_dir = os.path.join(path, 'plugins')
+    plugins_dir = os.path.join(os.getcwd(), 'plugins')
     # print(path)
     # 读取所有文件夹
     for f in os.listdir(plugins_dir):
@@ -77,6 +74,19 @@ def load(path, root, p):
     load_app('{}.{}'.format(root, p))
 
 
+def add_app(app):
+    from django.apps import apps
+    from django.conf import settings
+    from collections import OrderedDict
+
+    if app not in settings.INSTALLED_APPS:
+        apps.app_configs = OrderedDict()
+        apps.ready = False
+        apps.loading = False
+        settings.INSTALLED_APPS.append(app)
+        apps.populate(settings.INSTALLED_APPS)
+
+
 def load_app(p):
     # print('加载核心app:{}'.format(p))
 
@@ -96,7 +106,7 @@ def load_settings(p):
     from django.conf import settings
 
     p_settings = importlib.import_module(p)
-    print(p_settings)
+    # print(p_settings)
 
     d = p_settings.__dict__
     for item in d:
@@ -138,16 +148,22 @@ def load_urls(p):
     # print('载入urls文件：{}'.format(p))
 
     from django.conf import settings
+    from django.conf.urls import url
+    from django.urls import include
     # from django.core import management
 
     # print(settings)
     urls = __import__(settings.ROOT_URLCONF).urls
-
+    #
     p_urls = importlib.import_module(p)
-    if hasattr(p_urls, 'urlpatterns'):
-        # print(p_urls.urlpatterns)
-        # 追加app的urls
-        urls.urlpatterns += p_urls.urlpatterns
+    if hasattr(p_urls, 'urlpatterns') and p_urls.urlpatterns:
+
+        # 如果有app_name 就include，没有就追加
+        if hasattr(p_urls, 'app_name'):
+            urls.urlpatterns.append(url(r'^{}/'.format(p_urls.app_name), include(p, namespace=p_urls.app_name)), )
+        else:
+            # 追加app的urls
+            urls.urlpatterns += p_urls.urlpatterns
 
 
 if __name__ == '__main__':

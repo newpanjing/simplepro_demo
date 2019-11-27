@@ -1,1 +1,8 @@
-# 提供基础接口
+from django.shortcuts import render
+
+
+# Create your views here.
+def index(request):
+    return render(request, 'plugins/index.html', {
+
+    })
