@@ -24,4 +24,7 @@ body {
   width: 180px;
   float: right;
 }
+[v-cloak] {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */

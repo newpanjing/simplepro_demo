@@ -7,18 +7,18 @@
 # PACKAGE全是必填字段
 
 # 包的名字
-NAME = 'BBS插件'
+NAME = '手机端'
 
 # 图标
 ICON = '/images/logo.png'
 
 # 简短的描述包是什么
-SHORT_DESCRIPTION = '一个BBS插件'
+SHORT_DESCRIPTION = '一个Mobile插件'
 
 # 包详细的描述，支持markdown
 DESCRIPTION = """
 
-# 这是一个BBS插件
+# 这是一个Mobile插件
 
 他是来自与......
 
@@ -33,5 +33,4 @@ AUTHOR = "Simple"
 EMAIL = 'simpleui@88cto.com'
 
 # 主页
-# HOME = 'https://simpleui.88cto.com'
-# HOME = None
+HOME = 'https://simpleui.88cto.com'

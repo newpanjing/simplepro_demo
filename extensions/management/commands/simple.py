@@ -7,8 +7,8 @@ class Command(BaseCommand):
         parser.add_argument('action', type=str, choices=['sdist', 'upload'])
 
     def handle(self, *args, **options):
-        # print(args)
-        # print(options)
+        print(args)
+        print(options)
         action = options.get('action')
         print(action)
         print('success~')

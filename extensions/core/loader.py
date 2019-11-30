@@ -1,7 +1,9 @@
 import os
 import importlib
 
-DATA = {}
+DATA = {
+    'apps': []
+}
 
 IS_READY = False
 
@@ -26,13 +28,23 @@ def __scan():
     :return:
     """
     plugins_dir = os.path.join(os.getcwd(), 'plugins')
-    # print(path)
+
+    # 如果插件目录不存在，就不处理
+    if not os.path.exists(plugins_dir):
+        print('Tip! There is no plug-in directory and it will be created automatically')
+        os.makedirs(plugins_dir)
+        print('Creating a successful! {}'.format(plugins_dir))
+
+        return
+
     # 读取所有文件夹
     for f in os.listdir(plugins_dir):
         p = os.path.join(plugins_dir, f)
         if os.path.isdir(p):
             # 如果文件中有package.py 才当做一个插件
             if 'package.py' in os.listdir(p):
+                # 如果app包不合格，就不加载
+
                 load(p, 'plugins', f)
                 # 初始化 安装包
 
@@ -40,6 +52,9 @@ def __scan():
 
 
 def done():
+    # 有app的时候才注册
+    if len(DATA.get("apps")) == 0:
+        return
     # print('加载完成，开始注册')
     # 完成加载后，重新注册app
     from django.apps import apps
@@ -71,13 +86,16 @@ def load(path, root, p):
     # TODO 待处理
 
     # load app
-    load_app('{}.{}'.format(root, p))
+    info = load_app('{}.{}'.format(root, p))
+    DATA.get('apps').append(info)
 
 
 def add_app(app):
     from django.apps import apps
     from django.conf import settings
     from collections import OrderedDict
+
+    # TODO 判断settings，如果不启用插件中心，就不注册
 
     if app not in settings.INSTALLED_APPS:
         apps.app_configs = OrderedDict()
@@ -98,7 +116,22 @@ def load_app(p):
             INSTALLED_APPS.append(p)
         # 让django加载app
 
-    pass
+    return get_app_info(p)
+
+
+def get_app_info(p):
+    package = importlib.import_module(p + '.package')
+
+    return {
+        'name': package.NAME,
+        'version': package.VERSION,
+        'icon': package.ICON,
+        'short_description': package.SHORT_DESCRIPTION,
+        'description': package.DESCRIPTION,
+        'author': package.AUTHOR,
+        'email': package.EMAIL,
+        'home': package.HOME,
+    }
 
 
 def load_settings(p):
@@ -111,7 +144,7 @@ def load_settings(p):
     d = p_settings.__dict__
     for item in d:
         if item.find('__') != 0:
-            print(item)
+            # print(item)
             pv = getattr(p_settings, item)
             if hasattr(settings, item):
                 val = getattr(settings, item)
@@ -140,6 +173,8 @@ def load_settings(p):
             CONFIG['menus'].extend(menus)
         else:
             CONFIG['menus'] = menus
+        if 'system_keep' not in CONFIG:
+            CONFIG['system_keep'] = True
         setattr(settings, 'SIMPLEUI_CONFIG', CONFIG)
         # print(settings.SIMPLEUI_CONFIG)
 

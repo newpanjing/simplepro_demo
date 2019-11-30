@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # 注册自己的app
     'demo',
     'finance',
+    'extensions'
 ]
 
 MIDDLEWARE = [

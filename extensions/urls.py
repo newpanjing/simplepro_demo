@@ -5,5 +5,6 @@ from . import views
 app_name = 'plugins'
 
 urlpatterns = [
-    url('', views.index, name='index'),
+    url(r'^$', views.index, name='index'),
+    url(r'proxy', views.proxy, name='proxy')
 ]
