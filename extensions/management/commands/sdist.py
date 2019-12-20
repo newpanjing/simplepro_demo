@@ -21,4 +21,8 @@ class Command(BaseCommand):
             raise Exception('manage.py sdist: error: Plugin not found:\nPath:{}'.format(p))
         print(p)
         print(utils.check_app('{}.{}'.format(root, app)))
+
+        # 在插件目录生成一个s        idst文件夹，存放打包文件
+        path, dir = conf.get_plugin_dir()
+        
         print('打包app' + app)

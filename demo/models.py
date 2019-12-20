@@ -159,3 +159,29 @@ class Customers(models.Model):
 
     def __str__(self):
         return self.lite_name
+
+
+class demo1(models.Model):
+    name = models.CharField(
+        max_length=10,
+        verbose_name='姓名'
+
+    )
+    age = models.SmallIntegerField(
+        verbose_name='年龄'
+    )
+
+    def __str__(self):
+        return '姓名：{},　年龄：{}'.format(self.name, self.age)
+
+    class Meta:
+        verbose_name = 'demo1'
+        verbose_name_plural = verbose_name
+        ordering = ('name',)
+
+
+class demo2(demo1):
+    class Meta:
+        verbose_name = 'demo2'
+        verbose_name_plural = verbose_name
+        ordering = ('name',)

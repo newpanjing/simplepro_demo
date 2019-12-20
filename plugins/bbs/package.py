@@ -33,5 +33,5 @@ AUTHOR = "Simple"
 EMAIL = 'simpleui@88cto.com'
 
 # 主页
-# HOME = 'https://simpleui.88cto.com'
+HOME = 'https://simpleui.88cto.com'
 # HOME = None

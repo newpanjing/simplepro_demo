@@ -216,12 +216,12 @@ class EmployeAdmin(ImportExportActionModelAdmin):
     custom_button.action_url = 'https://www.baidu.com'
 
     def make_copy(self, request, queryset):
+        print('复制员工执行了')
         messages.add_message(request, messages.SUCCESS, '复制员工成功！')
         # 这里是需要判断是否选中全部，选中全部后，ids将无法获取，界面就会弹出错误提示
         ids = request.POST.get('ids').split(',')
         for id in ids:
             employe = Employe.objects.get(id=id)
-
             Employe.objects.create(
                 name=employe.name,
                 idCard=employe.idCard,
@@ -290,3 +290,21 @@ class EmployeAdmin(ImportExportActionModelAdmin):
         # 这里可以进行判断，动态返回actions
         actions = super(EmployeAdmin, self).get_actions(request)
         return actions
+
+
+class Demo1Admin(admin.ModelAdmin):
+    list_display = ('name', 'age')
+    list_display_links = ['name']
+
+
+class Demo2Admin(admin.ModelAdmin):
+    list_display = ('name', 'age')
+    list_display_links = None
+
+    def get_queryset(self, request):
+        qs = demo1.objects.get_queryset()
+        return qs
+
+
+admin.site.register(demo1, Demo1Admin)
+admin.site.register(demo2, Demo2Admin)
