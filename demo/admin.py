@@ -152,7 +152,8 @@ class EmployeAdmin(ImportExportActionModelAdmin):
 
     # 设置按钮默认是否可点击，如果默认可点击，获取到的queryset将会是一个空的
     message_test.enable = True
-
+    # ordering = ('-birthday',)
+    ordering = ['-birthday']
     # 给按钮增加确认
     message_test.confirm = '你是否执意要点击这个按钮？'
 
