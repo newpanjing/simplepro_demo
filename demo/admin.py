@@ -120,7 +120,6 @@ class ProxyResource(resources.ModelResource):
 class EmployeAdmin(ImportExportActionModelAdmin):
 
     # save_on_top = True
-
     def delete_queryset(self, request, queryset):
         """
         重写delete方法
@@ -163,8 +162,11 @@ class EmployeAdmin(ImportExportActionModelAdmin):
 
     resource_class = ProxyResource
     list_display = (
-        'id', 'name', 'gender', 'phone', 'birthday', 'department', 'department_id', 'enable', 'create_time', 'test1',
+        'id', 'avatar_img', 'name', 'gender', 'phone', 'birthday', 'department', 'department_id', 'enable',
+        'create_time',
+        'test1',
         'test2')
+
     # search_fields = ('name', 'enable', 'idCard', 'department')
     search_fields = ('name', 'department__name')
 
@@ -179,10 +181,10 @@ class EmployeAdmin(ImportExportActionModelAdmin):
 
     date_hierarchy = 'create_time'
 
-    fieldsets = [(None, {'fields': ['name', 'gender', 'phone']}),
-                 (u'其他信息', {
-                     'classes': ('123',),
-                     'fields': ['birthday', 'department', 'enable']})]
+    # fieldsets = [(None, {'fields': ['name', 'gender', 'phone']}),
+    #              (u'其他信息', {
+    #                  'classes': ('123',),
+    #                  'fields': ['birthday', 'department', 'enable']})]
 
     @transaction.atomic
     def test(self, request, queryset):
@@ -272,6 +274,11 @@ class EmployeAdmin(ImportExportActionModelAdmin):
             'width': '80px',
             'align': 'center'
         },
+        'avatar_img': {
+            'fixed': 'left',
+            'width': '50px',
+            'align': 'center'
+        },
         'create_time': {
             'fixed': 'right',
             'width': '200px',
@@ -281,7 +288,10 @@ class EmployeAdmin(ImportExportActionModelAdmin):
 
     def get_list_display(self, request):
         # 这里可以进行判断，动态返回某些字段或表头
-        return self.list_display
+        if '20' == request.POST.get('current_page'):
+            return ('id', 'avatar_img', 'name', 'gender', 'phone')
+        else:
+            return self.list_display
 
     def get_list_filter(self, request):
         # 这里可以进行判断，动态返回list_filter
@@ -291,6 +301,20 @@ class EmployeAdmin(ImportExportActionModelAdmin):
         # 这里可以进行判断，动态返回actions
         actions = super(EmployeAdmin, self).get_actions(request)
         return actions
+
+    def get_summaries(self, request, queryset):
+        # 自定义统计，可以根据request的页面 来统计当前页的数据，queryset 为深拷贝对象，如果传入的话 可能会影响列表的数据
+        # 返回的数据 为数组，对应列表的每一列
+        # 不支持html
+
+        # 如果想根据人员权限来动态展示，可以直接返回不同的数组，或者返回为None，为None的时候，不显示统计列
+
+        # 如果想统计满足当前搜索条件的数据的话 ，可以直接使用queryset.来进行统计
+        if request.POST.get('current_page') == '2':
+            return None
+        else:
+            # 需要有空字符串占位
+            return ('合计', '321', '1213123', '123123', '', '', '', '测试')
 
 
 class Demo1Admin(admin.ModelAdmin):

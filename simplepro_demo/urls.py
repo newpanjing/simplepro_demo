@@ -13,8 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.http import HttpResponse
+from django.conf.urls.static import static
 from django.urls import path
 
 admin.site.site_title = '管理后台PRO'
@@ -26,6 +28,6 @@ def test(request):
 
 
 urlpatterns = [
-    path('', admin.site.urls),
-    path('test', test),
-]
+                  path('', admin.site.urls),
+                  path('test', test),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -153,7 +153,7 @@ SIMPLEUI_INDEX = 'https://www.88cto.com'
 # SIMPLEUI_HOME_ACTION = False
 
 # 自定义SIMPLEUI的Logo
-# SIMPLEUI_LOGO = 'https://avatars2.githubusercontent.com/u/13655483?s=60&v=4'
+SIMPLEUI_LOGO = 'http://f.hiphotos.baidu.com/image/h%3D300/sign=0c78105b888ba61ec0eece2f713597cc/0e2442a7d933c8956c0e8eeadb1373f08202002a.jpg'
 
 # 登录页粒子动画，默认开启，False关闭
 # SIMPLEUI_LOGIN_PARTICLES = False
@@ -179,17 +179,14 @@ SIMPLEUI_CONFIG = {
             'url': 'http://baidu.com',
             'icon': 'far fa-surprise',
         }, {
-            'name': '内网穿透',
+            'name': '内网穿透123',
             'url': 'https://www.wezoz.com',
             'icon': 'fab fa-github'
         }, {
-            'name': '内网穿透',
+            'name': '内网穿透22222',
             'url': 'https://www.wezoz.com',
             'icon': 'fab fa-github',
             'codename': 'nat'
-        }, {
-            'name': '登录页嵌套测试',
-            'url': '/login'
         }]
     }]
 }
@@ -210,3 +207,14 @@ SIMPLEUI_STATIC_OFFLINE = True
 
 # 隐藏所有simpleui和simplepro相关的信息
 # SIMPLEPRO_INFO = False
+
+
+# 上传文件，如果是ImageField字段，simplepro将默认显示为图片，但是请保证有MEDIA_URL字段，否则图片将会404无法显示
+# urls.py 中需要加入:+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# 参考文章地址：https://www.cnblogs.com/ohahastudy/p/11179493.html
+# demo 是全部已经配置好了的。
+
+# Simplepro显示图片原理, <img src='img.url'> 将会直接读取django给到的url地址，所以不管是用本地，或者第三方的oss，都是可以的。
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/meida/'

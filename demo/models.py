@@ -57,6 +57,8 @@ class Employe(models.Model):
     name = models.CharField(max_length=128, verbose_name='名称', help_text='员工的名字', null=False, blank=False,
                             db_index=True)
 
+    avatar_img = models.ImageField(verbose_name='照片', null=True, blank=False, help_text='员工的照片，在列表会默认显示为图片')
+
     gender_choices = (
         (0, '未知'),
         (1, '男'),
