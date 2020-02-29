@@ -316,6 +316,17 @@ class EmployeAdmin(ImportExportActionModelAdmin):
             # 需要有空字符串占位
             return ('合计', '321', '1213123', '123123', '', '', '', '测试')
 
+    def get_results(self, results, request, queryset):
+        print('处理结果集')
+        new_results = []
+
+        for item in results:
+            # 这里可以对结果进行干预，item是 dict类型
+            pass
+            new_results.append(item)
+
+        return new_results
+
 
 class Demo1Admin(admin.ModelAdmin):
     list_display = ('name', 'age')

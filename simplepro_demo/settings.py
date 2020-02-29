@@ -153,7 +153,7 @@ SIMPLEUI_INDEX = 'https://www.88cto.com'
 # SIMPLEUI_HOME_ACTION = False
 
 # 自定义SIMPLEUI的Logo
-SIMPLEUI_LOGO = 'http://f.hiphotos.baidu.com/image/h%3D300/sign=0c78105b888ba61ec0eece2f713597cc/0e2442a7d933c8956c0e8eeadb1373f08202002a.jpg'
+# SIMPLEUI_LOGO = 'http://f.hiphotos.baidu.com/image/h%3D300/sign=0c78105b888ba61ec0eece2f713597cc/0e2442a7d933c8956c0e8eeadb1373f08202002a.jpg'
 
 # 登录页粒子动画，默认开启，False关闭
 # SIMPLEUI_LOGIN_PARTICLES = False
@@ -165,6 +165,7 @@ SIMPLEUI_ANALYSIS = True
 SIMPLEUI_CONFIG = {
     # 在自定义菜单的基础上保留系统模块
     'system_keep': True,
+    'dynamic': False,
     'menus': [{
         'name': 'Simpleui',
         'icon': 'fas fa-code',
@@ -190,6 +191,8 @@ SIMPLEUI_CONFIG = {
         }]
     }]
 }
+
+
 
 # 是否显示默认图标，默认=True
 # SIMPLEUI_DEFAULT_ICON = False
