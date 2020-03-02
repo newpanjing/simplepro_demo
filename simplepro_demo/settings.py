@@ -54,7 +54,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 加入simplepro的中间件
-    'simplepro.middlewares.SimpleMiddleware'
+    'simplepro.middlewares.SimpleMiddleware',
+
+    # 该中间件用于屏幕普通用户修改密码功能，可以注释掉
+    'simplepro_demo.middlewares.PasswordChangeMiddleware'
 ]
 
 ROOT_URLCONF = 'simplepro_demo.urls'
