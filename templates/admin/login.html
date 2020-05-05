@@ -12,17 +12,18 @@
 
 {% block header %}
     <div class="header">{{ site_header }}</div>
-    <div>
+    <el-alert type="success">
         <div>欢迎使用simplepro demo</div>
-        <div>账号：test，密码：test123456</div>
-    </div>
+        <div>超级用户账号：simpleui，密码：demo123456</div>
+        <div>普通用户账号：test，密码：test123456</div>
+    </el-alert>
 {% endblock %}
 
 {% block particles %}
     <script type="text/javascript">
         window.addEventListener('load', function () {
-            loginApp.username = 'test';
-            loginApp.password = 'test123456';
+            loginApp.username = 'simpleui';
+            loginApp.password = 'demo123456';
         });
     </script>
 {% endblock %}

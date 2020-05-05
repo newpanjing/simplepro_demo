@@ -195,8 +195,6 @@ SIMPLEUI_CONFIG = {
     }]
 }
 
-
-
 # 是否显示默认图标，默认=True
 # SIMPLEUI_DEFAULT_ICON = False
 
@@ -224,3 +222,6 @@ SIMPLEUI_STATIC_OFFLINE = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/meida/'
+
+# 配置Simple Pro是否显示首页的图标，默认为True，显示图表，False不显示
+SIMPLEPRO_CHART_DISPLAY = True

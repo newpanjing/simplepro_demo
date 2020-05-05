@@ -172,7 +172,7 @@ class EmployeAdmin(ImportExportActionModelAdmin):
 
     list_per_page = 5
     raw_id_fields = ('department', 'title')
-    list_filter = ('department', AgeListFilter, 'create_time', 'department__create_time')
+    list_filter = ('department', AgeListFilter, 'create_time', 'department__create_time', 'birthday')
     # list_filter = (AgeListFilter, 'department', 'create_time', 'birthday', 'time', 'enable', 'gender')
 
     list_display_links = ('name',)
@@ -342,5 +342,19 @@ class Demo2Admin(admin.ModelAdmin):
         return qs
 
 
+# 手动为admin注册model
 admin.site.register(demo1, Demo1Admin)
 admin.site.register(demo2, Demo2Admin)
+
+
+@admin.register(demo3)
+class Demo1Admin(admin.ModelAdmin):
+    list_display = (
+        'name', 'age', "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15",
+        "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23", "f24", "f25", "f26", "f27", "f28", "f29", "f30")
+    list_display_links = ['name']
+
+
+@admin.register(ExpertComment)
+class ExpertCommentAdmin(admin.ModelAdmin):
+    list_filter = ['expert', ]

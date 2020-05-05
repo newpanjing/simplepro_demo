@@ -187,3 +187,53 @@ class demo2(demo1):
         verbose_name = 'demo2'
         verbose_name_plural = verbose_name
         ordering = ('name',)
+
+
+class demo3(demo1):
+    """
+    多字段测试
+    """
+    f1 = models.IntegerField(default=0, null=True, blank=True)
+    f2 = models.IntegerField(default=0, null=True, blank=True)
+    f3 = models.IntegerField(default=0, null=True, blank=True)
+    f4 = models.IntegerField(default=0, null=True, blank=True)
+    f5 = models.IntegerField(default=0, null=True, blank=True)
+    f6 = models.IntegerField(default=0, null=True, blank=True)
+    f7 = models.IntegerField(default=0, null=True, blank=True)
+    f8 = models.IntegerField(default=0, null=True, blank=True)
+    f9 = models.IntegerField(default=0, null=True, blank=True)
+    f10 = models.IntegerField(default=0, null=True, blank=True)
+    f11 = models.IntegerField(default=0, null=True, blank=True)
+    f12 = models.IntegerField(default=0, null=True, blank=True)
+    f13 = models.IntegerField(default=0, null=True, blank=True)
+    f14 = models.IntegerField(default=0, null=True, blank=True)
+    f15 = models.IntegerField(default=0, null=True, blank=True)
+    f16 = models.IntegerField(default=0, null=True, blank=True)
+    f17 = models.IntegerField(default=0, null=True, blank=True)
+    f18 = models.IntegerField(default=0, null=True, blank=True)
+    f19 = models.IntegerField(default=0, null=True, blank=True)
+    f20 = models.IntegerField(default=0, null=True, blank=True)
+    f21 = models.IntegerField(default=0, null=True, blank=True)
+    f22 = models.IntegerField(default=0, null=True, blank=True)
+    f23 = models.IntegerField(default=0, null=True, blank=True)
+    f24 = models.IntegerField(default=0, null=True, blank=True)
+    f25 = models.IntegerField(default=0, null=True, blank=True)
+    f26 = models.IntegerField(default=0, null=True, blank=True)
+    f27 = models.IntegerField(default=0, null=True, blank=True)
+    f28 = models.IntegerField(default=0, null=True, blank=True)
+    f29 = models.IntegerField(default=0, null=True, blank=True)
+    f30 = models.IntegerField(default=0, null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'demo2'
+        verbose_name_plural = verbose_name
+        ordering = ('name',)
+
+
+class Expert(User):
+    class Meta:
+        proxy = True
+
+
+class ExpertComment(models.Model):
+    expert = models.ForeignKey(to='demo.Expert', on_delete=models.CASCADE)
