@@ -1,0 +1,2525 @@
+{
+	"components": [
+		{
+			"text": "文本标签",
+			"type": "Label",
+			"active": false,
+			"id": "f0231",
+			"$data": {
+				"style": {
+					"layout": {
+						"attrs": {
+							"height": {
+								"value": 30,
+								"label": "高度",
+								"type": "number",
+								"append": "px",
+								"show": true
+							},
+							"col": {
+								"value": 24,
+								"label": "栅格宽度",
+								"type": "slider",
+								"min": 1,
+								"max": 24,
+								"show": true,
+								"masks": {
+									"12": ""
+								}
+							}
+						},
+						"label": "布局",
+						"show": true
+					},
+					"label": {
+						"show": true,
+						"label": "标签",
+						"attrs": {
+							"input": {
+								"show": true,
+								"label": "内容",
+								"value": "这里是标题",
+								"type": "textarea"
+							},
+							"render": {
+								"show": true,
+								"label": "渲染方式",
+								"type": "select",
+								"value": "text",
+								"options": [
+									{
+										"label": "文本",
+										"value": "text"
+									},
+									{
+										"label": "Html",
+										"value": "html"
+									}
+								]
+							},
+							"lineHeight": {
+								"label": "行高",
+								"show": true,
+								"value": 30,
+								"type": "input",
+								"append": "px"
+							},
+							"align": {
+								"label": "对齐方式",
+								"show": true,
+								"value": "center",
+								"type": "select",
+								"options": [
+									{
+										"label": "左对齐",
+										"value": "left"
+									},
+									{
+										"label": "右对齐",
+										"value": "right"
+									},
+									{
+										"label": "居中对齐",
+										"value": "center"
+									}
+								]
+							}
+						}
+					},
+					"font": {
+						"label": "字体",
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"fontSize": {
+								"value": 24,
+								"label": "大小",
+								"type": "number",
+								"show": true,
+								"append": "px"
+							},
+							"fontWeight": {
+								"value": 300,
+								"label": "宽度",
+								"type": "number",
+								"show": true
+							},
+							"color": {
+								"value": "#000000",
+								"label": "颜色",
+								"type": "color",
+								"show": true
+							}
+						}
+					},
+					"padding": {
+						"label": "内边距",
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"top": {
+								"label": "上",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"bottom": {
+								"label": "下",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"left": {
+								"label": "左",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"right": {
+								"label": "右",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							}
+						}
+					},
+					"border": {
+						"show": true,
+						"label": "边框",
+						"enabled": false,
+						"attrs": {
+							"color": {
+								"label": "颜色",
+								"show": true,
+								"value": "#CCCCCC",
+								"type": "color"
+							},
+							"width": {
+								"label": "宽度",
+								"show": true,
+								"value": 1,
+								"type": "number",
+								"append": "px"
+							},
+							"style": {
+								"label": "样式",
+								"show": true,
+								"value": "solid",
+								"type": "select",
+								"options": [
+									{
+										"label": "实线",
+										"value": "solid"
+									},
+									{
+										"label": "虚线",
+										"value": "dashed"
+									}
+								]
+							},
+							"radius": {
+								"label": "圆角",
+								"show": true,
+								"value": 0,
+								"type": "number",
+								"append": "px"
+							}
+						}
+					},
+					"margin": {
+						"label": "外边距",
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"top": {
+								"label": "上",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"bottom": {
+								"label": "下",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"left": {
+								"label": "左",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"right": {
+								"label": "右",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							}
+						}
+					}
+				},
+				"components": [],
+				"loading": false
+			}
+		},
+		{
+			"text": "内置模块",
+			"type": "Models",
+			"active": false,
+			"id": "1ba7fc",
+			"$data": {
+				"data": {
+					"url": "./models/models.json",
+					"typeOptions": [
+						{
+							"value": 1,
+							"label": "动态"
+						},
+						{
+							"value": 0,
+							"label": "静态"
+						}
+					],
+					"type": 1,
+					"refresh": false,
+					"rate": 3000,
+					"method": "get",
+					"params": [],
+					"originalData": [
+						{
+							"name": "组",
+							"icon": "fa fa-circle",
+							"url": "/admin/auth/group/"
+						},
+						{
+							"name": "用户",
+							"icon": "fa fa-user",
+							"url": "/admin/auth/user/"
+						},
+						{
+							"name": "权限",
+							"icon": "fa fa-user",
+							"url": "/admin/auth/permission/"
+						},
+						{
+							"name": "日志记录",
+							"icon": "fa fa-user",
+							"url": "/admin/admin/logentry/"
+						},
+						{
+							"name": "修改密码",
+							"icon": "fa fa-user",
+							"url": "/admin/password_change/"
+						}
+					],
+					"staticData": null
+				},
+				"style": {
+					"icon": {
+						"label": "图标",
+						"show": true,
+						"attrs": {
+							"multipleColor": {
+								"label": "彩色图标",
+								"value": true,
+								"type": "boolean",
+								"show": true
+							},
+							"color": {
+								"label": "图标颜色",
+								"value": "#000000",
+								"type": "color",
+								"show": false
+							},
+							"fontSize": {
+								"label": "图标大小",
+								"value": 30,
+								"type": "slider",
+								"min": 12,
+								"max": 80,
+								"show": true,
+								"masks": {
+									"30": ""
+								}
+							}
+						}
+					},
+					"layout": {
+						"label": "布局",
+						"show": true,
+						"attrs": {
+							"height": {
+								"value": 300,
+								"label": "高度",
+								"type": "number",
+								"append": "px",
+								"show": true
+							},
+							"col": {
+								"value": 24,
+								"label": "栅格宽度",
+								"type": "slider",
+								"min": 1,
+								"max": 24,
+								"show": true,
+								"masks": {
+									"12": ""
+								}
+							}
+						}
+					},
+					"border": {
+						"show": true,
+						"label": "边框",
+						"enabled": false,
+						"attrs": {
+							"color": {
+								"label": "颜色",
+								"show": true,
+								"value": "#CCCCCC",
+								"type": "color"
+							},
+							"width": {
+								"label": "宽度",
+								"show": true,
+								"value": 1,
+								"type": "number",
+								"append": "px"
+							},
+							"style": {
+								"label": "样式",
+								"show": true,
+								"value": "solid",
+								"type": "select",
+								"options": [
+									{
+										"label": "实线",
+										"value": "solid"
+									},
+									{
+										"label": "虚线",
+										"value": "dashed"
+									}
+								]
+							},
+							"radius": {
+								"label": "圆角",
+								"show": true,
+								"value": 0,
+								"type": "number",
+								"append": "px"
+							}
+						}
+					},
+					"margin": {
+						"label": "外边距",
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"top": {
+								"label": "上",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"bottom": {
+								"label": "下",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"left": {
+								"label": "左",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"right": {
+								"label": "右",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							}
+						}
+					}
+				},
+				"isSuccess": true,
+				"options": {
+					"data": [
+						{
+							"name": "组",
+							"icon": "fa fa-circle",
+							"url": "/admin/auth/group/"
+						},
+						{
+							"name": "用户",
+							"icon": "fa fa-user",
+							"url": "/admin/auth/user/"
+						},
+						{
+							"name": "权限",
+							"icon": "fa fa-user",
+							"url": "/admin/auth/permission/"
+						},
+						{
+							"name": "日志记录",
+							"icon": "fa fa-user",
+							"url": "/admin/admin/logentry/"
+						},
+						{
+							"name": "修改密码",
+							"icon": "fa fa-user",
+							"url": "/admin/password_change/"
+						}
+					]
+				},
+				"components": [],
+				"loading": false
+			}
+		},
+		{
+			"text": "卡片",
+			"type": "Card",
+			"active": false,
+			"id": "633ef",
+			"$data": {
+				"style": {
+					"header": {
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"title": {
+								"show": true,
+								"value": "服务器信息监控",
+								"label": "文本",
+								"type": "text"
+							}
+						},
+						"label": "标题"
+					},
+					"layout": {
+						"attrs": {
+							"autoHeight": {
+								"show": true,
+								"label": "自动高度",
+								"value": true,
+								"type": "boolean"
+							},
+							"height": {
+								"value": 300,
+								"label": "高度",
+								"type": "number",
+								"append": "px",
+								"show": true
+							},
+							"col": {
+								"value": 24,
+								"label": "栅格宽度",
+								"type": "slider",
+								"min": 1,
+								"max": 24,
+								"show": true,
+								"masks": {
+									"12": ""
+								}
+							}
+						},
+						"label": "布局",
+						"show": true
+					},
+					"border": {
+						"enabled": true,
+						"attrs": {
+							"color": {
+								"value": "#EBEEF5",
+								"label": "颜色",
+								"show": true,
+								"type": "color"
+							},
+							"radius": {
+								"value": 4,
+								"label": "圆角",
+								"show": true,
+								"type": "number",
+								"append": "px"
+							},
+							"shadow": {
+								"value": "always",
+								"label": "边框阴影",
+								"type": "select",
+								"options": [
+									{
+										"label": "始终显示",
+										"value": "always"
+									},
+									{
+										"label": "鼠标进入显示",
+										"value": "hover"
+									},
+									{
+										"label": "不显示",
+										"value": "never"
+									}
+								],
+								"show": true
+							},
+							"width": {
+								"label": "宽度",
+								"show": true,
+								"value": 1,
+								"type": "number",
+								"append": "px"
+							},
+							"style": {
+								"label": "样式",
+								"show": true,
+								"value": "solid",
+								"type": "select",
+								"options": [
+									{
+										"label": "实线",
+										"value": "solid"
+									},
+									{
+										"label": "虚线",
+										"value": "dashed"
+									}
+								]
+							}
+						},
+						"show": true,
+						"label": "边框"
+					},
+					"padding": {
+						"label": "内边距",
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"top": {
+								"label": "上",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"bottom": {
+								"label": "下",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"left": {
+								"label": "左",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"right": {
+								"label": "右",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							}
+						}
+					},
+					"margin": {
+						"label": "外边距",
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"top": {
+								"label": "上",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"bottom": {
+								"label": "下",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"left": {
+								"label": "左",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"right": {
+								"label": "右",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							}
+						}
+					}
+				},
+				"components": [
+					{
+						"text": "仪表盘",
+						"type": "GaugePlot",
+						"active": false,
+						"id": "130809",
+						"$data": {
+							"data": {
+								"type": 0,
+								"typeOptions": [
+									{
+										"value": 1,
+										"label": "动态"
+									},
+									{
+										"value": 0,
+										"label": "静态"
+									}
+								],
+								"url": null,
+								"refresh": false,
+								"rate": 3000,
+								"method": "get",
+								"params": [],
+								"originalData": null,
+								"staticData": null
+							},
+							"options": {
+								"title": {
+									"visible": true,
+									"text": "仪表盘标题"
+								},
+								"height": 300,
+								"min": 0,
+								"max": 100,
+								"value": 50,
+								"range": [
+									0,
+									25,
+									50,
+									75,
+									100
+								],
+								"color": [
+									"#39B8FF",
+									"#52619B",
+									"#43E089",
+									"#C0EDF3"
+								],
+								"statistic": {
+									"visible": true,
+									"text": "优",
+									"color": "#30bf78"
+								},
+								"description": {
+									"visible": true,
+									"text": "图表描述"
+								},
+								"forceFit": true,
+								"data": null
+							},
+							"isSuccess": true,
+							"components": [],
+							"loading": false,
+							"style": {
+								"layout": {
+									"label": "布局",
+									"show": true,
+									"attrs": {
+										"height": {
+											"value": 300,
+											"label": "高度",
+											"type": "number",
+											"append": "px",
+											"show": true
+										},
+										"col": {
+											"value": 12,
+											"label": "栅格宽度",
+											"type": "slider",
+											"min": 1,
+											"max": 24,
+											"show": true,
+											"masks": {
+												"12": ""
+											}
+										}
+									}
+								},
+								"border": {
+									"show": true,
+									"label": "边框",
+									"enabled": false,
+									"attrs": {
+										"color": {
+											"label": "颜色",
+											"show": true,
+											"value": "#CCCCCC",
+											"type": "color"
+										},
+										"width": {
+											"label": "宽度",
+											"show": true,
+											"value": 1,
+											"type": "number",
+											"append": "px"
+										},
+										"style": {
+											"label": "样式",
+											"show": true,
+											"value": "solid",
+											"type": "select",
+											"options": [
+												{
+													"label": "实线",
+													"value": "solid"
+												},
+												{
+													"label": "虚线",
+													"value": "dashed"
+												}
+											]
+										},
+										"radius": {
+											"label": "圆角",
+											"show": true,
+											"value": 0,
+											"type": "number",
+											"append": "px"
+										}
+									}
+								},
+								"margin": {
+									"label": "外边距",
+									"enabled": true,
+									"show": true,
+									"attrs": {
+										"top": {
+											"label": "上",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"bottom": {
+											"label": "下",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"left": {
+											"label": "左",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"right": {
+											"label": "右",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										}
+									}
+								}
+							}
+						}
+					},
+					{
+						"text": "饼图",
+						"type": "PiePlot",
+						"active": false,
+						"id": "17bbab",
+						"$data": {
+							"data": {
+								"url": "./charts/pieplot/basic.json",
+								"typeOptions": [
+									{
+										"value": 1,
+										"label": "动态"
+									},
+									{
+										"value": 0,
+										"label": "静态"
+									}
+								],
+								"type": 1,
+								"refresh": false,
+								"rate": 3000,
+								"method": "get",
+								"params": [],
+								"originalData": [
+									{
+										"type": "分类一",
+										"value": 27
+									},
+									{
+										"type": "分类二",
+										"value": 25
+									},
+									{
+										"type": "分类三",
+										"value": 18
+									},
+									{
+										"type": "分类四",
+										"value": 15
+									},
+									{
+										"type": "分类五",
+										"value": 10
+									},
+									{
+										"type": "其它",
+										"value": 5
+									}
+								],
+								"staticData": null
+							},
+							"options": {
+								"title": {
+									"text": "饼图标题",
+									"visible": true
+								},
+								"description": {
+									"text": "饼图描述",
+									"visible": true
+								},
+								"radius": 0.8,
+								"angleField": "value",
+								"colorField": "type",
+								"label": {
+									"visible": true,
+									"type": "inner"
+								},
+								"forceFit": true,
+								"data": [
+									{
+										"type": "分类一",
+										"value": 27
+									},
+									{
+										"type": "分类二",
+										"value": 25
+									},
+									{
+										"type": "分类三",
+										"value": 18
+									},
+									{
+										"type": "分类四",
+										"value": 15
+									},
+									{
+										"type": "分类五",
+										"value": 10
+									},
+									{
+										"type": "其它",
+										"value": 5
+									}
+								]
+							},
+							"isSuccess": true,
+							"components": [],
+							"loading": false,
+							"style": {
+								"layout": {
+									"label": "布局",
+									"show": true,
+									"attrs": {
+										"height": {
+											"value": 300,
+											"label": "高度",
+											"type": "number",
+											"append": "px",
+											"show": true
+										},
+										"col": {
+											"value": 12,
+											"label": "栅格宽度",
+											"type": "slider",
+											"min": 1,
+											"max": 24,
+											"show": true,
+											"masks": {
+												"12": ""
+											}
+										}
+									}
+								},
+								"border": {
+									"show": true,
+									"label": "边框",
+									"enabled": false,
+									"attrs": {
+										"color": {
+											"label": "颜色",
+											"show": true,
+											"value": "#CCCCCC",
+											"type": "color"
+										},
+										"width": {
+											"label": "宽度",
+											"show": true,
+											"value": 1,
+											"type": "number",
+											"append": "px"
+										},
+										"style": {
+											"label": "样式",
+											"show": true,
+											"value": "solid",
+											"type": "select",
+											"options": [
+												{
+													"label": "实线",
+													"value": "solid"
+												},
+												{
+													"label": "虚线",
+													"value": "dashed"
+												}
+											]
+										},
+										"radius": {
+											"label": "圆角",
+											"show": true,
+											"value": 0,
+											"type": "number",
+											"append": "px"
+										}
+									}
+								},
+								"margin": {
+									"label": "外边距",
+									"enabled": true,
+									"show": true,
+									"attrs": {
+										"top": {
+											"label": "上",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"bottom": {
+											"label": "下",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"left": {
+											"label": "左",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"right": {
+											"label": "右",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										}
+									}
+								}
+							}
+						}
+					}
+				],
+				"loading": false
+			}
+		},
+		{
+			"text": "卡片",
+			"type": "Card",
+			"active": false,
+			"id": "3e3619",
+			"$data": {
+				"style": {
+					"header": {
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"title": {
+								"show": true,
+								"value": "G2Plot图表",
+								"label": "文本",
+								"type": "text"
+							}
+						},
+						"label": "标题"
+					},
+					"layout": {
+						"attrs": {
+							"autoHeight": {
+								"show": true,
+								"label": "自动高度",
+								"value": true,
+								"type": "boolean"
+							},
+							"height": {
+								"value": 300,
+								"label": "高度",
+								"type": "number",
+								"append": "px",
+								"show": true
+							},
+							"col": {
+								"value": 24,
+								"label": "栅格宽度",
+								"type": "slider",
+								"min": 1,
+								"max": 24,
+								"show": true,
+								"masks": {
+									"12": ""
+								}
+							}
+						},
+						"label": "布局",
+						"show": true
+					},
+					"border": {
+						"enabled": true,
+						"attrs": {
+							"color": {
+								"value": "#EBEEF5",
+								"label": "颜色",
+								"show": true,
+								"type": "color"
+							},
+							"radius": {
+								"value": 4,
+								"label": "圆角",
+								"show": true,
+								"type": "number",
+								"append": "px"
+							},
+							"shadow": {
+								"value": "always",
+								"label": "边框阴影",
+								"type": "select",
+								"options": [
+									{
+										"label": "始终显示",
+										"value": "always"
+									},
+									{
+										"label": "鼠标进入显示",
+										"value": "hover"
+									},
+									{
+										"label": "不显示",
+										"value": "never"
+									}
+								],
+								"show": true
+							},
+							"width": {
+								"label": "宽度",
+								"show": true,
+								"value": 1,
+								"type": "number",
+								"append": "px"
+							},
+							"style": {
+								"label": "样式",
+								"show": true,
+								"value": "solid",
+								"type": "select",
+								"options": [
+									{
+										"label": "实线",
+										"value": "solid"
+									},
+									{
+										"label": "虚线",
+										"value": "dashed"
+									}
+								]
+							}
+						},
+						"show": true,
+						"label": "边框"
+					},
+					"padding": {
+						"label": "内边距",
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"top": {
+								"label": "上",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"bottom": {
+								"label": "下",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"left": {
+								"label": "左",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"right": {
+								"label": "右",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							}
+						}
+					},
+					"margin": {
+						"label": "外边距",
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"top": {
+								"label": "上",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"bottom": {
+								"label": "下",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"left": {
+								"label": "左",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"right": {
+								"label": "右",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							}
+						}
+					}
+				},
+				"components": [
+					{
+						"text": "折线图",
+						"type": "LinePlot",
+						"active": false,
+						"id": "1d1200",
+						"$data": {
+							"data": {
+								"url": "./charts/lineplot/basic.json",
+								"typeOptions": [
+									{
+										"value": 1,
+										"label": "动态"
+									},
+									{
+										"value": 0,
+										"label": "静态"
+									}
+								],
+								"type": 1,
+								"refresh": false,
+								"rate": 3000,
+								"method": "get",
+								"params": [],
+								"originalData": [
+									{
+										"Date": "2010-01",
+										"scales": 1998
+									},
+									{
+										"Date": "2010-02",
+										"scales": 1850
+									},
+									{
+										"Date": "2010-03",
+										"scales": 1720
+									},
+									{
+										"Date": "2010-04",
+										"scales": 1818
+									},
+									{
+										"Date": "2010-05",
+										"scales": 1920
+									},
+									{
+										"Date": "2010-06",
+										"scales": 1802
+									},
+									{
+										"Date": "2010-07",
+										"scales": 1945
+									},
+									{
+										"Date": "2010-08",
+										"scales": 1856
+									},
+									{
+										"Date": "2010-09",
+										"scales": 2107
+									},
+									{
+										"Date": "2010-10",
+										"scales": 2140
+									},
+									{
+										"Date": "2010-11",
+										"scales": 2311
+									},
+									{
+										"Date": "2010-12",
+										"scales": 1972
+									},
+									{
+										"Date": "2011-01",
+										"scales": 1760
+									},
+									{
+										"Date": "2011-02",
+										"scales": 1824
+									},
+									{
+										"Date": "2011-03",
+										"scales": 1801
+									},
+									{
+										"Date": "2011-04",
+										"scales": 2001
+									},
+									{
+										"Date": "2011-05",
+										"scales": 1640
+									},
+									{
+										"Date": "2011-06",
+										"scales": 1502
+									},
+									{
+										"Date": "2011-07",
+										"scales": 1621
+									},
+									{
+										"Date": "2011-08",
+										"scales": 1480
+									},
+									{
+										"Date": "2011-09",
+										"scales": 1549
+									},
+									{
+										"Date": "2011-10",
+										"scales": 1390
+									},
+									{
+										"Date": "2011-11",
+										"scales": 1325
+									},
+									{
+										"Date": "2011-12",
+										"scales": 1250
+									},
+									{
+										"Date": "2012-01",
+										"scales": 1394
+									},
+									{
+										"Date": "2012-02",
+										"scales": 1406
+									},
+									{
+										"Date": "2012-03",
+										"scales": 1578
+									},
+									{
+										"Date": "2012-04",
+										"scales": 1465
+									},
+									{
+										"Date": "2012-05",
+										"scales": 1689
+									},
+									{
+										"Date": "2012-06",
+										"scales": 1755
+									},
+									{
+										"Date": "2012-07",
+										"scales": 1495
+									},
+									{
+										"Date": "2012-08",
+										"scales": 1508
+									},
+									{
+										"Date": "2012-09",
+										"scales": 1433
+									},
+									{
+										"Date": "2012-10",
+										"scales": 1344
+									},
+									{
+										"Date": "2012-11",
+										"scales": 1201
+									},
+									{
+										"Date": "2012-12",
+										"scales": 1065
+									},
+									{
+										"Date": "2013-01",
+										"scales": 1255
+									},
+									{
+										"Date": "2013-02",
+										"scales": 1429
+									},
+									{
+										"Date": "2013-03",
+										"scales": 1398
+									},
+									{
+										"Date": "2013-04",
+										"scales": 1678
+									},
+									{
+										"Date": "2013-05",
+										"scales": 1524
+									},
+									{
+										"Date": "2013-06",
+										"scales": 1688
+									},
+									{
+										"Date": "2013-07",
+										"scales": 1500
+									},
+									{
+										"Date": "2013-08",
+										"scales": 1670
+									},
+									{
+										"Date": "2013-09",
+										"scales": 1734
+									},
+									{
+										"Date": "2013-10",
+										"scales": 1699
+									},
+									{
+										"Date": "2013-11",
+										"scales": 1508
+									},
+									{
+										"Date": "2013-12",
+										"scales": 1680
+									},
+									{
+										"Date": "2014-01",
+										"scales": 1750
+									},
+									{
+										"Date": "2014-02",
+										"scales": 1602
+									},
+									{
+										"Date": "2014-03",
+										"scales": 1834
+									},
+									{
+										"Date": "2014-04",
+										"scales": 1722
+									},
+									{
+										"Date": "2014-05",
+										"scales": 1430
+									},
+									{
+										"Date": "2014-06",
+										"scales": 1280
+									},
+									{
+										"Date": "2014-07",
+										"scales": 1367
+									},
+									{
+										"Date": "2014-08",
+										"scales": 1155
+									},
+									{
+										"Date": "2014-09",
+										"scales": 1289
+									},
+									{
+										"Date": "2014-10",
+										"scales": 1104
+									},
+									{
+										"Date": "2014-11",
+										"scales": 1246
+									},
+									{
+										"Date": "2014-12",
+										"scales": 1098
+									},
+									{
+										"Date": "2015-01",
+										"scales": 1189
+									},
+									{
+										"Date": "2015-02",
+										"scales": 1276
+									},
+									{
+										"Date": "2015-03",
+										"scales": 1033
+									},
+									{
+										"Date": "2015-04",
+										"scales": 956
+									},
+									{
+										"Date": "2015-05",
+										"scales": 845
+									},
+									{
+										"Date": "2015-06",
+										"scales": 1089
+									},
+									{
+										"Date": "2015-07",
+										"scales": 944
+									},
+									{
+										"Date": "2015-08",
+										"scales": 1043
+									},
+									{
+										"Date": "2015-09",
+										"scales": 893
+									},
+									{
+										"Date": "2015-10",
+										"scales": 840
+									},
+									{
+										"Date": "2015-11",
+										"scales": 934
+									},
+									{
+										"Date": "2015-12",
+										"scales": 810
+									},
+									{
+										"Date": "2016-01",
+										"scales": 782
+									},
+									{
+										"Date": "2016-02",
+										"scales": 1089
+									},
+									{
+										"Date": "2016-03",
+										"scales": 745
+									},
+									{
+										"Date": "2016-04",
+										"scales": 680
+									},
+									{
+										"Date": "2016-05",
+										"scales": 802
+									},
+									{
+										"Date": "2016-06",
+										"scales": 697
+									},
+									{
+										"Date": "2016-07",
+										"scales": 583
+									},
+									{
+										"Date": "2016-08",
+										"scales": 456
+									},
+									{
+										"Date": "2016-09",
+										"scales": 524
+									},
+									{
+										"Date": "2016-10",
+										"scales": 398
+									},
+									{
+										"Date": "2016-11",
+										"scales": 278
+									},
+									{
+										"Date": "2016-12",
+										"scales": 195
+									},
+									{
+										"Date": "2017-01",
+										"scales": 145
+									},
+									{
+										"Date": "2017-02",
+										"scales": 207
+									}
+								],
+								"staticData": null
+							},
+							"options": {
+								"title": {
+									"text": "折线图标题",
+									"visible": true
+								},
+								"description": {
+									"text": "折线图描述",
+									"visible": true
+								},
+								"padding": "auto",
+								"xField": "Date",
+								"yField": "scales",
+								"xAxis": {
+									"type": "dateTime",
+									"tickCount": 5
+								},
+								"forceFit": true,
+								"data": [
+									{
+										"Date": "2010-01",
+										"scales": 1998
+									},
+									{
+										"Date": "2010-02",
+										"scales": 1850
+									},
+									{
+										"Date": "2010-03",
+										"scales": 1720
+									},
+									{
+										"Date": "2010-04",
+										"scales": 1818
+									},
+									{
+										"Date": "2010-05",
+										"scales": 1920
+									},
+									{
+										"Date": "2010-06",
+										"scales": 1802
+									},
+									{
+										"Date": "2010-07",
+										"scales": 1945
+									},
+									{
+										"Date": "2010-08",
+										"scales": 1856
+									},
+									{
+										"Date": "2010-09",
+										"scales": 2107
+									},
+									{
+										"Date": "2010-10",
+										"scales": 2140
+									},
+									{
+										"Date": "2010-11",
+										"scales": 2311
+									},
+									{
+										"Date": "2010-12",
+										"scales": 1972
+									},
+									{
+										"Date": "2011-01",
+										"scales": 1760
+									},
+									{
+										"Date": "2011-02",
+										"scales": 1824
+									},
+									{
+										"Date": "2011-03",
+										"scales": 1801
+									},
+									{
+										"Date": "2011-04",
+										"scales": 2001
+									},
+									{
+										"Date": "2011-05",
+										"scales": 1640
+									},
+									{
+										"Date": "2011-06",
+										"scales": 1502
+									},
+									{
+										"Date": "2011-07",
+										"scales": 1621
+									},
+									{
+										"Date": "2011-08",
+										"scales": 1480
+									},
+									{
+										"Date": "2011-09",
+										"scales": 1549
+									},
+									{
+										"Date": "2011-10",
+										"scales": 1390
+									},
+									{
+										"Date": "2011-11",
+										"scales": 1325
+									},
+									{
+										"Date": "2011-12",
+										"scales": 1250
+									},
+									{
+										"Date": "2012-01",
+										"scales": 1394
+									},
+									{
+										"Date": "2012-02",
+										"scales": 1406
+									},
+									{
+										"Date": "2012-03",
+										"scales": 1578
+									},
+									{
+										"Date": "2012-04",
+										"scales": 1465
+									},
+									{
+										"Date": "2012-05",
+										"scales": 1689
+									},
+									{
+										"Date": "2012-06",
+										"scales": 1755
+									},
+									{
+										"Date": "2012-07",
+										"scales": 1495
+									},
+									{
+										"Date": "2012-08",
+										"scales": 1508
+									},
+									{
+										"Date": "2012-09",
+										"scales": 1433
+									},
+									{
+										"Date": "2012-10",
+										"scales": 1344
+									},
+									{
+										"Date": "2012-11",
+										"scales": 1201
+									},
+									{
+										"Date": "2012-12",
+										"scales": 1065
+									},
+									{
+										"Date": "2013-01",
+										"scales": 1255
+									},
+									{
+										"Date": "2013-02",
+										"scales": 1429
+									},
+									{
+										"Date": "2013-03",
+										"scales": 1398
+									},
+									{
+										"Date": "2013-04",
+										"scales": 1678
+									},
+									{
+										"Date": "2013-05",
+										"scales": 1524
+									},
+									{
+										"Date": "2013-06",
+										"scales": 1688
+									},
+									{
+										"Date": "2013-07",
+										"scales": 1500
+									},
+									{
+										"Date": "2013-08",
+										"scales": 1670
+									},
+									{
+										"Date": "2013-09",
+										"scales": 1734
+									},
+									{
+										"Date": "2013-10",
+										"scales": 1699
+									},
+									{
+										"Date": "2013-11",
+										"scales": 1508
+									},
+									{
+										"Date": "2013-12",
+										"scales": 1680
+									},
+									{
+										"Date": "2014-01",
+										"scales": 1750
+									},
+									{
+										"Date": "2014-02",
+										"scales": 1602
+									},
+									{
+										"Date": "2014-03",
+										"scales": 1834
+									},
+									{
+										"Date": "2014-04",
+										"scales": 1722
+									},
+									{
+										"Date": "2014-05",
+										"scales": 1430
+									},
+									{
+										"Date": "2014-06",
+										"scales": 1280
+									},
+									{
+										"Date": "2014-07",
+										"scales": 1367
+									},
+									{
+										"Date": "2014-08",
+										"scales": 1155
+									},
+									{
+										"Date": "2014-09",
+										"scales": 1289
+									},
+									{
+										"Date": "2014-10",
+										"scales": 1104
+									},
+									{
+										"Date": "2014-11",
+										"scales": 1246
+									},
+									{
+										"Date": "2014-12",
+										"scales": 1098
+									},
+									{
+										"Date": "2015-01",
+										"scales": 1189
+									},
+									{
+										"Date": "2015-02",
+										"scales": 1276
+									},
+									{
+										"Date": "2015-03",
+										"scales": 1033
+									},
+									{
+										"Date": "2015-04",
+										"scales": 956
+									},
+									{
+										"Date": "2015-05",
+										"scales": 845
+									},
+									{
+										"Date": "2015-06",
+										"scales": 1089
+									},
+									{
+										"Date": "2015-07",
+										"scales": 944
+									},
+									{
+										"Date": "2015-08",
+										"scales": 1043
+									},
+									{
+										"Date": "2015-09",
+										"scales": 893
+									},
+									{
+										"Date": "2015-10",
+										"scales": 840
+									},
+									{
+										"Date": "2015-11",
+										"scales": 934
+									},
+									{
+										"Date": "2015-12",
+										"scales": 810
+									},
+									{
+										"Date": "2016-01",
+										"scales": 782
+									},
+									{
+										"Date": "2016-02",
+										"scales": 1089
+									},
+									{
+										"Date": "2016-03",
+										"scales": 745
+									},
+									{
+										"Date": "2016-04",
+										"scales": 680
+									},
+									{
+										"Date": "2016-05",
+										"scales": 802
+									},
+									{
+										"Date": "2016-06",
+										"scales": 697
+									},
+									{
+										"Date": "2016-07",
+										"scales": 583
+									},
+									{
+										"Date": "2016-08",
+										"scales": 456
+									},
+									{
+										"Date": "2016-09",
+										"scales": 524
+									},
+									{
+										"Date": "2016-10",
+										"scales": 398
+									},
+									{
+										"Date": "2016-11",
+										"scales": 278
+									},
+									{
+										"Date": "2016-12",
+										"scales": 195
+									},
+									{
+										"Date": "2017-01",
+										"scales": 145
+									},
+									{
+										"Date": "2017-02",
+										"scales": 207
+									}
+								]
+							},
+							"isSuccess": true,
+							"components": [],
+							"loading": false,
+							"style": {
+								"layout": {
+									"label": "布局",
+									"show": true,
+									"attrs": {
+										"height": {
+											"value": 300,
+											"label": "高度",
+											"type": "number",
+											"append": "px",
+											"show": true
+										},
+										"col": {
+											"value": 24,
+											"label": "栅格宽度",
+											"type": "slider",
+											"min": 1,
+											"max": 24,
+											"show": true,
+											"masks": {
+												"12": ""
+											}
+										}
+									}
+								},
+								"border": {
+									"show": true,
+									"label": "边框",
+									"enabled": false,
+									"attrs": {
+										"color": {
+											"label": "颜色",
+											"show": true,
+											"value": "#CCCCCC",
+											"type": "color"
+										},
+										"width": {
+											"label": "宽度",
+											"show": true,
+											"value": 1,
+											"type": "number",
+											"append": "px"
+										},
+										"style": {
+											"label": "样式",
+											"show": true,
+											"value": "solid",
+											"type": "select",
+											"options": [
+												{
+													"label": "实线",
+													"value": "solid"
+												},
+												{
+													"label": "虚线",
+													"value": "dashed"
+												}
+											]
+										},
+										"radius": {
+											"label": "圆角",
+											"show": true,
+											"value": 0,
+											"type": "number",
+											"append": "px"
+										}
+									}
+								},
+								"margin": {
+									"label": "外边距",
+									"enabled": true,
+									"show": true,
+									"attrs": {
+										"top": {
+											"label": "上",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"bottom": {
+											"label": "下",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"left": {
+											"label": "左",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"right": {
+											"label": "右",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										}
+									}
+								}
+							}
+						}
+					}
+				],
+				"loading": false
+			}
+		},
+		{
+			"text": "卡片",
+			"type": "Card",
+			"active": false,
+			"id": "948b80",
+			"$data": {
+				"style": {
+					"header": {
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"title": {
+								"show": true,
+								"value": "百度Echarts图表",
+								"label": "文本",
+								"type": "text"
+							}
+						},
+						"label": "标题"
+					},
+					"layout": {
+						"attrs": {
+							"autoHeight": {
+								"show": true,
+								"label": "自动高度",
+								"value": true,
+								"type": "boolean"
+							},
+							"height": {
+								"value": 300,
+								"label": "高度",
+								"type": "number",
+								"append": "px",
+								"show": true
+							},
+							"col": {
+								"value": 24,
+								"label": "栅格宽度",
+								"type": "slider",
+								"min": 1,
+								"max": 24,
+								"show": true,
+								"masks": {
+									"12": ""
+								}
+							}
+						},
+						"label": "布局",
+						"show": true
+					},
+					"border": {
+						"enabled": true,
+						"attrs": {
+							"color": {
+								"value": "#EBEEF5",
+								"label": "颜色",
+								"show": true,
+								"type": "color"
+							},
+							"radius": {
+								"value": 4,
+								"label": "圆角",
+								"show": true,
+								"type": "number",
+								"append": "px"
+							},
+							"shadow": {
+								"value": "always",
+								"label": "边框阴影",
+								"type": "select",
+								"options": [
+									{
+										"label": "始终显示",
+										"value": "always"
+									},
+									{
+										"label": "鼠标进入显示",
+										"value": "hover"
+									},
+									{
+										"label": "不显示",
+										"value": "never"
+									}
+								],
+								"show": true
+							},
+							"width": {
+								"label": "宽度",
+								"show": true,
+								"value": 1,
+								"type": "number",
+								"append": "px"
+							},
+							"style": {
+								"label": "样式",
+								"show": true,
+								"value": "solid",
+								"type": "select",
+								"options": [
+									{
+										"label": "实线",
+										"value": "solid"
+									},
+									{
+										"label": "虚线",
+										"value": "dashed"
+									}
+								]
+							}
+						},
+						"show": true,
+						"label": "边框"
+					},
+					"padding": {
+						"label": "内边距",
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"top": {
+								"label": "上",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"bottom": {
+								"label": "下",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"left": {
+								"label": "左",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"right": {
+								"label": "右",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							}
+						}
+					},
+					"margin": {
+						"label": "外边距",
+						"enabled": true,
+						"show": true,
+						"attrs": {
+							"top": {
+								"label": "上",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"bottom": {
+								"label": "下",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"left": {
+								"label": "左",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							},
+							"right": {
+								"label": "右",
+								"value": 5,
+								"append": "px",
+								"type": "number",
+								"show": true
+							}
+						}
+					}
+				},
+				"components": [
+					{
+						"text": "盒须图",
+						"type": "BoxPlotChart",
+						"active": false,
+						"doc": "https://echarts.apache.org/examples/zh/editor.html?c=boxplot-light-velocity",
+						"id": "1ca0ad",
+						"$data": {
+							"data": {
+								"type": 2,
+								"script": "\nvar data = echarts.dataTool.prepareBoxplotData([\n    [850, 740, 900, 1070, 930, 850, 950, 980, 980, 880, 1000, 980, 930, 650, 760, 810, 1000, 1000, 960, 960],\n    [960, 940, 960, 940, 880, 800, 850, 880, 900, 840, 830, 790, 810, 880, 880, 830, 800, 790, 760, 800],\n    [880, 880, 880, 860, 720, 720, 620, 860, 970, 950, 880, 910, 850, 870, 840, 840, 850, 840, 840, 840],\n    [890, 810, 810, 820, 800, 770, 760, 740, 750, 760, 910, 920, 890, 860, 880, 720, 840, 850, 850, 780],\n    [890, 840, 780, 810, 760, 810, 790, 810, 820, 850, 870, 870, 810, 740, 810, 940, 950, 800, 810, 870]\n]);\n\noption = {\n    title: [\n        {\n            text: 'Michelson-Morley Experiment',\n            left: 'center',\n        },\n        {\n            text: 'upper: Q3 + 1.5 * IQR \\nlower: Q1 - 1.5 * IQR',\n            borderColor: '#999',\n            borderWidth: 1,\n            textStyle: {\n                fontSize: 14\n            },\n            left: '10%',\n            top: '90%'\n        }\n    ],\n    tooltip: {\n        trigger: 'item',\n        axisPointer: {\n            type: 'shadow'\n        }\n    },\n    grid: {\n        left: '10%',\n        right: '10%',\n        bottom: '15%'\n    },\n    xAxis: {\n        type: 'category',\n        data: data.axisData,\n        boundaryGap: true,\n        nameGap: 30,\n        splitArea: {\n            show: false\n        },\n        axisLabel: {\n            formatter: 'expr {value}'\n        },\n        splitLine: {\n            show: false\n        }\n    },\n    yAxis: {\n        type: 'value',\n        name: 'km/s minus 299,000',\n        splitArea: {\n            show: true\n        }\n    },\n    series: [\n        {\n            name: 'boxplot',\n            type: 'boxplot',\n            data: data.boxData,\n            tooltip: {\n                formatter: function (param) {\n                    return [\n                        'Experiment ' + param.name + ': ',\n                        'upper: ' + param.data[5],\n                        'Q3: ' + param.data[4],\n                        'median: ' + param.data[3],\n                        'Q1: ' + param.data[2],\n                        'lower: ' + param.data[1]\n                    ].join('<br/>');\n                }\n            }\n        },\n        {\n            name: 'outlier',\n            type: 'scatter',\n            data: data.outliers\n        }\n    ]\n};\n\nchart.setOption(option);\n        ",
+								"typeOptions": [
+									{
+										"value": 1,
+										"label": "动态"
+									},
+									{
+										"value": 0,
+										"label": "静态"
+									},
+									{
+										"value": 2,
+										"label": "代码"
+									}
+								],
+								"url": null,
+								"refresh": false,
+								"rate": 3000,
+								"method": "get",
+								"params": [],
+								"originalData": null,
+								"staticData": null
+							},
+							"options": {},
+							"isSuccess": true,
+							"components": [],
+							"loading": false,
+							"style": {
+								"layout": {
+									"label": "布局",
+									"show": true,
+									"attrs": {
+										"height": {
+											"value": 300,
+											"label": "高度",
+											"type": "number",
+											"append": "px",
+											"show": true
+										},
+										"col": {
+											"value": 24,
+											"label": "栅格宽度",
+											"type": "slider",
+											"min": 1,
+											"max": 24,
+											"show": true,
+											"masks": {
+												"12": ""
+											}
+										}
+									}
+								},
+								"border": {
+									"show": true,
+									"label": "边框",
+									"enabled": false,
+									"attrs": {
+										"color": {
+											"label": "颜色",
+											"show": true,
+											"value": "#CCCCCC",
+											"type": "color"
+										},
+										"width": {
+											"label": "宽度",
+											"show": true,
+											"value": 1,
+											"type": "number",
+											"append": "px"
+										},
+										"style": {
+											"label": "样式",
+											"show": true,
+											"value": "solid",
+											"type": "select",
+											"options": [
+												{
+													"label": "实线",
+													"value": "solid"
+												},
+												{
+													"label": "虚线",
+													"value": "dashed"
+												}
+											]
+										},
+										"radius": {
+											"label": "圆角",
+											"show": true,
+											"value": 0,
+											"type": "number",
+											"append": "px"
+										}
+									}
+								},
+								"margin": {
+									"label": "外边距",
+									"enabled": true,
+									"show": true,
+									"attrs": {
+										"top": {
+											"label": "上",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"bottom": {
+											"label": "下",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"left": {
+											"label": "左",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"right": {
+											"label": "右",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										}
+									}
+								}
+							}
+						}
+					},
+					{
+						"text": "地图",
+						"type": "MapChart",
+						"active": true,
+						"doc": "https://echarts.apache.org/examples/zh/editor.html?c=map-HK",
+						"id": "874ed",
+						"$data": {
+							"data": {
+								"type": 2,
+								"script": "\n//地图\n\nlet myChart=chart;\n\nmyChart.showLoading();\n\naxios.get('./echarts/HK.json').then(function (res) {\n\n    let geoJson=res.data;\n\n    myChart.hideLoading();\n\n    echarts.registerMap('HK', geoJson);\n\n    myChart.setOption(option = {\n        title: {\n            text: '香港18区人口密度 （2011）',\n            subtext: '人口密度数据来自Wikipedia',\n            sublink: 'http://zh.wikipedia.org/wiki/%E9%A6%99%E6%B8%AF%E8%A1%8C%E6%94%BF%E5%8D%80%E5%8A%83#cite_note-12'\n        },\n        tooltip: {\n            trigger: 'item',\n            formatter: '{b}<br/>{c} (p / km2)'\n        },\n        toolbox: {\n            show: true,\n            orient: 'vertical',\n            left: 'right',\n            top: 'center',\n            feature: {\n                dataView: {readOnly: false},\n                restore: {},\n                saveAsImage: {}\n            }\n        },\n        visualMap: {\n            min: 800,\n            max: 50000,\n            text: ['High', 'Low'],\n            realtime: false,\n            calculable: true,\n            inRange: {\n                color: ['lightskyblue', 'yellow', 'orangered']\n            }\n        },\n        series: [\n            {\n                name: '香港18区人口密度',\n                type: 'map',\n                mapType: 'HK', // 自定义扩展图表类型\n                label: {\n                    show: true\n                },\n                data: [\n                    {name: '中西区', value: 20057.34},\n                    {name: '湾仔', value: 15477.48},\n                    {name: '东区', value: 31686.1},\n                    {name: '南区', value: 6992.6},\n                    {name: '油尖旺', value: 44045.49},\n                    {name: '深水埗', value: 40689.64},\n                    {name: '九龙城', value: 37659.78},\n                    {name: '黄大仙', value: 45180.97},\n                    {name: '观塘', value: 55204.26},\n                    {name: '葵青', value: 21900.9},\n                    {name: '荃湾', value: 4918.26},\n                    {name: '屯门', value: 5881.84},\n                    {name: '元朗', value: 4178.01},\n                    {name: '北区', value: 2227.92},\n                    {name: '大埔', value: 2180.98},\n                    {name: '沙田', value: 9172.94},\n                    {name: '西贡', value: 3368},\n                    {name: '离岛', value: 806.98}\n                ],\n                // 自定义名称映射\n                nameMap: {\n                    'Central and Western': '中西区',\n                    'Eastern': '东区',\n                    'Islands': '离岛',\n                    'Kowloon City': '九龙城',\n                    'Kwai Tsing': '葵青',\n                    'Kwun Tong': '观塘',\n                    'North': '北区',\n                    'Sai Kung': '西贡',\n                    'Sha Tin': '沙田',\n                    'Sham Shui Po': '深水埗',\n                    'Southern': '南区',\n                    'Tai Po': '大埔',\n                    'Tsuen Wan': '荃湾',\n                    'Tuen Mun': '屯门',\n                    'Wan Chai': '湾仔',\n                    'Wong Tai Sin': '黄大仙',\n                    'Yau Tsim Mong': '油尖旺',\n                    'Yuen Long': '元朗'\n                }\n            }\n        ]\n    });\n});\n        ",
+								"typeOptions": [
+									{
+										"value": 1,
+										"label": "动态"
+									},
+									{
+										"value": 0,
+										"label": "静态"
+									},
+									{
+										"value": 2,
+										"label": "代码"
+									}
+								],
+								"url": null,
+								"refresh": false,
+								"rate": 3000,
+								"method": "get",
+								"params": [],
+								"originalData": null,
+								"staticData": null
+							},
+							"options": {},
+							"isSuccess": true,
+							"components": [],
+							"loading": false,
+							"style": {
+								"layout": {
+									"label": "布局",
+									"show": true,
+									"attrs": {
+										"height": {
+											"value": 300,
+											"label": "高度",
+											"type": "number",
+											"append": "px",
+											"show": true
+										},
+										"col": {
+											"value": 24,
+											"label": "栅格宽度",
+											"type": "slider",
+											"min": 1,
+											"max": 24,
+											"show": true,
+											"masks": {
+												"12": ""
+											}
+										}
+									}
+								},
+								"border": {
+									"show": true,
+									"label": "边框",
+									"enabled": false,
+									"attrs": {
+										"color": {
+											"label": "颜色",
+											"show": true,
+											"value": "#CCCCCC",
+											"type": "color"
+										},
+										"width": {
+											"label": "宽度",
+											"show": true,
+											"value": 1,
+											"type": "number",
+											"append": "px"
+										},
+										"style": {
+											"label": "样式",
+											"show": true,
+											"value": "solid",
+											"type": "select",
+											"options": [
+												{
+													"label": "实线",
+													"value": "solid"
+												},
+												{
+													"label": "虚线",
+													"value": "dashed"
+												}
+											]
+										},
+										"radius": {
+											"label": "圆角",
+											"show": true,
+											"value": 0,
+											"type": "number",
+											"append": "px"
+										}
+									}
+								},
+								"margin": {
+									"label": "外边距",
+									"enabled": true,
+									"show": true,
+									"attrs": {
+										"top": {
+											"label": "上",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"bottom": {
+											"label": "下",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"left": {
+											"label": "左",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										},
+										"right": {
+											"label": "右",
+											"value": 5,
+											"append": "px",
+											"type": "number",
+											"show": true
+										}
+									}
+								}
+							}
+						}
+					}
+				],
+				"loading": false
+			}
+		}
+	],
+	"settings": {
+		"cache_key": "__bawa_data",
+		"version": "0.0.1"
+	}
+}

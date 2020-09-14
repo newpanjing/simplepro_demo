@@ -21,6 +21,7 @@ from django.urls import path
 
 admin.site.site_title = '管理后台PRO'
 admin.site.site_header = '员工管理后台PRO'
+from components import views
 
 
 def test(request):
@@ -30,4 +31,5 @@ def test(request):
 urlpatterns = [
                   path('', admin.site.urls),
                   path('test', test),
+                  path('area/search', views.area_search, name='area_search'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

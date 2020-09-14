@@ -17,7 +17,12 @@ class DepartmentAdmin(ImportExportActionModelAdmin):
     list_filter = ('name',)
     # 需要搜索的字段
     search_fields = ('name',)
-
+    fieldsets = (
+        ('基本信息', {
+            'classes': ('collapse123',),
+            'fields': ('name',),
+        }),
+    )
     # 分页显示，一页的数量
     list_per_page = 10
 
@@ -116,6 +121,11 @@ class ProxyResource(resources.ModelResource):
         model = Employe
 
 
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Employe)
 class EmployeAdmin(ImportExportActionModelAdmin):
 
@@ -166,6 +176,7 @@ class EmployeAdmin(ImportExportActionModelAdmin):
         'create_time',
         'test1',
         'test2')
+    autocomplete_fields = ('department',)
 
     # search_fields = ('name', 'enable', 'idCard', 'department')
     search_fields = ('name', 'department__name')
@@ -348,13 +359,50 @@ admin.site.register(demo2, Demo2Admin)
 
 
 @admin.register(demo3)
-class Demo1Admin(admin.ModelAdmin):
-    list_display = (
-        'name', 'age', "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15",
-        "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23", "f24", "f25", "f26", "f27", "f28", "f29", "f30")
-    list_display_links = ['name']
+class Demo3Admin(ExportActionModelAdmin):
+    class Resource(resources.ModelResource):
+        """
+        配置导入导出
+        """
+
+        class Meta:
+            model = demo3
+
+    resource_class = Resource
+    list_display = ("f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15",
+                    "f16", "f17", "f18")
+    list_display_links = ['f1']
+
+    actions = ['batchSettings', 'test']
+
+    def batchSettings(self, request, queryset):
+        try:
+
+            messages.add_message(request, messages.SUCCESS, "设置成功")
+        except Exception as e:
+            messages.add_message(request, messages.ERROR, "不支持全部选中后设置功能")
+
+    batchSettings.short_description = "批量关闭"
+
+    def test(self, request, queryset):
+        messages.add_message(request, messages.SUCCESS, "设置成功")
+
+    def get_actions(self, request):
+        actions = super(Demo3Admin, self).get_actions(request)
+        print(actions['batchSettings'])  # 此处加了一个print,后续下文会提到
+        return actions
 
 
 @admin.register(ExpertComment)
 class ExpertCommentAdmin(admin.ModelAdmin):
     list_filter = ['expert', ]
+
+
+@admin.register(ScoreModel)
+class ScoreModelAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ManyToManyTestModel)
+class ManyToManyTestModelAdmin(admin.ModelAdmin):
+    pass

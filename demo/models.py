@@ -6,11 +6,12 @@ from django.db import models
 # Create your models here.
 from django.urls import reverse
 from django.utils.html import format_html
+from simplepro.components import fields
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=128, verbose_name='部门名', help_text='一个部门的名字应该唯一', unique=True, db_index=True)
-    create_time = models.DateTimeField(verbose_name='创建时间', auto_now=True)
+    name = fields.CharField(max_length=128, verbose_name='部门名', help_text='一个部门的名字应该唯一', unique=True, db_index=True)
+    create_time = fields.DateTimeField(verbose_name='创建时间', auto_now=True)
 
     class Meta:
         verbose_name = "部门"
@@ -54,35 +55,36 @@ class Image(models.Model):
 
 
 class Employe(models.Model):
-    name = models.CharField(max_length=128, verbose_name='名称', help_text='员工的名字', null=False, blank=False,
+    name = fields.CharField(max_length=128, verbose_name='名称', help_text='员工的名字', null=False, blank=False,
                             db_index=True)
 
-    avatar_img = models.ImageField(verbose_name='照片', null=True, blank=False, help_text='员工的照片，在列表会默认显示为图片')
+    avatar_img = fields.ImageField(verbose_name='照片', null=True, blank=False, help_text='员工的照片，在列表会默认显示为图片')
 
     gender_choices = (
         (0, '未知'),
         (1, '男'),
         (2, '女'),
     )
+    # images = fields.ManyToManyField(Image,  blank=True, verbose_name='照片列表')
 
-    gender = models.IntegerField(choices=gender_choices, verbose_name='性别', default=0)
+    gender = fields.IntegerField(choices=gender_choices, verbose_name='性别', default=0)
 
-    idCard = models.CharField(max_length=18, verbose_name='身份证号', help_text='18位的身份证号码', blank=True, null=True)
-    phone = models.CharField(max_length=11, verbose_name='手机号')
+    idCard = fields.CharField(max_length=18, verbose_name='身份证号', help_text='18位的身份证号码', blank=True, null=True)
+    phone = fields.CharField(max_length=11, verbose_name='手机号')
 
-    birthday = models.DateField(verbose_name='生日')
-    time = models.TimeField(verbose_name='时间', auto_now=True)
+    birthday = fields.DateField(verbose_name='生日')
+    time = fields.TimeField(verbose_name='时间', auto_now=True)
 
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, blank=False, null=True, verbose_name='部门',
+    department = fields.ForeignKey(Department, on_delete=models.SET_NULL, blank=False, null=True, verbose_name='部门',
                                    db_index=True)
 
-    title = models.ForeignKey(Title, on_delete=models.SET_NULL, blank=False, null=True, verbose_name='职务',
+    title = fields.ForeignKey(Title, on_delete=models.SET_NULL, blank=False, null=True, verbose_name='职务',
                               db_index=True)
 
-    enable = models.BooleanField(verbose_name='状态', default=True)
-    create_time = models.DateTimeField(verbose_name='创建时间', auto_now=True)
+    enable = fields.SwitchField(verbose_name='状态', default=True)
+    create_time = fields.DateTimeField(verbose_name='创建时间', auto_now=True)
 
-    update_time = models.DateTimeField(verbose_name='更新时间', auto_now=True)
+    update_time = fields.DateTimeField(verbose_name='更新时间', auto_now=True)
 
     def test1(self):
         return format_html('<img src="{}" height="50" width="50">', 'https://www.88cto.com/static/images/logo.png')
@@ -189,11 +191,18 @@ class demo2(demo1):
         ordering = ('name',)
 
 
-class demo3(demo1):
+import uuid
+
+
+def get_id():
+    return str(uuid.uuid4())
+
+
+class demo3(models.Model):
     """
     多字段测试
     """
-    f1 = models.IntegerField(default=0, null=True, blank=True)
+    f1 = models.CharField(default=get_id, max_length=32, primary_key=True)
     f2 = models.IntegerField(default=0, null=True, blank=True)
     f3 = models.IntegerField(default=0, null=True, blank=True)
     f4 = models.IntegerField(default=0, null=True, blank=True)
@@ -211,23 +220,14 @@ class demo3(demo1):
     f16 = models.IntegerField(default=0, null=True, blank=True)
     f17 = models.IntegerField(default=0, null=True, blank=True)
     f18 = models.IntegerField(default=0, null=True, blank=True)
-    f19 = models.IntegerField(default=0, null=True, blank=True)
-    f20 = models.IntegerField(default=0, null=True, blank=True)
-    f21 = models.IntegerField(default=0, null=True, blank=True)
-    f22 = models.IntegerField(default=0, null=True, blank=True)
-    f23 = models.IntegerField(default=0, null=True, blank=True)
-    f24 = models.IntegerField(default=0, null=True, blank=True)
-    f25 = models.IntegerField(default=0, null=True, blank=True)
-    f26 = models.IntegerField(default=0, null=True, blank=True)
-    f27 = models.IntegerField(default=0, null=True, blank=True)
-    f28 = models.IntegerField(default=0, null=True, blank=True)
-    f29 = models.IntegerField(default=0, null=True, blank=True)
-    f30 = models.IntegerField(default=0, null=True, blank=True)
 
     class Meta:
-        verbose_name = 'demo2'
+        verbose_name = 'demo3'
         verbose_name_plural = verbose_name
-        ordering = ('name',)
+        ordering = ('pk',)
+        permissions = (
+            ('batchSettings', '批量设置'),
+        )
 
 
 class Expert(User):
@@ -237,3 +237,29 @@ class Expert(User):
 
 class ExpertComment(models.Model):
     expert = models.ForeignKey(to='demo.Expert', on_delete=models.CASCADE)
+
+
+class ScoreModel(models.Model):
+    choices = (
+        ('A', '优'),
+        ('B', '良'),
+        ('C', '中'),
+        ('D', '差'),
+    )
+    name = models.CharField(choices=choices, max_length=128, verbose_name='name')
+
+    def __str__(self):
+        return self.name
+
+
+class ManyToManyTestModel(models.Model):
+    name = models.CharField(max_length=128, verbose_name='name')
+
+    score = fields.ManyToManyField(ScoreModel, blank=True, verbose_name='分数')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '多对多测试'
+        verbose_name_plural = verbose_name

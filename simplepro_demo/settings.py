@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     # 注册自己的app
     'demo',
     'finance',
-    'extensions'
+    'extensions',
+    'components'
 ]
 
 MIDDLEWARE = [
@@ -52,11 +53,11 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 加入simplepro的中间件
     'simplepro.middlewares.SimpleMiddleware',
 
-    # 该中间件用于屏幕普通用户修改密码功能，可以注释掉
+    # 该中间件用于屏蔽普通用户修改密码功能，可以注释掉
     'simplepro_demo.middlewares.PasswordChangeMiddleware'
 ]
 
