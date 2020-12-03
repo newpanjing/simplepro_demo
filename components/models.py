@@ -1,3 +1,5 @@
+import uuid
+
 from django.core.validators import validate_comma_separated_integer_list
 from django.db import models
 from django.urls import reverse
@@ -442,3 +444,30 @@ class TransferModel(models.Model):
     class Meta:
         verbose_name = 'Transfer 穿梭框'
         verbose_name_plural = 'Transfer 穿梭框'
+
+
+class Layer(models.Model):
+    name = fields.CharField(max_length=32, verbose_name='名字')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Layer Action弹出框'
+        verbose_name_plural = 'Layer Action弹出框'
+
+
+def get_uuid():
+    return uuid.uuid4().hex
+
+
+class UUIDKeyModel(models.Model):
+    uid = models.UUIDField(primary_key=True, verbose_name='uuid', default=get_uuid, editable=False)
+    name = fields.CharField(max_length=32, verbose_name='名字')
+
+    def __str__(self):
+        return self.uid
+
+    class Meta:
+        verbose_name = 'UUID支持'
+        verbose_name_plural = 'UUID支持'

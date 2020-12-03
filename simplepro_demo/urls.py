@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.conf.urls.static import static
 from django.urls import path
+from django.views.generic import RedirectView
 
 admin.site.site_title = '管理后台PRO'
 admin.site.site_header = '员工管理后台PRO'
@@ -32,4 +33,6 @@ urlpatterns = [
                   path('', admin.site.urls),
                   path('test', test),
                   path('area/search', views.area_search, name='area_search'),
+                  # 这里可以配置网页收藏夹的图标
+                  path('favicon.ico', RedirectView.as_view(url=r'static/favicon.ico')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

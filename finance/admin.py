@@ -20,6 +20,8 @@ class ProxyResource(resources.ModelResource):
 class RecordAdmin(ExportActionModelAdmin):
     resource_class = ProxyResource
 
+    search_fields = ('name',)
+    list_filter = ('type',)
     list_display = ('id', 'name', 'type', 'money', 'create_date')
     list_per_page = 10
 
