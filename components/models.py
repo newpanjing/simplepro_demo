@@ -466,7 +466,7 @@ class UUIDKeyModel(models.Model):
     name = fields.CharField(max_length=32, verbose_name='名字')
 
     def __str__(self):
-        return self.uid
+        return str(self.uid)
 
     class Meta:
         verbose_name = 'UUID支持'
