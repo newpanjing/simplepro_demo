@@ -406,3 +406,13 @@ class ScoreModelAdmin(admin.ModelAdmin):
 @admin.register(ManyToManyTestModel)
 class ManyToManyTestModelAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(ProductCategory)
+class ProductCategoryAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    pass

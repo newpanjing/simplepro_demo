@@ -7,6 +7,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.html import format_html
 from simplepro.components import fields
+from simplepro.components.fields import SwitchField, TransferField
+from simplepro.editor.fields import UETextField
 
 
 class Department(models.Model):
@@ -262,4 +264,52 @@ class ManyToManyTestModel(models.Model):
 
     class Meta:
         verbose_name = '多对多测试'
+        verbose_name_plural = verbose_name
+
+
+class BaseModel(models.Model):
+    """
+    基类
+    """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    create_name = models.UUIDField(null=True, blank=True, verbose_name=('创建人ID'))
+    client_id = models.CharField(max_length=100, default='1', verbose_name=('ClientId'))
+    client_secret = models.CharField(max_length=100, default='1', verbose_name=('ClientSecret'))
+    user = models.UUIDField(verbose_name=('用户ID'), null=True, blank=True)
+    deleted = SwitchField(default=False, verbose_name='删除标记')
+
+    def delete(self, using=None, keep_parents=False):
+        self.is_deleted = True
+        self.save()
+
+    def restore(self):
+        self.is_deleted = False
+        self.save()
+
+    class Meta:
+        abstract = True
+
+
+class ProductCategory(BaseModel):
+    name = models.CharField(max_length=100, verbose_name=('商品名称'))
+
+
+class Product(BaseModel):
+    """
+    商品
+    """
+    name = models.CharField(max_length=100, verbose_name=('商品名称'))
+
+    category = fields.ForeignKey(ProductCategory, null=True, blank=True, verbose_name=('商品品类'),
+                                 on_delete=models.CASCADE)
+    desc = UETextField(null=True, blank=True, verbose_name=('商品详情'))
+
+    hot = SwitchField(default=False, verbose_name='热门')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = ('商品')
         verbose_name_plural = verbose_name
