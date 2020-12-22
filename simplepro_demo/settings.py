@@ -209,7 +209,7 @@ SIMPLEUI_ICON = {
 SIMPLEUI_STATIC_OFFLINE = True
 
 # 隐藏所有simpleui和simplepro相关的信息
-# SIMPLEPRO_INFO = False
+SIMPLEPRO_INFO = False
 
 
 # 上传文件，如果是ImageField字段，simplepro将默认显示为图片，但是请保证有MEDIA_URL字段，否则图片将会404无法显示
