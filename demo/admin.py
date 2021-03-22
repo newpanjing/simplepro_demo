@@ -393,10 +393,6 @@ class Demo3Admin(ExportActionModelAdmin):
         return actions
 
 
-@admin.register(ExpertComment)
-class ExpertCommentAdmin(admin.ModelAdmin):
-    list_filter = ['expert', ]
-
 
 @admin.register(ScoreModel)
 class ScoreModelAdmin(admin.ModelAdmin):

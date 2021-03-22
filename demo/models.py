@@ -1,6 +1,6 @@
 import datetime
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db import models
 
 # Create your models here.
@@ -9,6 +9,8 @@ from django.utils.html import format_html
 from simplepro.components import fields
 from simplepro.components.fields import SwitchField, TransferField
 from simplepro.editor.fields import UETextField
+
+User = get_user_model()
 
 
 class Department(models.Model):
@@ -230,15 +232,6 @@ class demo3(models.Model):
         permissions = (
             ('batchSettings', '批量设置'),
         )
-
-
-class Expert(User):
-    class Meta:
-        proxy = True
-
-
-class ExpertComment(models.Model):
-    expert = models.ForeignKey(to='demo.Expert', on_delete=models.CASCADE)
 
 
 class ScoreModel(models.Model):

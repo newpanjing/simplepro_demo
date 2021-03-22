@@ -3,3 +3,4 @@ django-import-export
 django-simpleui
 simplepro
 Pillow
+requests

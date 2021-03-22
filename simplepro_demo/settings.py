@@ -211,7 +211,6 @@ SIMPLEUI_STATIC_OFFLINE = True
 # 隐藏所有simpleui和simplepro相关的信息
 SIMPLEPRO_INFO = False
 
-
 # 上传文件，如果是ImageField字段，simplepro将默认显示为图片，但是请保证有MEDIA_URL字段，否则图片将会404无法显示
 # urls.py 中需要加入:+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # 参考文章地址：https://www.cnblogs.com/ohahastudy/p/11179493.html
@@ -224,3 +223,4 @@ MEDIA_URL = '/meida/'
 
 # 配置Simple Pro是否显示首页的图标，默认为True，显示图表，False不显示
 SIMPLEPRO_CHART_DISPLAY = True
+
