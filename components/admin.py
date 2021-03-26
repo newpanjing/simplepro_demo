@@ -275,7 +275,10 @@ class LayerAdmin(AjaxAdmin):
         # 这里的upload 就是和params中配置的key一样
         upload= request.FILES['upload']
         print(upload)
-        pass
+        return JsonResponse(data={
+            'status': 'success',
+            'msg': '处理成功！'
+        })
 
     upload_file.short_description = '文件上传对话框'
     upload_file.type = 'success'
