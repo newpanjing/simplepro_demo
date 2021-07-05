@@ -340,8 +340,13 @@ class EmployeAdmin(ImportExportActionModelAdmin):
 
 
 class Demo1Admin(admin.ModelAdmin):
-    list_display = ('name', 'age')
+    list_display = ('name', 'age', 'test')
     list_display_links = ['name']
+
+    def test(self, obj):
+        return obj.name
+
+    test.short_description = '测试'
 
 
 class Demo2Admin(admin.ModelAdmin):
@@ -391,7 +396,6 @@ class Demo3Admin(ExportActionModelAdmin):
         actions = super(Demo3Admin, self).get_actions(request)
         print(actions['batchSettings'])  # 此处加了一个print,后续下文会提到
         return actions
-
 
 
 @admin.register(ScoreModel)

@@ -224,3 +224,4 @@ MEDIA_URL = '/meida/'
 # 配置Simple Pro是否显示首页的图标，默认为True，显示图表，False不显示
 SIMPLEPRO_CHART_DISPLAY = True
 
+# AUTH_USER_MODEL = 'simplepro.AuthUser'
