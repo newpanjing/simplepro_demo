@@ -29,9 +29,14 @@ class DepartmentAdmin(ImportExportActionModelAdmin):
     actions_on_top = True
 
 
-class ImageInline(admin.TabularInline):
+# class ImageInline(admin.TabularInline):
+class ImageInline(admin.StackedInline):
     model = Image
+    fields=('title','image')
 
+class ExtInfoInLine(admin.StackedInline):
+    model = ExtInfo
+    fields=('name1','name2','name3','name4')
 
 @admin.register(Title)
 class TitleAdmin(admin.ModelAdmin):
@@ -44,7 +49,7 @@ class TitleAdmin(admin.ModelAdmin):
     # 分页显示，一页的数量
     list_per_page = 10
     inlines = [
-        ImageInline,
+        ExtInfoInLine,
     ]
 
 

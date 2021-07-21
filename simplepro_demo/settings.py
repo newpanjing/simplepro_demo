@@ -225,3 +225,6 @@ MEDIA_URL = '/meida/'
 SIMPLEPRO_CHART_DISPLAY = True
 
 # AUTH_USER_MODEL = 'simplepro.AuthUser'
+
+# 默认主题
+SIMPLEUI_DEFAULT_THEME='dark.css'

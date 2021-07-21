@@ -45,6 +45,12 @@ class Title(models.Model):
     def __str__(self):
         return self.name
 
+class ExtInfo(models.Model):
+    name1 = fields.CharField(max_length=128, verbose_name='字段1', null=True, blank=True)
+    name2 = fields.CharField(max_length=128, verbose_name='字段2', null=True, blank=True)
+    name3 = fields.CharField(max_length=128, verbose_name='字段3', null=True, blank=True)
+    name4 = fields.CharField(max_length=128, verbose_name='字段4', null=True, blank=True)
+    title = fields.ForeignKey(Title, on_delete=models.SET_NULL, blank=False, null=True, )
 
 class Image(models.Model):
     image = models.ImageField(verbose_name='图片')
