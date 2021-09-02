@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
+from django.conf.urls import url
 from django.contrib import admin
 from django.http import HttpResponse
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import RedirectView
 
 admin.site.site_title = '管理后台PRO'
@@ -30,9 +31,11 @@ def test(request):
 
 
 urlpatterns = [
-                  path('', admin.site.urls),
+                  path('admin', admin.site.urls),
                   path('test', test),
                   path('area/search', views.area_search, name='area_search'),
                   # 这里可以配置网页收藏夹的图标
                   path('favicon.ico', RedirectView.as_view(url=r'static/favicon.ico')),
+                  # 如果出现sp 未定义，就加入这一句
+                  path('sp/', include('simplepro.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

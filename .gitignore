@@ -1,0 +1,8 @@
+/.sn
+docker-compose.yml
+Dockerfile
+simplepro.lic
+.vscode
+.idea
+venv
+temp

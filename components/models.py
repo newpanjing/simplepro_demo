@@ -55,6 +55,7 @@ class MeditorModel(models.Model):
     # 编辑器 必须要用 simplepro里面的 fields
 
     md = editor_fields.MDTextField(max_length=1024, verbose_name='Markdown')
+    md2 = editor_fields.MDTextField(max_length=1024, verbose_name='编辑框2', default=None, blank=True, null=True)
 
     class Meta:
         verbose_name = 'markdown'
@@ -64,7 +65,8 @@ class MeditorModel(models.Model):
 class UeditorModel(models.Model):
     # 编辑器 必须要用 simplepro里面的 fields
 
-    html = editor_fields.UETextField(max_length=1024, verbose_name='Ueditor')
+    html = editor_fields.UETextField(max_length=1024, verbose_name='内容')
+    description = editor_fields.UETextField(max_length=1024, verbose_name='描述', default=None, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Ueditor'
@@ -97,7 +99,8 @@ class CheckBoxModelTest(models.Model):
 
     # 必须包含 choices 字段，否则报错
 
-    f = fields.CheckboxField(choices=type_choices, verbose_name='复选框', default=0, help_text='继承自CharField，逗号分隔',
+    f = fields.CheckboxField(choices=type_choices, verbose_name='复选框', default=None, blank=True, null=True,
+                             help_text='继承自CharField，逗号分隔',
                              max_length=128)
 
     class Meta:
@@ -400,6 +403,18 @@ class ManyToManyModel(models.Model):
         verbose_name = '多对多 Select'
         verbose_name_plural = '多对多 Select'
 
+    def many_to_many_display(self):
+        # 多对多字段展示
+        labels = []
+        many = self.many_to_many.all()
+        for m in many:
+            # 读取字段名
+            labels.append(m.f)
+
+        return labels
+
+    many_to_many_display.short_description = '多对多展示'
+
     def __str__(self):
         return self.name
 
@@ -471,3 +486,21 @@ class UUIDKeyModel(models.Model):
     class Meta:
         verbose_name = 'UUID支持'
         verbose_name_plural = 'UUID支持'
+
+
+class AMapModel(models.Model):
+    name = fields.CharField(verbose_name='名称', show_word_limit=True, null=True, blank=True, max_length=64)
+    geo = fields.AMapField(max_length=32, verbose_name='经纬度', null=True, blank=True, help_text='点击地图获取经纬度')
+
+    # pick_type 取值为 geo、address
+    # geo 获取经纬度
+    # address 获取地址
+    address = fields.AMapField(max_length=128, verbose_name='地址', null=True, blank=True, help_text='点击地图获取地址',
+                               pick_type='address')
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        verbose_name = '高德地图组件'
+        verbose_name_plural = '高德地图组件'

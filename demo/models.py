@@ -45,12 +45,19 @@ class Title(models.Model):
     def __str__(self):
         return self.name
 
+
 class ExtInfo(models.Model):
     name1 = fields.CharField(max_length=128, verbose_name='字段1', null=True, blank=True)
     name2 = fields.CharField(max_length=128, verbose_name='字段2', null=True, blank=True)
     name3 = fields.CharField(max_length=128, verbose_name='字段3', null=True, blank=True)
     name4 = fields.CharField(max_length=128, verbose_name='字段4', null=True, blank=True)
+    name5 = fields.DateField(verbose_name="日期", null=True, blank=True)
+    name6 = fields.DateTimeField(verbose_name="日期", null=True, blank=True)
+    name7 = fields.ForeignKey(Department, on_delete=models.SET_NULL, blank=False, null=True, )
+    name8 = fields.SwitchField(blank=False, null=True, default=True)
+
     title = fields.ForeignKey(Title, on_delete=models.SET_NULL, blank=False, null=True, )
+
 
 class Image(models.Model):
     image = models.ImageField(verbose_name='图片')
@@ -291,7 +298,14 @@ class BaseModel(models.Model):
 
 
 class ProductCategory(BaseModel):
-    name = models.CharField(max_length=100, verbose_name=('商品名称'))
+    name = models.CharField(max_length=100, verbose_name=('商品分类'))
+
+    class Meta:
+        verbose_name = '商品分类'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
 
 
 class Product(BaseModel):
@@ -311,4 +325,26 @@ class Product(BaseModel):
 
     class Meta:
         verbose_name = ('商品')
+        verbose_name_plural = verbose_name
+
+
+class BaseModel(models.Model):
+    name = fields.CharField(verbose_name='名称', show_word_limit=True, null=True, blank=True, max_length=64)
+
+    class Meta:
+        abstract = True
+
+
+class Native(BaseModel):
+    class Meta:
+        verbose_name = '原生页面'
+        verbose_name_plural = verbose_name
+
+
+class FilterMultiple(BaseModel):
+    category = fields.ForeignKey(ProductCategory, null=True, blank=True, verbose_name=('商品品类'),
+                                 on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = '下拉框多选'
         verbose_name_plural = verbose_name

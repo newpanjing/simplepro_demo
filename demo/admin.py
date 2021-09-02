@@ -32,11 +32,13 @@ class DepartmentAdmin(ImportExportActionModelAdmin):
 # class ImageInline(admin.TabularInline):
 class ImageInline(admin.StackedInline):
     model = Image
-    fields=('title','image')
+    fields = ('title', 'image')
+
 
 class ExtInfoInLine(admin.StackedInline):
     model = ExtInfo
-    fields=('name1','name2','name3','name4')
+    fields = ('name1', 'name2', 'name3', 'name4', 'name5', 'name6', 'name7', 'name8')
+
 
 @admin.register(Title)
 class TitleAdmin(admin.ModelAdmin):
@@ -421,3 +423,33 @@ class ProductCategoryAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Native)
+class NativeAdmin(admin.ModelAdmin):
+    """
+    使用原生页面渲染，不使用simplepro的admin列表页，可以兼容很多第三方插件
+    """
+
+    # 设置这个属性为True，就屏蔽simplepro渲染
+    native_render = True
+
+    list_display = ('pk', 'name')
+    search_fields = ('name',)
+
+    class Media:
+        # 可以引入外部的js
+        js = ('https://webapi.amap.com/maps?v=1.4.15&key=您申请的key值',)
+
+
+@admin.register(FilterMultiple)
+class FilterMultipleAdmin(admin.ModelAdmin):
+    """
+    搜索框多选
+    """
+
+    list_display = ('pk', 'name', 'category')
+
+    # list_filter要和list_filter_multiples匹配使用才有效果
+    list_filter = ('category',)
+    list_filter_multiples = ('category',)

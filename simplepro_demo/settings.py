@@ -224,7 +224,18 @@ MEDIA_URL = '/meida/'
 # 配置Simple Pro是否显示首页的图标，默认为True，显示图表，False不显示
 SIMPLEPRO_CHART_DISPLAY = True
 
+# 3.1及以上版本支持
+
+SIMPLEPRO_MONIT_DISPLAY = True
+
 # AUTH_USER_MODEL = 'simplepro.AuthUser'
 
 # 默认主题
-SIMPLEUI_DEFAULT_THEME='dark.css'
+# SIMPLEUI_DEFAULT_THEME='dark.css'
+
+
+# django新版本警告话，可以配置这句
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+SIMPLEUI_LOGO='https://mat1.gtimg.com/pingjs/ext2020/qqindex2018/dist/img/qq_logo_2x.png'

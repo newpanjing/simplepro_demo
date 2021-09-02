@@ -19,7 +19,7 @@ class MeditorAdmin(admin.ModelAdmin):
 
 @admin.register(UeditorModel)
 class UeditorModelAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'html')
+    list_display = ('pk', 'html', 'description')
 
 
 @admin.register(RadioModel)
@@ -125,6 +125,8 @@ class TransferModelAdmin(admin.ModelAdmin):
 class ManyToManyModelAdmin(admin.ModelAdmin):
     # 多对多也是可以开启 autocomplete_fields 的
     autocomplete_fields = ('many_to_many',)
+
+    list_display = ('id', 'name', 'many_to_many_display')
 
 
 # Intger字段
@@ -273,7 +275,7 @@ class LayerAdmin(AjaxAdmin):
 
     def upload_file(self, request, queryset):
         # 这里的upload 就是和params中配置的key一样
-        upload= request.FILES['upload']
+        upload = request.FILES['upload']
         print(upload)
         return JsonResponse(data={
             'status': 'success',
@@ -297,3 +299,11 @@ class LayerAdmin(AjaxAdmin):
 @admin.register(UUIDKeyModel)
 class UUIDModelAdmin(admin.ModelAdmin):
     list_display = ('pk', 'name')
+
+
+@admin.register(AMapModel)
+class AMapModelAdmin(admin.ModelAdmin):
+    """
+    高德地图支持
+    """
+    list_display = ('pk', 'name', 'geo', 'address')
