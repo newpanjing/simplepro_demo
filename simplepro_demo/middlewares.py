@@ -5,5 +5,5 @@ from django.utils.deprecation import MiddlewareMixin
 class PasswordChangeMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        if request.path == '/password_change/' and not request.user.is_superuser:
+        if request.path == '/password_change/':
             return render(request, 'password_change.html')
