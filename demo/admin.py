@@ -417,6 +417,18 @@ class ManyToManyTestModelAdmin(admin.ModelAdmin):
 
 @admin.register(ProductCategory)
 class ProductCategoryAdmin(admin.ModelAdmin):
+    # 显示在列表顶部的一些自定义html，可以是vue组件，会被vue渲染
+    top_html = ' <el-alert title="这是顶部的" type="success"></el-alert>'
+
+    # 也可以是方法的形式来返回html
+    def get_top_html(self, request):
+        return self.top_html
+
+    bottom_html = ' <el-alert title="这是底部的html" type="warning"></el-alert>'
+
+    # 也可以是方法的形式来返回html
+    def get_bottom_html(self, request):
+        return self.bottom_html
     pass
 
 

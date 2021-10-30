@@ -238,4 +238,4 @@ SIMPLEPRO_MONIT_DISPLAY = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-SIMPLEUI_LOGO='https://mat1.gtimg.com/pingjs/ext2020/qqindex2018/dist/img/qq_logo_2x.png'
+# SIMPLEUI_LOGO='https://simpleui.72wo.com/static/images/pro/icon3.png'

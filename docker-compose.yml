@@ -2,10 +2,10 @@ version: '3.1'
 services:
   simplepro_demo_online:
     restart: always
-    build: # 构建自定义镜像
-      context: ./                  # 指定Dockerfile文件所在路径
-      dockerfile: Dockerfile         # 指定Dockerfile文件名称
-    image: simplepro_demo:latest
+#    build: # 构建自定义镜像
+#      context: ./                  # 指定Dockerfile文件所在路径
+#      dockerfile: Dockerfile         # 指定Dockerfile文件名称
+    image: newpanjing/simplepro_demo:latest
     container_name: simplepro_demo_online
     volumes:
 #      - ./temp/data:/work/

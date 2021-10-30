@@ -304,8 +304,16 @@ class StudentArea(models.Model):
         return self.name
 
 
+class StudentIdCard(models.Model):
+    id_card = models.CharField(max_length=18, verbose_name='身份证', null=True, blank=True)
+
+    def __str__(self):
+        return self.id_card
+
+
 class StudentOneToOneModel(models.Model):
     f = models.CharField(max_length=32, verbose_name='一对一')
+    id_card = models.ForeignKey(StudentIdCard, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.f

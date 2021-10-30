@@ -74,7 +74,7 @@ class DateTimeModelAdmin(admin.ModelAdmin):
 
 @admin.register(StudentClasses)
 class StudentClassesAdmin(admin.ModelAdmin):
-    search_fields = ('pk',)
+    search_fields = ('name',)
     pass
 
 
@@ -97,6 +97,7 @@ class StudentManyToManyModelAdmin(admin.ModelAdmin):
 class StudentModelAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_filter = ('classes', 'sex',)
+    # 这里指定字段，对象的admin 必须定义search_fields进行搜索
     autocomplete_fields = ('classes',)
     list_display = ('pk', 'name', 'sex', 'star', 'money', 'score', 'classes')
 
@@ -107,6 +108,12 @@ class StudentModelAdmin(admin.ModelAdmin):
 class OneToOneModelAdmin(admin.ModelAdmin):
     # 可以开启远程搜索，要指定对象在admin中的search_fields
     autocomplete_fields = ('one_to_one',)
+
+
+@admin.register(StudentIdCard)
+class StudentIdCardModelAdmin(admin.ModelAdmin):
+    # 可以开启远程搜索，要指定对象在admin中的search_fields
+    list_display = ('pk', 'id_card')
 
 
 # 穿梭框
