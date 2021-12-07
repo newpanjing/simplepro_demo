@@ -312,11 +312,11 @@ class Product(BaseModel):
     """
     商品
     """
-    name = models.CharField(max_length=100, verbose_name=('商品名称'))
+    name = models.CharField(max_length=100, verbose_name='商品名称')
 
-    category = fields.ForeignKey(ProductCategory, null=True, blank=True, verbose_name=('商品品类'),
+    category = fields.ForeignKey(ProductCategory, null=True, blank=True, verbose_name='商品品类',
                                  on_delete=models.CASCADE)
-    desc = UETextField(null=True, blank=True, verbose_name=('商品详情'))
+    desc = UETextField(null=True, blank=True, verbose_name='商品详情')
 
     hot = SwitchField(default=False, verbose_name='热门')
 
@@ -326,6 +326,25 @@ class Product(BaseModel):
     class Meta:
         verbose_name = ('商品')
         verbose_name_plural = verbose_name
+
+
+class ProductTag(BaseModel):
+    """
+    商品标签
+    这个是为了测试TabularInline的
+    """
+    num = fields.IntegerField(verbose_name="数字")
+    name = fields.CharField(verbose_name="标签名", max_length=64)
+
+    product = fields.ForeignKey(Product, null=True, blank=True, verbose_name=('商品'),
+                                on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = '商品标签'
+        verbose_name_plural = '商品标签'
+
+    def __str__(self):
+        return self.name
 
 
 class BaseModel(models.Model):

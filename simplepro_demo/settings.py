@@ -231,11 +231,9 @@ SIMPLEPRO_MONIT_DISPLAY = True
 # AUTH_USER_MODEL = 'simplepro.AuthUser'
 
 # 默认主题
-# SIMPLEUI_DEFAULT_THEME='dark.css'
-
+# SIMPLEUI_DEFAULT_THEME = 'dark.css'
 
 # django新版本警告话，可以配置这句
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 # SIMPLEUI_LOGO='https://simpleui.72wo.com/static/images/pro/icon3.png'

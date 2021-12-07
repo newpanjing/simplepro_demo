@@ -429,11 +429,19 @@ class ProductCategoryAdmin(admin.ModelAdmin):
     # 也可以是方法的形式来返回html
     def get_bottom_html(self, request):
         return self.bottom_html
+
     pass
+
+
+class JobInline(admin.TabularInline):
+    model = ProductTag
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    inlines = [
+        JobInline,
+    ]
     pass
 
 
