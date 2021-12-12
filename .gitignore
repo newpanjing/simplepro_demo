@@ -6,3 +6,9 @@ simplepro.lic
 .idea
 venv
 temp
+.git
+__pycache__
+.DS_Store
+venv
+simplepro
+simpleui

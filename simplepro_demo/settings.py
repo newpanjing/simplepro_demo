@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     # 注册自己的app
     'demo',
     'finance',
-    'extensions',
     'components'
 ]
 
@@ -225,7 +224,7 @@ MEDIA_URL = '/meida/'
 SIMPLEPRO_CHART_DISPLAY = True
 
 # 3.1及以上版本支持
-
+# 配置是否显示监控图表
 SIMPLEPRO_MONIT_DISPLAY = True
 
 # AUTH_USER_MODEL = 'simplepro.AuthUser'
