@@ -52,8 +52,8 @@ class CharModel(models.Model):
 
 
 class MeditorModel(models.Model):
-    # 编辑器 必须要用 simplepro里面的 fields
-
+    # title = models.CharField(verbose_name='标题', max_length=128, null=True, blank=True)
+    title = fields.CharField(verbose_name='标题', max_length=128, null=True, blank=True)
     md = editor_fields.MDTextField(max_length=1024, verbose_name='Markdown')
     md2 = editor_fields.MDTextField(max_length=1024, verbose_name='编辑框2', default=None, blank=True, null=True)
 
@@ -63,10 +63,11 @@ class MeditorModel(models.Model):
 
 
 class UeditorModel(models.Model):
-    # 编辑器 必须要用 simplepro里面的 fields
+    title = fields.CharField(verbose_name='标题', max_length=128, null=True, blank=True)
 
     html = editor_fields.UETextField(max_length=1024, verbose_name='内容')
     description = editor_fields.UETextField(max_length=1024, verbose_name='描述', default=None, blank=True, null=True)
+    detail = editor_fields.UETextField(max_length=1024, verbose_name='详情', default=None, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Ueditor'
@@ -160,7 +161,10 @@ class SliderModel(models.Model):
 
 class ImageModel(models.Model):
     # drag 是否可拖拽上传文件
+
+    # accept 可以限制上传文件的类型，自版本3.4+支持
     f1 = fields.ImageField(drag=True, verbose_name='图片上传', max_length=128)
+    # f1 = fields.ImageField(drag=True, verbose_name='图片上传', max_length=128, accept=".jpg")
 
     f2 = fields.ImageField(drag=False,
                            action='/123',  # 可以手动指定一个上传的url地址

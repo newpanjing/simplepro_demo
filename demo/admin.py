@@ -350,6 +350,15 @@ class Demo1Admin(admin.ModelAdmin):
     list_display = ('name', 'age', 'test')
     list_display_links = ['name']
 
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return True
+
     def test(self, obj):
         return obj.name
 
@@ -456,10 +465,7 @@ class NativeAdmin(admin.ModelAdmin):
 
     list_display = ('pk', 'name')
     search_fields = ('name',)
-
-    class Media:
-        # 可以引入外部的js
-        js = ('https://webapi.amap.com/maps?v=1.4.15&key=您申请的key值',)
+    list_per_page = 10
 
 
 @admin.register(FilterMultiple)

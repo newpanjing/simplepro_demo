@@ -173,20 +173,26 @@ SIMPLEUI_CONFIG = {
         'url': 'https://gitee.com/tompeppa/simpleui',
         'codename': 'simpleui'
     }, {
-        'name': '测试',
+        'name': '在线社区',
         'icon': 'fa fa-file',
         'codename': 'test',
         'models': [{
-            'name': 'Baidu',
-            'url': 'http://baidu.com',
+            'name': 'SimplePro',
             'icon': 'far fa-surprise',
+            'models': [{
+                'name': 'Pro文档',
+                'url': 'https://simpleui.72wo.com/docs/simplepro'
+            }, {
+                'name': '购买Pro',
+                'url': 'http://simpleui.72wo.com/simplepro'
+            }]
         }, {
-            'name': '内网穿透123',
-            'url': 'https://www.wezoz.com',
+            'name': '社区',
+            'url': 'https://simpleui.72wo.com',
             'icon': 'fab fa-github'
         }, {
-            'name': '内网穿透22222',
-            'url': 'https://www.wezoz.com',
+            'name': '图片转换器',
+            'url': 'https://convert.72wo.com',
             'icon': 'fab fa-github',
             'codename': 'nat'
         }]
