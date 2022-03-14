@@ -475,6 +475,9 @@ class TransferModel(models.Model):
 
 class Layer(models.Model):
     name = fields.CharField(max_length=32, verbose_name='名字')
+    desc = fields.CharField(max_length=32, verbose_name='描述', null=True, blank=True)
+    status = models.IntegerField(choices=((0, '默认'),
+                                          (1, '其他')), verbose_name='状态', default=0)
 
     def __str__(self):
         return self.name

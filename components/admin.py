@@ -1,3 +1,7 @@
+import random
+import time
+from datetime import datetime
+
 from django.contrib import admin
 
 # Register your models here.
@@ -144,8 +148,75 @@ class IntegerModelAdmin(admin.ModelAdmin):
 
 @admin.register(Layer)
 class LayerAdmin(AjaxAdmin):
-    actions = ('layer_input', 'upload_file')
+    actions = ('layer_input', 'upload_file', 'async_layer_action')
     list_per_page = 10
+    search_fields = ('name', 'status')
+    list_filter = ('name', 'status', 'desc')
+
+    def async_layer_action(self, request, queryset):
+        """
+        异步执行的方法，可以动态返回layer的配置，自simplepro 3.5版本开始
+        """
+        return JsonResponse({'status': 'success', 'msg': '操作成功'})
+
+    async_layer_action.short_description = '异步获取Layer配置'
+    async_layer_action.icon = 'el-icon-view'
+    # 设置不选择数据也可以执行配置
+    async_layer_action.enable = True
+
+    def async_get_layer_config(self, request):
+        """
+        这个方法只有一个request参数，没有其他的入参
+        """
+        # 模拟处理业务耗时
+        time.sleep(2)
+        # 可以根据request的用户，来动态设置返回哪些字段
+        return {
+            # 弹出层中的输入框配置
+
+            # 这里指定对话框的标题
+            'title': '异步获取配置的输入框',
+            # 提示信息
+            'tips': '异步获取配置' + datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            # 确认按钮显示文本
+            'confirm_button': '确认提交',
+            # 取消按钮显示文本
+            'cancel_button': '取消',
+
+            # 弹出层对话框的宽度，默认50%
+            'width': '40%',
+
+            # 表单中 label的宽度，对应element-ui的 label-width，默认80px
+            'labelWidth': "80px",
+            'params': [{
+                # 这里的type 对应el-input的原生input属性，默认为input
+                'type': 'input',
+                # key 对应post参数中的key
+                'key': 'name',
+                # 显示的文本
+                'label': '名称',
+                # 为空校验，默认为False
+                'require': True,
+                'value': random.randint(0, 100)
+            }, {
+                'type': 'select',
+                'key': 'type',
+                'label': '类型',
+                'width': '200px',
+                # size对应elementui的size，取值为：medium / small / mini
+                'size': 'small',
+                # value字段可以指定默认值
+                'value': '0',
+                'options': [{
+                    'key': '0',
+                    'label': '收入'
+                }]
+            }]
+        }
+
+    # 这里的layer 配置下方法名就可以了，不需要写圆括号，不然不生效
+    async_layer_action.layer = async_get_layer_config
+
     def layer_input(self, request, queryset):
         # 这里的queryset 会有数据过滤，只包含选中的数据
 
@@ -153,7 +224,7 @@ class LayerAdmin(AjaxAdmin):
         # 这里获取到数据后，可以做些业务处理
         # post中的_action 是方法名
         # post中 _selected 是选中的数据，逗号分割
-        if not post.get('_selected'):
+        if not post.get('_selected') and post.get('select_across') == '0':
             return JsonResponse(data={
                 'status': 'error',
                 'msg': '请先选中数据！'
@@ -167,6 +238,8 @@ class LayerAdmin(AjaxAdmin):
     layer_input.short_description = '弹出对话框输入'
     layer_input.type = 'success'
     layer_input.icon = 'el-icon-s-promotion'
+
+    # 设置不选中数据也可以执行操作
     layer_input.enable = True
     # 指定一个输入参数，应该是一个数组
 
@@ -196,7 +269,8 @@ class LayerAdmin(AjaxAdmin):
             # 显示的文本
             'label': '名称',
             # 为空校验，默认为False
-            'require': True
+            'require': True,
+            'value': '123321'
         }, {
             'type': 'select',
             'key': 'type',
@@ -295,6 +369,7 @@ class LayerAdmin(AjaxAdmin):
     upload_file.enable = True
 
     upload_file.layer = {
+        'tips': '可以推拽任何文件到这里',
         'params': [{
             'type': 'file',
             'key': 'upload',
