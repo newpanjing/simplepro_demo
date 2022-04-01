@@ -8,7 +8,7 @@ from simplepro.dialog import ModalDialog, MultipleCellDialog
 
 @admin.register(Dialog)
 class DialogAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'descriptMion', 'custom_row_btn', 'dialog_url', 'async_load', 'dialog_lists')
+    list_display = ('id', 'name', 'description', 'custom_row_btn', 'dialog_url', 'async_load', 'dialog_lists')
     search_fields = ('name',)
 
     def custom_row_btn(self, *args, **kwargs):
