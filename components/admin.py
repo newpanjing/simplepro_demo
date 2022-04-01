@@ -148,10 +148,34 @@ class IntegerModelAdmin(admin.ModelAdmin):
 
 @admin.register(Layer)
 class LayerAdmin(AjaxAdmin):
-    actions = ('layer_input', 'upload_file', 'async_layer_action')
+    actions = ('layer_input', 'upload_file', 'async_layer_action', 'set_in')
     list_per_page = 10
     search_fields = ('name', 'status')
     list_filter = ('name', 'status', 'desc')
+
+    @admin.action(description='开始入库')
+    def set_in(self, request, queryset):
+        for obj in queryset:
+            pass
+        return JsonResponse({'status': 'success', 'msg': '入库成功'})
+
+    set_in.type = 'warning'
+    set_in.layer = {
+        'title': '请确认入库数量',
+        'tips': '请依照车辆单一入库',
+        'confirm_button': '确认提交',
+        'cancel_button': '取消',
+        'params': [{
+            # 这里的type 对应el-input的原生input属性，默认为input
+            'type': 'input',
+            # key 对应post参数中的key
+            'key': 'name',
+            # 显示的文本
+            'label': '名称',
+            # 为空校验，默认为False
+            'require': True,
+        }]
+    }
 
     def async_layer_action(self, request, queryset):
         """
@@ -164,7 +188,7 @@ class LayerAdmin(AjaxAdmin):
     # 设置不选择数据也可以执行配置
     async_layer_action.enable = True
 
-    def async_get_layer_config(self, request):
+    def async_get_layer_config(self, request, queryset):
         """
         这个方法只有一个request参数，没有其他的入参
         """
@@ -270,7 +294,13 @@ class LayerAdmin(AjaxAdmin):
             'label': '名称',
             # 为空校验，默认为False
             'require': True,
-            'value': '123321'
+            'value': '123321',
+            # 附加参数
+            'extras': {
+                'prefix-icon': 'el-icon-delete',
+                'suffix-icon': 'el-icon-setting',
+                'clearable': True
+            }
         }, {
             'type': 'select',
             'key': 'type',

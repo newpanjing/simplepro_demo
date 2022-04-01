@@ -23,14 +23,10 @@ from django.views.generic import RedirectView
 admin.site.site_title = '管理后台PRO'
 admin.site.site_header = '员工管理后台PRO'
 from components import views
-
-
-def test(request):
-    return HttpResponse('ok')
-
+from dialog import views as dialog_views
 
 urlpatterns = [
-                  path('test', test),
+                  path('dialog/', include('dialog.urls')),
                   path('area/search', views.area_search, name='area_search'),
                   # 这里可以配置网页收藏夹的图标
                   path('favicon.ico', RedirectView.as_view(url=r'static/favicon.ico')),

@@ -1,0 +1,61 @@
+{% extends 'dialog/base.html' %}
+
+{% block main %}
+
+    <div>子页面对话框的内容</div>
+    <div>
+        获取到的ID：{{ request.GET.id }}
+    </div>
+
+    <div id="app">
+        <div v-text="message"></div>
+        <el-select v-model="value" placeholder="请选择">
+            <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+        </el-select>
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+
+
+    <script type="text/javascript">
+
+
+        //这里是vue的代码，渲染id为app的div，可以在div中加入element-ui的组件
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    options: [{
+                        value: '选项1',
+                        label: '黄金糕'
+                    }, {
+                        value: '选项2',
+                        label: '双皮奶'
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }],
+                    value: ''
+                }
+            }
+        })
+
+
+    </script>
+{% endblock %}
+

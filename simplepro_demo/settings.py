@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     # 注册自己的app
     'demo',
     'finance',
-    'components'
+    'components',
+    'dialog'
 ]
 
 MIDDLEWARE = [
@@ -135,7 +136,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 # simpleui 设置
 
 # 首页配置
-# SIMPLEUI_HOME_PAGE = 'https://www.baidu.com'
+# SIMPLEUI_HOME_PAGE = 'https://simpleui.72wo.com'
 # 首页标题
 # SIMPLEUI_HOME_TITLE = '百度一下你就知道'
 # 首页图标,支持element-ui的图标和fontawesome的图标
