@@ -479,3 +479,17 @@ class FilterMultipleAdmin(admin.ModelAdmin):
     # list_filter要和list_filter_multiples匹配使用才有效果
     list_filter = ('category',)
     list_filter_multiples = ('category',)
+
+
+from django.contrib import admin
+from simpleui.admin import AjaxAdmin
+
+from .models import *
+# Register your models here.
+
+@admin.register(SupplierInfo)
+class SupplierInfoAdmin(AjaxAdmin):
+    list_display = ['name','add','contact','phone','isComp',]
+    list_display_links = ['name','add','contact','phone','isComp',]
+    list_filter = ['name','contact','phone','isComp',]
+    list_per_page = 15

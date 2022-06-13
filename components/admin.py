@@ -152,28 +152,45 @@ class LayerAdmin(AjaxAdmin):
     list_per_page = 10
     search_fields = ('name', 'status')
     list_filter = ('name', 'status', 'desc')
+    list_display = ('id', 'name', 'status', 'desc')
 
     @admin.action(description='开始入库')
     def set_in(self, request, queryset):
         for obj in queryset:
-            pass
+            obj.name = request.POST.get('name')
+            # obj.save()
+            self.message_user(request, '%s 已经入库' % obj.name)
         return JsonResponse({'status': 'success', 'msg': '入库成功'})
 
     set_in.type = 'warning'
     set_in.layer = {
-        'title': '请确认入库数量',
-        'tips': '请依照车辆单一入库',
-        'confirm_button': '确认提交',
-        'cancel_button': '取消',
+        'title': '测试批量修改',
         'params': [{
-            # 这里的type 对应el-input的原生input属性，默认为input
-            'type': 'input',
-            # key 对应post参数中的key
-            'key': 'name',
-            # 显示的文本
-            'label': '名称',
-            # 为空校验，默认为False
+            'type': 'radio',
+            'key': 'type',
+            'label': '修改类型',
             'require': True,
+            'value': 1,
+            'options': [{
+                'key': 1,
+                'label': '更新'
+            }, {
+                'key': 0,
+                'label': '新增'
+            }]
+        }, {
+            'type': 'checkbox',
+            'key': 'ck',
+            'label': 'Checkbox',
+            'require': True,
+            'value': [1],
+            'options': [{
+                'key': 1,
+                'label': '更新'
+            }, {
+                'key': 0,
+                'label': '新增'
+            }]
         }]
     }
 
@@ -419,3 +436,11 @@ class AMapModelAdmin(admin.ModelAdmin):
     高德地图支持
     """
     list_display = ('pk', 'name', 'geo', 'address')
+
+
+@admin.register(VideoModel)
+class VideoModelAdmin(admin.ModelAdmin):
+    """
+    视频支持
+    """
+    list_display = ('pk', 'name', 'video')

@@ -242,4 +242,5 @@ SIMPLEPRO_MONIT_DISPLAY = True
 # django新版本警告话，可以配置这句
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # SIMPLEUI_LOGO='https://simpleui.72wo.com/static/images/pro/icon3.png'

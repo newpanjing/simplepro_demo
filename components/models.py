@@ -44,7 +44,8 @@ class CharModel(models.Model):
     f7 = fields.CharField(verbose_name='复合输入框', max_length=128, slot='prepend', slot_text='https://', null=True,
                           blank=True)
 
-    f8 = fields.CharField(verbose_name='复合输入框', max_length=128, slot='append', slot_text='.com', null=True, blank=True)
+    f8 = fields.CharField(verbose_name='复合输入框', max_length=128, slot='append', slot_text='.com', null=True,
+                          blank=True)
 
     class Meta:
         verbose_name = 'Char文本输入框'
@@ -168,7 +169,8 @@ class ImageModel(models.Model):
 
     f2 = fields.ImageField(drag=False,
                            action='/123',  # 可以手动指定一个上传的url地址
-                           verbose_name='图片上传', max_length=128, null=True, blank=True, help_text='指定上传地址为/123，模拟出错')
+                           verbose_name='图片上传', max_length=128, null=True, blank=True,
+                           help_text='指定上传地址为/123，模拟出错')
 
     class Meta:
         verbose_name = 'Image图片上传'
@@ -281,7 +283,8 @@ class DateTimeModel(models.Model):
     """
     f1 = fields.DateTimeField(verbose_name='DateTime日期时间1', options=options1)
 
-    f2 = fields.DateTimeField(verbose_name='DateTime日期时间2', default=timezone.now, clearable=False, help_text='不可清除')
+    f2 = fields.DateTimeField(verbose_name='DateTime日期时间2', default=timezone.now, clearable=False,
+                              help_text='不可清除')
 
     f3 = fields.DateTimeField(verbose_name='DateTime日期时间3', default=timezone.now,
                               align='right', clearable=False, editable=False, readonly=True, help_text='不可编辑')
@@ -519,3 +522,17 @@ class AMapModel(models.Model):
     class Meta:
         verbose_name = '高德地图组件'
         verbose_name_plural = '高德地图组件'
+
+
+# 从simplepro 5.0.0版本开始，支持视频播放组件
+class VideoModel(models.Model):
+    name = fields.CharField(verbose_name='名称', show_word_limit=True, null=True, blank=True, max_length=64)
+
+    video = fields.VideoField(max_length=128, verbose_name='视频播放', null=True, blank=True, help_text='视频播放组件')
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        verbose_name = '视频播放组件'
+        verbose_name_plural = '视频播放组件'

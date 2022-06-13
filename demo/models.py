@@ -367,3 +367,19 @@ class FilterMultiple(BaseModel):
     class Meta:
         verbose_name = '下拉框多选'
         verbose_name_plural = verbose_name
+
+
+class SupplierInfo(models.Model):
+    name = fields.CharField(verbose_name='供应商名称', max_length=50, default='')
+    add = fields.CharField(verbose_name='供应商地址', max_length=100, default='', null=True, blank=True)
+    contact = fields.CharField(verbose_name='联系人', max_length=10, default='')
+    phone = fields.CharField(verbose_name='联系人电话', max_length=20, default='', unique=True)
+    compType = (
+        (1, '对公账户'),
+        (0, '非对公账户'),
+    )
+    isComp = fields.RadioField(verbose_name='属性', choices=compType, default=0)
+    owner = models.ForeignKey(verbose_name='负责人', to=User, on_delete=models.SET_NULL, null=True,blank=True, editable=False)
+    class Meta:
+        verbose_name = '供应商管理'
+        verbose_name_plural = verbose_name
