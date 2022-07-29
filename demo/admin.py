@@ -183,6 +183,7 @@ class EmployeAdmin(ImportExportActionModelAdmin):
         'create_time',
         'test1',
         'test2')
+
     autocomplete_fields = ('department',)
 
     # search_fields = ('name', 'enable', 'idCard', 'department')
@@ -199,10 +200,10 @@ class EmployeAdmin(ImportExportActionModelAdmin):
 
     date_hierarchy = 'create_time'
 
-    # fieldsets = [(None, {'fields': ['name', 'gender', 'phone']}),
+    # fieldsets = (("基本信息", {'fields': (('name', 'gender'), 'phone')}),
     #              (u'其他信息', {
     #                  'classes': ('123',),
-    #                  'fields': ['birthday', 'department', 'enable']})]
+    #                  'fields': ('birthday', 'department', 'enable')}))
 
     @transaction.atomic
     def test(self, request, queryset):
@@ -485,11 +486,13 @@ from django.contrib import admin
 from simpleui.admin import AjaxAdmin
 
 from .models import *
+
+
 # Register your models here.
 
 @admin.register(SupplierInfo)
 class SupplierInfoAdmin(AjaxAdmin):
-    list_display = ['name','add','contact','phone','isComp',]
-    list_display_links = ['name','add','contact','phone','isComp',]
-    list_filter = ['name','contact','phone','isComp',]
+    list_display = ['name', 'add', 'contact', 'phone', 'isComp', ]
+    list_display_links = ['name', 'add', 'contact', 'phone', 'isComp', ]
+    list_filter = ['name', 'contact', 'phone', 'isComp', ]
     list_per_page = 15

@@ -43,7 +43,11 @@ class SwitchModelAdmin(admin.ModelAdmin):
 
 @admin.register(InputNumberModel)
 class InputNumberModelAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'f')
+    list_display = ('pk', 'f', 'f2', 'f3', 'f4', 'f5', 'f6')
+    fieldsets = (
+        ('第一列', {'fields': ('f', ('f2', 'f3'))}),
+        ('第二列', {'fields': ('f4', 'f5', 'f6')}),
+    )
 
 
 @admin.register(SliderModel)
@@ -154,7 +158,6 @@ class LayerAdmin(AjaxAdmin):
     list_filter = ('name', 'status', 'desc')
     list_display = ('id', 'name', 'status', 'desc')
 
-    @admin.action(description='开始入库')
     def set_in(self, request, queryset):
         for obj in queryset:
             obj.name = request.POST.get('name')
@@ -162,6 +165,7 @@ class LayerAdmin(AjaxAdmin):
             self.message_user(request, '%s 已经入库' % obj.name)
         return JsonResponse({'status': 'success', 'msg': '入库成功'})
 
+    set_in.short_description = '开始入库'
     set_in.type = 'warning'
     set_in.layer = {
         'title': '测试批量修改',

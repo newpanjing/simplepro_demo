@@ -122,6 +122,13 @@ class InputNumberModel(models.Model):
     f = fields.InputNumberField(max_value=100, min_value=1, default=1, verbose_name='InputNumber计数器',
                                 help_text='继承自IntegerField')
 
+    f2 = fields.InputNumberField(max_value=100, min_value=1, default=1,help_text='继承自IntegerField',)
+    f3 = fields.InputNumberField(max_value=100, min_value=1, default=1)
+    f4 = fields.InputNumberField(max_value=100, min_value=1, default=1)
+    f5 = fields.InputNumberField(max_value=100, min_value=1, default=1, verbose_name='计数器2')
+
+    f6 = fields.InputNumberField(max_value=100, min_value=1, default=1)
+
     class Meta:
         verbose_name = 'InputNumber计数器'
         verbose_name_plural = 'InputNumber计数器'

@@ -8,7 +8,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('auth', '0011_update_proxy_permissions'),
+        # ('auth', '0011_update_proxy_permissions'),
         ('demo', '0013_auto_20200505_1540'),
     ]
 

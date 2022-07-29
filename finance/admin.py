@@ -5,7 +5,7 @@ from finance.models import *
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin, ExportActionModelAdmin
-
+from django.utils.html import format_html
 
 class ProxyResource(resources.ModelResource):
     class Meta:
@@ -19,10 +19,22 @@ class RecordAdmin(ExportActionModelAdmin):
     # native_render = True
     search_fields = ('name',)
     list_filter = ('type', 'create_date')
-    list_display = ('id', 'name', 'type', 'money', 'create_date')
+    list_display = ('id', 'name', 'type', 'money', 'money_display', 'create_date')
     list_per_page = 10
 
     actions = ('custom_btn',)
+
+    def money_display(self, obj):
+        val = obj.money
+        if val < 100:
+            return format_html('<span style="color:blue">{}</span>', val)
+        elif val < 1000:
+            return format_html('<span style="color:green">{}</span>', val)
+        else:
+            return format_html('<span style="color:red">{}</span>', val)
+
+    money_display.short_description = '金额(自定义排序)'
+    money_display.admin_order_field = 'money'
 
     def custom_btn(self, request, queryset):
         pass
