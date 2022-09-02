@@ -32,6 +32,7 @@ urlpatterns = [
                   path('favicon.ico', RedirectView.as_view(url=r'static/favicon.ico')),
                   # 如果出现sp 未定义，就加入这一句
                   path('sp/', include('simplepro.urls')),
-                  path('admin', admin.site.urls),
+                  # path('admin', admin.site.urls),
+                  path('admin/', admin.site.urls),
                   path('', admin.site.urls),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
