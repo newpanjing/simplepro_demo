@@ -1,4 +1,6 @@
+import gc
 import random
+import sys
 import time
 from datetime import datetime
 
@@ -8,41 +10,76 @@ from django.contrib import admin
 from django.http import JsonResponse
 
 from components.models import *
+from simplepro.action import CellAction
 from simpleui.admin import AjaxAdmin
+
+import inspect
+
+
+class SourceCodeAdmin(object):
+
+    def get_bottom_html(self, request):
+        source_url = f"https://github.com/newpanjing/simplepro_demo/blob/master/{self.opts.app_label}/admin.py"
+        return f"""
+        <el-alert
+    title="提示"
+    type="success">
+    <div>移除本提示，请移除【{str(self.__module__)}.{self.__class__.__qualname__}中的SourceCodeAdmin】类</div>
+    <div>
+        <b>本页源码地址：</b>
+        <el-link target="_blank" href="{source_url}" type="primary">{source_url}</el-link>
+    </div>
+     <div>
+        <b>文档地址：</b>
+        <el-link target="_blank" href="https://simpleui.72wo.com/docs/simplepro" type="primary">https://simpleui.72wo.com/docs/simplepro</el-link>
+    </div>
+     <div>
+        <b>购买地址：</b>
+        <el-link target="_blank" href="https://simpleui.72wo.com/simplepro" type="primary">https://simpleui.72wo.com/simplepro</el-link>
+    </div>
+     <div>
+        <b>QQ群：</b>
+        <div>786576510</div>
+        <div>873469913</div>
+        <div>722755389</div>
+    </div>
+  </el-alert>
+        
+        """
 
 
 @admin.register(CharModel)
-class CharModelAdmin(admin.ModelAdmin):
+class CharModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8')
 
 
 @admin.register(MeditorModel)
-class MeditorAdmin(admin.ModelAdmin):
+class MeditorAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'md')
 
 
 @admin.register(UeditorModel)
-class UeditorModelAdmin(admin.ModelAdmin):
+class UeditorModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'html', 'description')
 
 
 @admin.register(RadioModel)
-class RadioModelAdmin(admin.ModelAdmin):
+class RadioModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f')
 
 
 @admin.register(CheckBoxModelTest)
-class CheckBoxModelTestAdmin(admin.ModelAdmin):
+class CheckBoxModelTestAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f')
 
 
 @admin.register(SwitchModel)
-class SwitchModelAdmin(admin.ModelAdmin):
+class SwitchModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f')
 
 
 @admin.register(InputNumberModel)
-class InputNumberModelAdmin(admin.ModelAdmin):
+class InputNumberModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f', 'f2', 'f3', 'f4', 'f5', 'f6')
     fieldsets = (
         ('第一列', {'fields': ('f', ('f2', 'f3'))}),
@@ -51,58 +88,58 @@ class InputNumberModelAdmin(admin.ModelAdmin):
 
 
 @admin.register(SliderModel)
-class SliderModelAdmin(admin.ModelAdmin):
+class SliderModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f1', 'f2', 'f3')
 
 
 @admin.register(ImageModel)
-class ImageModelAdmin(admin.ModelAdmin):
+class ImageModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f1', 'f2')
 
 
 @admin.register(RateModel)
-class RateModelAdmin(admin.ModelAdmin):
+class RateModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f1', 'f2', 'f3')
 
 
 @admin.register(TimeModel)
-class TimeModelAdmin(admin.ModelAdmin):
+class TimeModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f1', 'f2', 'f3')
 
 
 @admin.register(DateModel)
-class DateModelAdmin(admin.ModelAdmin):
+class DateModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f1', 'f2', 'f3')
 
 
 @admin.register(DateTimeModel)
-class DateTimeModelAdmin(admin.ModelAdmin):
+class DateTimeModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'f1', 'f2', 'f3')
 
 
 @admin.register(StudentClasses)
-class StudentClassesAdmin(admin.ModelAdmin):
+class StudentClassesAdmin(admin.ModelAdmin, SourceCodeAdmin):
     search_fields = ('name',)
     pass
 
 
 @admin.register(StudentOneToOneModel)
-class StudentOneToOneModelAdmin(admin.ModelAdmin):
+class StudentOneToOneModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     search_fields = ('f',)
 
 
 @admin.register(StudentArea)
-class StudentAreaAdmin(admin.ModelAdmin):
+class StudentAreaAdmin(admin.ModelAdmin, SourceCodeAdmin):
     pass
 
 
 @admin.register(StudentManyToManyModel)
-class StudentManyToManyModelAdmin(admin.ModelAdmin):
+class StudentManyToManyModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     search_fields = ('f',)
 
 
 @admin.register(StudentModel)
-class StudentModelAdmin(admin.ModelAdmin):
+class StudentModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     search_fields = ('name',)
     list_filter = ('classes', 'sex',)
     # 这里指定字段，对象的admin 必须定义search_fields进行搜索
@@ -113,31 +150,31 @@ class StudentModelAdmin(admin.ModelAdmin):
 # 一对一
 
 @admin.register(OneToOneModel)
-class OneToOneModelAdmin(admin.ModelAdmin):
+class OneToOneModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     # 可以开启远程搜索，要指定对象在admin中的search_fields
     autocomplete_fields = ('one_to_one',)
 
 
 @admin.register(StudentIdCard)
-class StudentIdCardModelAdmin(admin.ModelAdmin):
+class StudentIdCardModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     # 可以开启远程搜索，要指定对象在admin中的search_fields
     list_display = ('pk', 'id_card')
 
 
 # 穿梭框
 @admin.register(TransferManyToManyModel)
-class StudentTransferModelAdmin(admin.ModelAdmin):
+class StudentTransferModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     search_fields = ('pk',)
 
 
 @admin.register(TransferModel)
-class TransferModelAdmin(admin.ModelAdmin):
+class TransferModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     pass
 
 
 # 多对多
 @admin.register(ManyToManyModel)
-class ManyToManyModelAdmin(admin.ModelAdmin):
+class ManyToManyModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     # 多对多也是可以开启 autocomplete_fields 的
     autocomplete_fields = ('many_to_many',)
 
@@ -146,7 +183,7 @@ class ManyToManyModelAdmin(admin.ModelAdmin):
 
 # Intger字段
 @admin.register(IntegerModel)
-class IntegerModelAdmin(admin.ModelAdmin):
+class IntegerModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     pass
 
 
@@ -430,12 +467,12 @@ class LayerAdmin(AjaxAdmin):
 
 
 @admin.register(UUIDKeyModel)
-class UUIDModelAdmin(admin.ModelAdmin):
+class UUIDModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('pk', 'name')
 
 
 @admin.register(AMapModel)
-class AMapModelAdmin(admin.ModelAdmin):
+class AMapModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     """
     高德地图支持
     """
@@ -443,8 +480,52 @@ class AMapModelAdmin(admin.ModelAdmin):
 
 
 @admin.register(VideoModel)
-class VideoModelAdmin(admin.ModelAdmin):
+class VideoModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     """
     视频支持
     """
     list_display = ('pk', 'name', 'video')
+
+
+@admin.register(CellActionModel)
+class CellActionModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
+    """
+    单元格直接调用action
+    """
+    list_display = ("id", 'name', 'desc', 'status', 'custom_action')
+
+    # 指定单元格要调用的是哪个action
+
+    def custom_action(self, obj):
+        return CellAction(text='调用', action='custom_action')
+
+    custom_action.short_description = '单元格调用自定义action'
+
+    actions = ('test_action', 'test_action2')
+
+    def test_action(self, request, queryset):
+        print(queryset)
+        return JsonResponse(data={
+            'status': 'success',
+            'msg': '处理成功！'
+        })
+
+    def test_action2(self, request, queryset):
+        print(queryset)
+        return JsonResponse(data={
+            'status': 'success',
+            'msg': '处理成功！'
+        })
+
+
+@admin.register(TreeComboboxModel)
+class TreeComboboxModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
+    """
+    树形下拉框
+    """
+    list_display = ('pk', 'name', 'parent')
+
+    list_filter = ('name',)
+    list_filter_parent_fields = (
+        ('name', 'parent'),
+    )

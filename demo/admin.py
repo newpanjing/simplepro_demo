@@ -4,6 +4,7 @@ from django.contrib import admin, messages
 from django.db import transaction
 from django.urls import reverse
 
+from components.admin import SourceCodeAdmin
 from .models import *
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin, ExportActionModelAdmin
@@ -41,7 +42,7 @@ class ExtInfoInLine(admin.StackedInline):
 
 
 @admin.register(Title)
-class TitleAdmin(admin.ModelAdmin):
+class TitleAdmin(admin.ModelAdmin,SourceCodeAdmin):
     # 要显示的字段
     list_display = ('id', 'name')
 
@@ -56,7 +57,7 @@ class TitleAdmin(admin.ModelAdmin):
 
 
 @admin.register(Customers)
-class CustomersAdmin(admin.ModelAdmin):
+class CustomersAdmin(admin.ModelAdmin,SourceCodeAdmin):
     """
     字段过多的情况下，可以用simplepro的特性，将列进行固定
 
@@ -129,7 +130,7 @@ class ProxyResource(resources.ModelResource):
 
 
 @admin.register(Image)
-class ImageAdmin(admin.ModelAdmin):
+class ImageAdmin(admin.ModelAdmin,SourceCodeAdmin):
     pass
 
 
@@ -347,7 +348,7 @@ class EmployeAdmin(ImportExportActionModelAdmin):
         return new_results
 
 
-class Demo1Admin(admin.ModelAdmin):
+class Demo1Admin(admin.ModelAdmin,SourceCodeAdmin):
     list_display = ('name', 'age', 'test')
     list_display_links = ['name']
 
@@ -366,7 +367,7 @@ class Demo1Admin(admin.ModelAdmin):
     test.short_description = '测试'
 
 
-class Demo2Admin(admin.ModelAdmin):
+class Demo2Admin(admin.ModelAdmin,SourceCodeAdmin):
     list_display = ('name', 'age')
     list_display_links = None
 
@@ -416,17 +417,17 @@ class Demo3Admin(ExportActionModelAdmin):
 
 
 @admin.register(ScoreModel)
-class ScoreModelAdmin(admin.ModelAdmin):
+class ScoreModelAdmin(admin.ModelAdmin,SourceCodeAdmin):
     pass
 
 
 @admin.register(ManyToManyTestModel)
-class ManyToManyTestModelAdmin(admin.ModelAdmin):
+class ManyToManyTestModelAdmin(admin.ModelAdmin,SourceCodeAdmin):
     pass
 
 
 @admin.register(ProductCategory)
-class ProductCategoryAdmin(admin.ModelAdmin):
+class ProductCategoryAdmin(admin.ModelAdmin,SourceCodeAdmin):
     # 显示在列表顶部的一些自定义html，可以是vue组件，会被vue渲染
     top_html = ' <el-alert title="这是顶部的" type="success"></el-alert>'
 
@@ -448,7 +449,7 @@ class JobInline(admin.TabularInline):
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(admin.ModelAdmin,SourceCodeAdmin):
     inlines = [
         JobInline,
     ]
@@ -456,7 +457,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 @admin.register(Native)
-class NativeAdmin(admin.ModelAdmin):
+class NativeAdmin(admin.ModelAdmin,SourceCodeAdmin):
     """
     使用原生页面渲染，不使用simplepro的admin列表页，可以兼容很多第三方插件
     """
@@ -470,11 +471,16 @@ class NativeAdmin(admin.ModelAdmin):
 
 
 @admin.register(FilterMultiple)
-class FilterMultipleAdmin(admin.ModelAdmin):
+class FilterMultipleAdmin(admin.ModelAdmin,SourceCodeAdmin):
     """
     搜索框多选
     """
+    actions = ('btn1',)
 
+    def btn1(self, request, queryset):
+        print('btn1')
+        pass
+    btn1.short_description = '按钮1'
     list_display = ('pk', 'name', 'category')
 
     # list_filter要和list_filter_multiples匹配使用才有效果

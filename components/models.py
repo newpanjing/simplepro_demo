@@ -1,14 +1,10 @@
 import uuid
 
-from django.core.validators import validate_comma_separated_integer_list
 from django.db import models
-from django.urls import reverse
-
-from simplepro.components.widgets import RadioInput
-from simplepro.editor import fields as editor_fields
+from django.utils import timezone
 
 from simplepro.components import fields
-from django.utils import timezone
+from simplepro.editor import fields as editor_fields
 
 
 # Create your models here.
@@ -122,7 +118,7 @@ class InputNumberModel(models.Model):
     f = fields.InputNumberField(max_value=100, min_value=1, default=1, verbose_name='InputNumber计数器',
                                 help_text='继承自IntegerField')
 
-    f2 = fields.InputNumberField(max_value=100, min_value=1, default=1,help_text='继承自IntegerField',)
+    f2 = fields.InputNumberField(max_value=100, min_value=1, default=1, help_text='继承自IntegerField', )
     f3 = fields.InputNumberField(max_value=100, min_value=1, default=1)
     f4 = fields.InputNumberField(max_value=100, min_value=1, default=1)
     f5 = fields.InputNumberField(max_value=100, min_value=1, default=1, verbose_name='计数器2')
@@ -543,3 +539,31 @@ class VideoModel(models.Model):
     class Meta:
         verbose_name = '视频播放组件'
         verbose_name_plural = '视频播放组件'
+
+
+class TreeComboboxModel(models.Model):
+    name = fields.CharField(max_length=32, verbose_name='名字')
+
+    # 父级
+    parent = fields.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, verbose_name='父级',)
+
+    def __str__(self):
+        return str(self.pk)
+
+    class Meta:
+        verbose_name = '树形下拉框'
+        verbose_name_plural = '树形下拉框'
+
+
+class CellActionModel(models.Model):
+    name = fields.CharField(max_length=32, verbose_name='名字')
+    desc = fields.CharField(max_length=32, verbose_name='描述', null=True, blank=True)
+    status = models.BooleanField(verbose_name='状态', default=False)
+
+    # 用户
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '单元格Action'
+        verbose_name_plural = '单元格Action'

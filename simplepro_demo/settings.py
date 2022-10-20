@@ -88,6 +88,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'OPTIONS': {
+            # 防止数据库锁死
+            'timeout': 20,
+        }
     }
 }
 
@@ -169,16 +173,17 @@ SIMPLEUI_CONFIG = {
     'system_keep': True,
     'dynamic': False,
     'menus': [{
-        'name': 'Simpleui',
+        'name': '社区',
         'icon': 'fas fa-code',
-        'url': 'https://gitee.com/tompeppa/simpleui',
-        'codename': 'simpleui'
+        'url': 'https://simpleui.72wo.com',
+        'codename': 'community'
     }, {
-        'name': '在线社区',
+        'name': '产品',
         'icon': 'fa fa-file',
-        'codename': 'test',
+        'codename': 'product',
         'models': [{
             'name': 'SimplePro',
+            'codename': 'SimplePro',
             'icon': 'far fa-surprise',
             'models': [{
                 'name': 'Pro文档',
@@ -188,16 +193,26 @@ SIMPLEUI_CONFIG = {
                 'url': 'http://simpleui.72wo.com/simplepro'
             }]
         }, {
-            'name': '社区',
-            'url': 'https://simpleui.72wo.com',
-            'icon': 'fab fa-github'
+            'name': 'SimpleUI',
+            'url': 'https://github.com/newpanjing/simpleui',
+            'icon': 'fab fa-github',
+            'codename': 'simpleui',
+            'newTab': True
         }, {
             'name': '图片转换器',
             'url': 'https://convert.72wo.com',
             'icon': 'fab fa-github',
-            'codename': 'nat'
+            'codename': 'convert',
+            'newTab': True
+        }, {
+            'name': '全文检索',
+            'url': 'https://github.com/sea-team/gofound',
+            'icon': 'fab fa-github',
+            'codename': 'gofound',
+            'newTab': True
         }]
-    }]
+    }],
+    "ccc": "ddd"
 }
 
 # 是否显示默认图标，默认=True
@@ -241,6 +256,5 @@ SIMPLEPRO_MONIT_DISPLAY = True
 
 # django新版本警告话，可以配置这句
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 # SIMPLEUI_LOGO='https://simpleui.72wo.com/static/images/pro/icon3.png'
