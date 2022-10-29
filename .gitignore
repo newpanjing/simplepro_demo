@@ -12,3 +12,7 @@ __pycache__
 venv
 simplepro
 simpleui
+/shark/props.py
+/.fleet/run.json
+/.fleet/settings.json
+/shark/widget.py
