@@ -10,7 +10,7 @@ from django.contrib import admin
 from django.http import JsonResponse
 
 from components.models import *
-from simplepro.action import CellAction
+from simplepro.action import CellAction, CellMultipleAction
 from simpleui.admin import AjaxAdmin
 
 import inspect
@@ -492,16 +492,12 @@ class CellActionModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     """
     单元格直接调用action
     """
-    list_display = ("id", 'name', 'desc', 'status', 'custom_action')
+    # list_display = ("id", 'name', 'desc', 'status', 'custom_action', 'custom_multiple_action')
+    list_display = ('id', 'name', 'status', 'custom_action', 'custom_multiple_action', 'custom_action_boolean')
 
     # 指定单元格要调用的是哪个action
 
-    def custom_action(self, obj):
-        return CellAction(text='调用', action='custom_action')
-
-    custom_action.short_description = '单元格调用自定义action'
-
-    actions = ('test_action', 'test_action2')
+    actions = ('test_action', 'test_action2', 'test_action3')
 
     def test_action(self, request, queryset):
         print(queryset)
@@ -510,12 +506,53 @@ class CellActionModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
             'msg': '处理成功！'
         })
 
+    # 可以添加一个确认提示
+    test_action.confirm = "您确定要执行该操作吗？"
+
     def test_action2(self, request, queryset):
         print(queryset)
         return JsonResponse(data={
             'status': 'success',
             'msg': '处理成功！'
         })
+
+    def test_action3(self, request, queryset):
+        # 通过单元格执行的action，可以通过request.POST.get('ids')获取到选中的id
+        # queryset 的数据只有一个，如果通过自定义按钮勾线行执行，则有多个
+        if queryset.count() == 1:
+            # 每次都修改状态
+            obj = queryset.first()
+            obj.status = not obj.status
+            obj.save()
+        return JsonResponse(data={
+            'status': 'success',
+            'msg': '修改状态成功！'
+        })
+
+    def custom_action(self, obj):
+        return CellAction(text='调用', action=self.test_action)
+
+    custom_action.short_description = '调用单个Action'
+
+    def custom_multiple_action(self, obj):
+        return CellMultipleAction(actions=[
+            # 可以实用vue的组件，但是内层的click事件会被覆盖，不支持
+            CellAction(text='<el-link type="primary">调用1</el-link>', action=self.test_action),
+            CellAction(text='<el-link type="danger">调用2</el-link>', action=self.test_action2)
+        ])
+
+    custom_multiple_action.short_description = '调用多个Action'
+
+    def custom_action_boolean(self, obj):
+        html = '<el-link type="primary">切换状态</el-link>'
+        if obj.status:
+            html += ' <i class="el-icon-close" style="color:red"></i>'
+        else:
+            html += '<i class="el-icon-check" style="color:green"></i>'
+
+        return CellAction(text=html, action=self.test_action3)
+
+    custom_action_boolean.short_description = '点击Action切换状态'
 
 
 @admin.register(TreeComboboxModel)

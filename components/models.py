@@ -541,20 +541,6 @@ class VideoModel(models.Model):
         verbose_name_plural = '视频播放组件'
 
 
-class TreeComboboxModel(models.Model):
-    name = fields.CharField(max_length=32, verbose_name='名字')
-
-    # 父级
-    parent = fields.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, verbose_name='父级',)
-
-    def __str__(self):
-        return str(self.pk)
-
-    class Meta:
-        verbose_name = '树形下拉框'
-        verbose_name_plural = '树形下拉框'
-
-
 class CellActionModel(models.Model):
     name = fields.CharField(max_length=32, verbose_name='名字')
     desc = fields.CharField(max_length=32, verbose_name='描述', null=True, blank=True)
@@ -567,3 +553,25 @@ class CellActionModel(models.Model):
     class Meta:
         verbose_name = '单元格Action'
         verbose_name_plural = '单元格Action'
+
+
+def _get_combobox_queryset(queryset):
+    # 这里可以根据自己的需要过滤数据
+    return queryset.all()
+
+
+class TreeComboboxModel(models.Model):
+    name = fields.CharField(max_length=32, verbose_name='名字')
+    # 我们需要再model中加入simplepro的TreeCombobox组件
+    parent = fields.TreeComboboxField('self', on_delete=models.CASCADE, null=True, blank=True, verbose_name='父级',
+                                      strictly=True,  # 是否严格模式，严格模式只能选择叶子节点
+                                      # 通过get_queryset方法获取数据
+                                      queryset=_get_combobox_queryset,
+                                      help_text="树形下拉框，选择父级")
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        verbose_name = '树形下拉框'
+        verbose_name_plural = '树形下拉框'
