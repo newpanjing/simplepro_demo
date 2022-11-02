@@ -558,7 +558,7 @@ class CellActionModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
 @admin.register(TreeComboboxModel)
 class TreeComboboxModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     """
-    树形下拉框
+    树形下拉框+列表筛选
     """
     list_display = ('pk', 'name', 'parent')
 
@@ -587,3 +587,37 @@ class TreeComboboxModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
         if field_name == 'parent':
             return self.get_queryset(request).order_by('id')
         # 如果无返回，或者返回None，将不起任何作用
+
+
+@admin.register(TreeTable)
+class TreeTableAdmin(admin.ModelAdmin, SourceCodeAdmin):
+    """
+    树形表格
+    """
+
+    # ⚠️注意：如果存在get_queryset，这个方法将会被调用2次以上
+    # 第一次获取根节点的数据，后续递归获取子节点都是通过该queryset来查询
+
+    # 要显示的字段
+    list_display = ('name', 'desc', 'parent')
+
+    # 这个树形表格也可以结合树形下拉筛选框使用，但是这个不适合，因为表格已经树形显示了，再进行筛选，会导致树形表格无法正确的显示
+    list_filter = ('parent',)
+
+    # 指定级联关系的字段，只能一个字段，不能是数组或者元组
+    # 这个字段必须有，才会有树形的效果
+    list_display_tree_cascade = 'parent'
+
+    # 展开状态，默认不展开
+    list_display_tree_expand_all = False
+
+    def get_list_display_tree_expand_all(self, request):
+        return self.list_display_tree_expand_all
+
+    def get_list_display_tree_cascade(self, request):
+        """
+        获取list_display_tree_cascade
+        :param request:
+        :return:
+        """
+        return self.list_display_tree_cascade

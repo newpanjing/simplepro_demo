@@ -561,6 +561,9 @@ def _get_combobox_queryset(queryset):
 
 
 class TreeComboboxModel(models.Model):
+    """
+    树形下拉框，从simplepro 6.0.0版本开始支持
+    """
     name = fields.CharField(max_length=32, verbose_name='名字')
     # 我们需要再model中加入simplepro的TreeCombobox组件
     parent = fields.TreeComboboxField('self', on_delete=models.CASCADE, null=True, blank=True, verbose_name='父级',
@@ -575,3 +578,23 @@ class TreeComboboxModel(models.Model):
     class Meta:
         verbose_name = '树形下拉框'
         verbose_name_plural = '树形下拉框'
+
+
+class TreeTable(models.Model):
+    """
+    树形表格，从simplepro 6.0.0版本开始支持
+    """
+    name = fields.CharField(max_length=32, verbose_name='名称')
+
+    # 这个字段，是用来处理树形表格的，有这个字段才能知道级联的关系
+    # 在树形表格中，删除某一级，程序不会级联删除下面的所有子级，所以需要利用数据库的级联删除，设置on_delete=models.CASCADE
+    parent = fields.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, verbose_name='父级')
+
+    desc = fields.CharField(max_length=32, verbose_name='描述', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '树形表格'
+        verbose_name_plural = '树形表格'
