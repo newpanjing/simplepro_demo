@@ -562,7 +562,28 @@ class TreeComboboxModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     """
     list_display = ('pk', 'name', 'parent')
 
-    list_filter = ('name',)
-    list_filter_parent_fields = (
-        ('name', 'parent'),
-    )
+    list_filter = ('parent',)
+
+    # 树形下拉框，对于admin中的list_filter，需要指定需要树形显示的字段
+    # 支持list_filter_tree与方法 get_list_filter_tree
+    # ⚠️注意：必须要是TreeComboboxField字段或者ForeignKey外键字段，否则将会报错
+    list_filter_tree = ('parent',)
+
+    def get_list_filter_tree(self, request):
+        """
+        获取list_filter_tree
+        :param request:
+        :return:
+        """
+        return self.list_filter_tree
+
+    def get_list_filter_tree_queryset(self, request, field_name):
+        """
+        树形下拉框数据过滤，可以用于数据筛选和排序等，默认可以不使用，一个字段只会调用一次
+        :param field_name: 字段名
+        :param request: request
+        :param queryset: 字段所属外键的QuerySet
+        """
+        if field_name == 'parent':
+            return self.get_queryset(request).order_by('id')
+        # 如果无返回，或者返回None，将不起任何作用
