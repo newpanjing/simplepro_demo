@@ -598,3 +598,18 @@ class TreeTable(models.Model):
     class Meta:
         verbose_name = '树形表格'
         verbose_name_plural = '树形表格'
+
+
+class TableSelection(models.Model):
+    """
+    表格复选框显示和隐藏，从simplepro 6.0.0版本开始支持
+    """
+    name = fields.CharField(max_length=32, verbose_name='名称')
+    desc = fields.CharField(max_length=32, verbose_name='描述', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '表格复选框'
+        verbose_name_plural = '表格复选框'

@@ -1,19 +1,14 @@
-import gc
 import random
-import sys
 import time
 from datetime import datetime
 
 from django.contrib import admin
-
-# Register your models here.
 from django.http import JsonResponse
 
 from components.models import *
 from simplepro.action import CellAction, CellMultipleAction
+from simplepro.decorators import button, layer
 from simpleui.admin import AjaxAdmin
-
-import inspect
 
 
 class SourceCodeAdmin(object):
@@ -195,45 +190,48 @@ class LayerAdmin(AjaxAdmin):
     list_filter = ('name', 'status', 'desc')
     list_display = ('id', 'name', 'status', 'desc')
 
+    def get_layer_config(self, request, queryset):
+        return {
+            'title': '测试批量修改',
+            'params': [{
+                'type': 'radio',
+                'key': 'type',
+                'label': '修改类型',
+                'require': True,
+                'value': 1,
+                'options': [{
+                    'key': 1,
+                    'label': '更新'
+                }, {
+                    'key': 0,
+                    'label': '新增'
+                }]
+            }, {
+                'type': 'checkbox',
+                'key': 'ck',
+                'label': 'Checkbox',
+                'require': True,
+                'value': [1],
+                'options': [{
+                    'key': 1,
+                    'label': '更新'
+                }, {
+                    'key': 0,
+                    'label': '新增'
+                }]
+            }]
+        }
+
+    # 从6.0+ 我们支持了装饰器的方式来定义action和layer
+    @button("开始入库", type='warning')
+    # 支持方法与dict两种方式
+    @layer(get_layer_config)
     def set_in(self, request, queryset):
         for obj in queryset:
             obj.name = request.POST.get('name')
             # obj.save()
             self.message_user(request, '%s 已经入库' % obj.name)
         return JsonResponse({'status': 'success', 'msg': '入库成功'})
-
-    set_in.short_description = '开始入库'
-    set_in.type = 'warning'
-    set_in.layer = {
-        'title': '测试批量修改',
-        'params': [{
-            'type': 'radio',
-            'key': 'type',
-            'label': '修改类型',
-            'require': True,
-            'value': 1,
-            'options': [{
-                'key': 1,
-                'label': '更新'
-            }, {
-                'key': 0,
-                'label': '新增'
-            }]
-        }, {
-            'type': 'checkbox',
-            'key': 'ck',
-            'label': 'Checkbox',
-            'require': True,
-            'value': [1],
-            'options': [{
-                'key': 1,
-                'label': '更新'
-            }, {
-                'key': 0,
-                'label': '新增'
-            }]
-        }]
-    }
 
     def async_layer_action(self, request, queryset):
         """
@@ -621,3 +619,31 @@ class TreeTableAdmin(admin.ModelAdmin, SourceCodeAdmin):
         :return:
         """
         return self.list_display_tree_cascade
+
+
+@admin.register(TableSelection)
+class TableSelectionAdmin(admin.ModelAdmin, SourceCodeAdmin):
+    """
+    表格复选框显示和隐藏
+    """
+    list_display = ('pk', 'name', 'desc')
+
+    # 是否显示表格复选框，默认显示
+    show_selection = False
+
+    # 自定义Action
+    actions = ['test_action']
+
+    @button(type='danger', short_description='调用Action', enable=True, confirm="您确定要点这个按钮吗？")
+    def test_action(self, request, queryset):
+        pass
+
+    def get_show_selection(self, request):
+        """
+        支持方方和属性，任选其一即可，如果没有返回值或者返回值是None，则默认为True，显示复选框
+        """
+        return self.show_selection
+
+    def get_top_html(self, request):
+        return "<el-alert type='primary'>可以通过设置admin中的show_selection来控制是否显示表格复选框，默认显示，如果不想显示，可以设置show_selection=False" \
+               "，或者重写get_show_selection方法</el-alert> "
