@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'simplepro.middlewares.SimpleMiddleware',
 
     # 该中间件用于屏蔽普通用户修改密码功能，可以注释掉
-    'simplepro_demo.middlewares.PasswordChangeMiddleware'
+    # 'simplepro_demo.middlewares.PasswordChangeMiddleware'
 ]
 
 ROOT_URLCONF = 'simplepro_demo.urls'
@@ -258,7 +258,3 @@ SIMPLEPRO_MONIT_DISPLAY = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SIMPLEUI_LOGO='https://simpleui.72wo.com/static/images/pro/icon3.png'
-
-
-# 配置菜单的过滤器，可以实现根据用户的权限来过滤菜单
-SIMPLEPRO_MENU_FILTER = ''
