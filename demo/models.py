@@ -14,7 +14,8 @@ User = get_user_model()
 
 
 class Department(models.Model):
-    name = fields.CharField(max_length=128, verbose_name='部门名', help_text='一个部门的名字应该唯一', unique=True, db_index=True)
+    name = fields.CharField(max_length=128, verbose_name='部门名', help_text='一个部门的名字应该唯一', unique=True,
+                            db_index=True)
     create_time = fields.DateTimeField(verbose_name='创建时间', auto_now=True)
 
     class Meta:
@@ -75,7 +76,8 @@ class Employe(models.Model):
     name = fields.CharField(max_length=128, verbose_name='名称', help_text='员工的名字', null=False, blank=False,
                             db_index=True)
 
-    avatar_img = fields.ImageField(verbose_name='照片', null=True, blank=False, help_text='员工的照片，在列表会默认显示为图片')
+    avatar_img = fields.ImageField(verbose_name='照片', null=True, blank=False,
+                                   help_text='员工的照片，在列表会默认显示为图片')
 
     gender_choices = (
         (0, '未知'),
@@ -86,7 +88,8 @@ class Employe(models.Model):
 
     gender = fields.IntegerField(choices=gender_choices, verbose_name='性别', default=0)
 
-    idCard = fields.CharField(max_length=18, verbose_name='身份证号', help_text='18位的身份证号码', blank=True, null=True)
+    idCard = fields.CharField(max_length=18, verbose_name='身份证号', help_text='18位的身份证号码', blank=True,
+                              null=True)
     phone = fields.CharField(max_length=11, verbose_name='手机号')
 
     birthday = fields.DateField(verbose_name='生日')
@@ -379,7 +382,35 @@ class SupplierInfo(models.Model):
         (0, '非对公账户'),
     )
     isComp = fields.RadioField(verbose_name='属性', choices=compType, default=0)
-    owner = models.ForeignKey(verbose_name='负责人', to=User, on_delete=models.SET_NULL, null=True,blank=True, editable=False)
+    owner = models.ForeignKey(verbose_name='负责人', to=User, on_delete=models.SET_NULL, null=True, blank=True,
+                              editable=False)
+
     class Meta:
         verbose_name = '供应商管理'
+        verbose_name_plural = verbose_name
+
+
+class ApiGroup(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, verbose_name="UUID"
+    )
+    name = fields.CharField(max_length=16, null=True, blank=True, verbose_name="分组名称")
+
+    class Meta:
+        verbose_name = "API分组"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
+
+class ApiList(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, verbose_name="UUID"
+    )
+    name = fields.CharField(max_length=16, null=True, blank=True, verbose_name="分组名称")
+    group = fields.ForeignKey(to="ApiGroup", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="所厲分组")
+
+    class Meta:
+        verbose_name = "API列表"
         verbose_name_plural = verbose_name

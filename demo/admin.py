@@ -42,7 +42,7 @@ class ExtInfoInLine(admin.StackedInline):
 
 
 @admin.register(Title)
-class TitleAdmin(admin.ModelAdmin,SourceCodeAdmin):
+class TitleAdmin(admin.ModelAdmin, SourceCodeAdmin):
     # 要显示的字段
     list_display = ('id', 'name')
 
@@ -57,7 +57,7 @@ class TitleAdmin(admin.ModelAdmin,SourceCodeAdmin):
 
 
 @admin.register(Customers)
-class CustomersAdmin(admin.ModelAdmin,SourceCodeAdmin):
+class CustomersAdmin(admin.ModelAdmin, SourceCodeAdmin):
     """
     字段过多的情况下，可以用simplepro的特性，将列进行固定
 
@@ -130,7 +130,7 @@ class ProxyResource(resources.ModelResource):
 
 
 @admin.register(Image)
-class ImageAdmin(admin.ModelAdmin,SourceCodeAdmin):
+class ImageAdmin(admin.ModelAdmin, SourceCodeAdmin):
     pass
 
 
@@ -176,7 +176,9 @@ class EmployeAdmin(ImportExportActionModelAdmin):
 
     class Media:
         js = ('/js/test.js',)
-        # css = ('test.css',)
+        css = {
+            'all': ('/css/test.css',)
+        }
 
     resource_class = ProxyResource
     list_display = (
@@ -192,7 +194,7 @@ class EmployeAdmin(ImportExportActionModelAdmin):
 
     list_per_page = 5
     raw_id_fields = ('department', 'title')
-    list_filter = ('department', AgeListFilter, 'create_time', 'department__create_time', 'birthday')
+    list_filter = ('department', AgeListFilter, 'create_time', 'department__create_time', 'birthday', 'enable')
     # list_filter = (AgeListFilter, 'department', 'create_time', 'birthday', 'time', 'enable', 'gender')
 
     list_display_links = ('name',)
@@ -348,7 +350,7 @@ class EmployeAdmin(ImportExportActionModelAdmin):
         return new_results
 
 
-class Demo1Admin(admin.ModelAdmin,SourceCodeAdmin):
+class Demo1Admin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('name', 'age', 'test')
     list_display_links = ['name']
 
@@ -367,7 +369,7 @@ class Demo1Admin(admin.ModelAdmin,SourceCodeAdmin):
     test.short_description = '测试'
 
 
-class Demo2Admin(admin.ModelAdmin,SourceCodeAdmin):
+class Demo2Admin(admin.ModelAdmin, SourceCodeAdmin):
     list_display = ('name', 'age')
     list_display_links = None
 
@@ -417,17 +419,17 @@ class Demo3Admin(ExportActionModelAdmin):
 
 
 @admin.register(ScoreModel)
-class ScoreModelAdmin(admin.ModelAdmin,SourceCodeAdmin):
+class ScoreModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     pass
 
 
 @admin.register(ManyToManyTestModel)
-class ManyToManyTestModelAdmin(admin.ModelAdmin,SourceCodeAdmin):
+class ManyToManyTestModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     pass
 
 
 @admin.register(ProductCategory)
-class ProductCategoryAdmin(admin.ModelAdmin,SourceCodeAdmin):
+class ProductCategoryAdmin(admin.ModelAdmin, SourceCodeAdmin):
     # 显示在列表顶部的一些自定义html，可以是vue组件，会被vue渲染
     top_html = ' <el-alert title="这是顶部的" type="success"></el-alert>'
 
@@ -449,7 +451,7 @@ class JobInline(admin.TabularInline):
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin,SourceCodeAdmin):
+class ProductAdmin(admin.ModelAdmin, SourceCodeAdmin):
     inlines = [
         JobInline,
     ]
@@ -457,7 +459,7 @@ class ProductAdmin(admin.ModelAdmin,SourceCodeAdmin):
 
 
 @admin.register(Native)
-class NativeAdmin(admin.ModelAdmin,SourceCodeAdmin):
+class NativeAdmin(admin.ModelAdmin, SourceCodeAdmin):
     """
     使用原生页面渲染，不使用simplepro的admin列表页，可以兼容很多第三方插件
     """
@@ -471,7 +473,7 @@ class NativeAdmin(admin.ModelAdmin,SourceCodeAdmin):
 
 
 @admin.register(FilterMultiple)
-class FilterMultipleAdmin(admin.ModelAdmin,SourceCodeAdmin):
+class FilterMultipleAdmin(admin.ModelAdmin, SourceCodeAdmin):
     """
     搜索框多选
     """
@@ -480,6 +482,7 @@ class FilterMultipleAdmin(admin.ModelAdmin,SourceCodeAdmin):
     def btn1(self, request, queryset):
         print('btn1')
         pass
+
     btn1.short_description = '按钮1'
     list_display = ('pk', 'name', 'category')
 
@@ -502,3 +505,14 @@ class SupplierInfoAdmin(AjaxAdmin):
     list_display_links = ['name', 'add', 'contact', 'phone', 'isComp', ]
     list_filter = ['name', 'contact', 'phone', 'isComp', ]
     list_per_page = 15
+
+
+@admin.register(ApiGroup)
+class ApiGroupAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ApiList)
+class ApiListAdmin(admin.ModelAdmin):
+    list_filter = ('group',)
+    list_display = ('id', 'name',)
