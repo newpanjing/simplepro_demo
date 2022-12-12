@@ -1,10 +1,14 @@
 import datetime
+import random
 
 from django.contrib import admin, messages
 from django.db import transaction
+from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.urls import reverse
 
 from components.admin import SourceCodeAdmin
+from simplepro.decorators import button, layer
 from .models import *
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin, ExportActionModelAdmin
@@ -237,8 +241,8 @@ class EmployeAdmin(ImportExportActionModelAdmin):
     # action_type 0=当前页内打开，1=新tab打开，2=浏览器tab打开
     # 设置了action_type，不设置url，页面内将报错
 
-    custom_button.action_type = 1
-    custom_button.action_url = 'https://www.baidu.com'
+    custom_button.action_type = 2
+    custom_button.action_url = 'https://simpleui.72wo.com'
 
     def make_copy(self, request, queryset):
         print('复制员工执行了')
@@ -472,18 +476,44 @@ class NativeAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_per_page = 10
 
 
+from simpleui.admin import AjaxAdmin
+
+
 @admin.register(FilterMultiple)
-class FilterMultipleAdmin(admin.ModelAdmin, SourceCodeAdmin):
+class FilterMultipleAdmin(AjaxAdmin, SourceCodeAdmin):
     """
     搜索框多选
     """
     actions = ('btn1',)
 
+    def _lazy(self, request, queryset):
+        return {
+            'title': '测试',
+            'params': [{
+                # 这里的type 对应el-input的原生input属性，默认为input
+                'type': 'input',
+                # key 对应post参数中的key
+                'key': 'name',
+                # 显示的文本
+                'label': '名称',
+                # 为空校验，默认为False
+                'require': True,
+                'value': random.randint(0, 100)
+            }]
+        }
+
+    @layer(config=_lazy)
+    @button(enable=True, short_description='测试按钮', icon='el-icon-s-promotion')
     def btn1(self, request, queryset):
         print('btn1')
-        pass
+        # return JsonResponse(data={
+        #         'status': 'error',
+        #         'msg': '请先选中数据！'
+        #     })
 
-    btn1.short_description = '按钮1'
+        # 重定向到另一个页面
+        return redirect('http://softcdn12.mydown.com/cs/166def/%E9%92%89%E9%92%89%E7%94%B5%E8%84%91%E7%89%88..exe')
+
     list_display = ('pk', 'name', 'category')
 
     # list_filter要和list_filter_multiples匹配使用才有效果
@@ -492,7 +522,6 @@ class FilterMultipleAdmin(admin.ModelAdmin, SourceCodeAdmin):
 
 
 from django.contrib import admin
-from simpleui.admin import AjaxAdmin
 
 from .models import *
 
@@ -516,3 +545,14 @@ class ApiGroupAdmin(admin.ModelAdmin):
 class ApiListAdmin(admin.ModelAdmin):
     list_filter = ('group',)
     list_display = ('id', 'name',)
+
+
+@admin.register(Score)
+class ScoreAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'value')
+    list_filter = ('value', 'number')
+    # 区间搜索
+    between_fields = ('value', 'number')
+
+    def get_between_fields(self, request):
+        return self.between_fields

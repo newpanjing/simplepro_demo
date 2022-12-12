@@ -414,3 +414,13 @@ class ApiList(models.Model):
     class Meta:
         verbose_name = "API列表"
         verbose_name_plural = verbose_name
+
+
+class Score(models.Model):
+    value = models.IntegerField(verbose_name='分数', default=0)
+
+    number = models.IntegerField(verbose_name='数量', default=0)
+
+    class Meta:
+        verbose_name = '区间搜索'
+        verbose_name_plural = verbose_name
