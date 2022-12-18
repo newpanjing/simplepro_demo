@@ -480,7 +480,7 @@ from simpleui.admin import AjaxAdmin
 
 
 @admin.register(FilterMultiple)
-class FilterMultipleAdmin(AjaxAdmin, SourceCodeAdmin):
+class FilterMultipleAdmin(AjaxAdmin):
     """
     搜索框多选
     """
@@ -548,7 +548,8 @@ class ApiListAdmin(admin.ModelAdmin):
 
 
 @admin.register(Score)
-class ScoreAdmin(admin.ModelAdmin):
+# class ScoreAdmin(admin.ModelAdmin):
+class ScoreAdmin(ImportExportModelAdmin):
     list_display = ('pk', 'value')
     list_filter = ('value', 'number')
     # 区间搜索
