@@ -4,3 +4,4 @@ django-simpleui
 simplepro
 Pillow
 requests
+django_choices_enums

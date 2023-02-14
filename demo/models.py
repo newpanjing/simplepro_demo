@@ -6,6 +6,8 @@ from django.db import models
 # Create your models here.
 from django.urls import reverse
 from django.utils.html import format_html
+# from django_choices_enums import DjangoChoicesEnum
+
 from simplepro.components import fields
 from simplepro.components.fields import SwitchField, TransferField
 from simplepro.editor.fields import UETextField
@@ -424,3 +426,23 @@ class Score(models.Model):
     class Meta:
         verbose_name = '区间搜索'
         verbose_name_plural = verbose_name
+
+
+class TradeOrder(models.Model):
+    # class OrderStatusChoices(DjangoChoicesEnum):
+    #     UnPaid = (101, "待支付")  # 订单生成，未支付
+    #     Cancel = (102, "已取消")  # 下单未支付用户取消
+    #     UnShip = (201, "待发货")  # 支付完成，商家未发货
+
+    sn = models.CharField(verbose_name="编号", max_length=128, unique=True)
+    # status = fields.RadioField(verbose_name="状态", choices=OrderStatusChoices.to_django_choices())
+    status = fields.RadioField(verbose_name="状态", choices=(
+        (101, "待支付"),
+        (102, "已取消"),
+        (201, "待发货"),
+    ))
+
+    class Meta:
+        verbose_name = '测试订单'
+        verbose_name_plural = verbose_name
+        db_table = "trade_order"

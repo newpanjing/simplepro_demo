@@ -416,6 +416,7 @@ class IntegerModel(models.Model):
 class ManyToManyModel(models.Model):
     name = fields.CharField(max_length=128, verbose_name='名字', default='张三')
     many_to_many = fields.ManyToManyField(StudentManyToManyModel, blank=True, verbose_name='多对多字段')
+    # many_to_many = models.ManyToManyField(StudentManyToManyModel, blank=True, verbose_name='多对多字段')
 
     class Meta:
         verbose_name = '多对多 Select'

@@ -132,6 +132,15 @@ class StudentAreaAdmin(admin.ModelAdmin, SourceCodeAdmin):
 class StudentManyToManyModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     search_fields = ('f',)
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs
+
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        if search_term:
+            queryset |= self.model.objects.filter(f__contains=search_term)
+        return queryset, use_distinct
 
 @admin.register(StudentModel)
 class StudentModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
@@ -174,6 +183,16 @@ class ManyToManyModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     autocomplete_fields = ('many_to_many',)
 
     list_display = ('id', 'name', 'many_to_many_display')
+
+    def get_field_queryset(self, db, db_field, request):
+        if db_field.name == 'many_to_many':
+            return ManyToManyModel.objects.all()
+        return super().get_field_queryset(db, db_field, request)
+
+    def get_search_results(self, request, queryset, search_term):
+        if search_term:
+            queryset = queryset.filter(name__icontains=search_term)
+        return queryset, False
 
 
 # Intger字段

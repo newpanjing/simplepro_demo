@@ -1,4 +1,5 @@
 import datetime
+import json
 import random
 
 from django.contrib import admin, messages
@@ -13,7 +14,7 @@ from .models import *
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin, ExportActionModelAdmin
 
-
+from simpleui.admin import AjaxAdmin
 # Register your models here.
 @admin.register(Department)
 class DepartmentAdmin(ImportExportActionModelAdmin):
@@ -105,6 +106,7 @@ class AgeListFilter(admin.SimpleListFilter):
             ('0', u'最近7天'),
             ('1', u'最近15天'),
             ('2', u'最近30天'),
+            ('3', u'最近365天'),
         )
 
     def queryset(self, request, queryset):
@@ -121,6 +123,9 @@ class AgeListFilter(admin.SimpleListFilter):
             return queryset.filter(birthday__gte=day)
         if self.value() == '2':
             day = cur_date - datetime.timedelta(days=30)
+            return queryset.filter(birthday__gte=day)
+        if self.value() == '3':
+            day = cur_date - datetime.timedelta(days=365)
             return queryset.filter(birthday__gte=day)
 
 
@@ -139,7 +144,7 @@ class ImageAdmin(admin.ModelAdmin, SourceCodeAdmin):
 
 
 @admin.register(Employe)
-class EmployeAdmin(ImportExportActionModelAdmin):
+class EmployeAdmin(ImportExportActionModelAdmin, AjaxAdmin):
 
     # save_on_top = True
     def delete_queryset(self, request, queryset):
@@ -212,6 +217,24 @@ class EmployeAdmin(ImportExportActionModelAdmin):
     #                  'classes': ('123',),
     #                  'fields': ('birthday', 'department', 'enable')}))
 
+    def _layer_config(self, request):
+        return {
+            'title': '测试',
+            'width': '50%',
+            'params': [{
+                'type': 'input',
+                'label': '测试',
+                'name': 'test',
+                'value': '123',
+                'require': True
+            }]
+        }
+
+    @layer(config=_layer_config)
+    @button('弹出层测试', 'el-icon-s-promotion', 'primary', 'test')
+    def layer_test(self, request, queryset):
+        pass
+
     @transaction.atomic
     def test(self, request, queryset):
         return {
@@ -220,7 +243,7 @@ class EmployeAdmin(ImportExportActionModelAdmin):
         }
 
     # 增加自定义按钮
-    actions = [test, 'make_copy', 'custom_button', 'message_test', 'exception_test']
+    actions = [test, 'make_copy', 'custom_button', 'message_test', 'exception_test', layer_test]
 
     def custom_button(self, request, queryset):
         pass
@@ -476,8 +499,6 @@ class NativeAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_per_page = 10
 
 
-from simpleui.admin import AjaxAdmin
-
 
 @admin.register(FilterMultiple)
 class FilterMultipleAdmin(AjaxAdmin):
@@ -557,3 +578,55 @@ class ScoreAdmin(ImportExportModelAdmin):
 
     def get_between_fields(self, request):
         return self.between_fields
+
+
+@admin.register(TradeOrder)
+class TradeOrderAdmin(AjaxAdmin):
+    """
+    搜索框多选
+    """
+    actions = ('btn1',)
+
+    def _lazy(self, request, queryset):
+        return {
+            'title': '测试',
+            'params': [{
+                # 这里的type 对应el-input的原生input属性，默认为input
+                'type': 'input',
+                # key 对应post参数中的key
+                'key': 'name',
+                # 显示的文本
+                'label': '名称',
+                # 为空校验，默认为False
+                'require': True,
+                'value': random.randint(0, 100)
+            }]
+        }
+
+    list_display = ("sn", "status")
+
+    # list_filter要和list_filter_multiples匹配使用才有效果
+    list_filter = ('status',)
+    list_filter_multiples = ('status',)
+
+    def btn1(self, request, queryset):
+        filter_value = json.loads('{"status": "102"}')
+        queryset.filter(**filter_value)
+        cnt = queryset.count()
+        print(cnt)
+        return JsonResponse(data={
+            'status': 'success',
+            'msg': '已生成处理数据'
+        })
+
+    btn1.short_description = "导出选中"
+    btn1.type = 'success'
+    btn1.icon = 'el-icon-s-promotion'
+    btn1.layer = {
+        # 弹出层中的输入框配置
+
+        # 这里指定对话框的标题
+        'title': '是否确定下载',
+        # 提示信息
+        'tips': '下载。'
+    }
