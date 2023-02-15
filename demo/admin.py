@@ -3,6 +3,7 @@ import json
 import random
 
 from django.contrib import admin, messages
+from django.contrib.admin import SimpleListFilter
 from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import redirect
@@ -15,6 +16,8 @@ from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin, ExportActionModelAdmin
 
 from simpleui.admin import AjaxAdmin
+
+
 # Register your models here.
 @admin.register(Department)
 class DepartmentAdmin(ImportExportActionModelAdmin):
@@ -499,6 +502,22 @@ class NativeAdmin(admin.ModelAdmin, SourceCodeAdmin):
     list_per_page = 10
 
 
+class ShopLabelFilter(SimpleListFilter):
+    title = '店铺标签'
+    parameter_name = 'shop_label'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('1', '标签1'),
+            ('2', '标签2'),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == '1':
+            return queryset
+        elif self.value() == '2':
+            return queryset
+
 
 @admin.register(FilterMultiple)
 class FilterMultipleAdmin(AjaxAdmin):
@@ -538,7 +557,7 @@ class FilterMultipleAdmin(AjaxAdmin):
     list_display = ('pk', 'name', 'category')
 
     # list_filter要和list_filter_multiples匹配使用才有效果
-    list_filter = ('category',)
+    list_filter = ('category', ShopLabelFilter)
     list_filter_multiples = ('category',)
 
 
