@@ -147,7 +147,7 @@ class StudentModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     search_fields = ('name',)
     list_filter = ('classes', 'sex',)
     # 这里指定字段，对象的admin 必须定义search_fields进行搜索
-    autocomplete_fields = ('classes',)
+    # autocomplete_fields = ('classes',)
     list_display = ('pk', 'name', 'sex', 'star', 'money', 'score', 'classes')
 
 

@@ -116,8 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-# LANGUAGE_CODE = 'zh-hans'
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
+# LANGUAGE_CODE = 'en-us'
 # LANGUAGE_CODE = 'ja'
 
 
@@ -259,5 +259,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SIMPLEUI_LOGO='https://simpleui.72wo.com/static/images/pro/icon3.png'
 
-# 指定SimplePro以异步的方式获取外键数据，自6.3+ 开始支持
+# 指定SimplePro以异步的方式获取外键数据，只支持many_to_many字段 自6.3+ 开始支持
 SIMPLEPRO_FK_ASYNC_DATA = True
