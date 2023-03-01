@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import admin
 from django.db.models import Sum
 from django.shortcuts import redirect
@@ -9,6 +11,7 @@ from import_export.admin import ImportExportModelAdmin, ImportExportActionModelA
 from django.utils.html import format_html
 
 from simplepro.decorators import button
+from datetime import datetime
 
 
 class ProxyResource(resources.ModelResource):
@@ -66,3 +69,44 @@ class RecordAdmin(ExportActionModelAdmin):
 @admin.register(DynamicDisplay)
 class DynamicDisplayAdmin(admin.ModelAdmin):
     list_display = ('name', 'money', 'create_date', 'type')
+
+    list_filter = ('type',)
+
+    search_fields = ('name',)
+
+    # 动态文本，Simple Pro独有功能，自6.5+版本开始支持
+    def get_dynamic_render(self, request, queryset):
+        # 获得当前日期
+        now = datetime.now()
+
+        # 所有查询参数都在request.POST中
+        params = request.POST
+
+        # 条件过滤参数
+        print(params.get('filters'))
+
+        # 搜索框参数
+        print(params.get('search'))
+
+        # 返回一个字典，top=顶部，bottom=底部，如果存在get_dynamic_render 那么get_top_html和get_bottom_html也会生效，不受影响
+        # 如果返回的是None，顶部和底部都不会有任何显示
+        # 如果top是None，那么顶部不会有任何显示
+        # 如果bottom是None，那么底部不会有任何显示
+
+        # 这里的filters返回的是一个json字符串，所以要用json转成字典
+
+        # 默认_filter是None
+        if 'filters' not in params:
+            top_html = f'{now}<div style="color: blue">顶部动态文本，啥都没有</div>'
+        else:
+            _filter = json.loads(params.get('filters'))
+            _type = _filter.get('type__exact')
+            if _type == '1':
+                top_html = f'{now}<div style="color: blue">顶部动态文本，你选择的是：{_type}</div>'
+            else:
+                top_html = f'{now}<div style="color: red">顶部动态文本，你选择的是：{_type}</div>'
+
+        return {
+            'top': top_html,
+            'bottom': f'动态文本:{now}',
+        }
