@@ -6,6 +6,33 @@ simpleui demo,默认使用sqlite数据库。
 
 simpleui 是一个django admin的ui框架，与代码无关。
 
+### 代码目录结构
+
+```text
+
+├─apps  // 存放所有的app
+│  ├─components
+│  ├─demo
+│  ├─dialog
+│  │  ├─templates  // dialog模板自定义
+│  │  │  └─dialog
+│  ├─finance
+│  └─public  // 存放一些app的公用功能(数据库基类，视图类基类等)
+├─media  // 媒体文件
+├─simplepro_demo
+├─static  // 静态文件
+│  └─js
+├─templates
+│  └─admin
+├─utils  // 存放独立于app的公用功能
+├─build-docker.sh  // 构建docker镜像
+├─Dockerfile
+├─docker-compose.yml
+├─README.md
+├─requirements.txt  // 项目依赖包
+└─start.sh  // 
+```
+
 # 步骤
 ## 第一步
 下载源码到本地

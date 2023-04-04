@@ -9,10 +9,11 @@ temp
 .git
 __pycache__
 .DS_Store
-venv
+venv/
 simplepro
 simpleui
 /shark/props.py
 /.fleet/run.json
 /.fleet/settings.json
 /shark/widget.py
+__pycache__/

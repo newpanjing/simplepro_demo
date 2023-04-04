@@ -11,9 +11,13 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# 将存放子应用的apps目录加入到系统目录
+sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -58,7 +62,7 @@ MIDDLEWARE = [
     'simplepro.middlewares.SimpleMiddleware',
 
     # 该中间件用于屏蔽普通用户修改密码功能，可以注释掉
-    # 'simplepro_demo.middlewares.PasswordChangeMiddleware'
+    'public.middlewares.PasswordChangeMiddleware'
 ]
 
 ROOT_URLCONF = 'simplepro_demo.urls'

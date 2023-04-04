@@ -1,0 +1,92 @@
+{% extends 'dialog/base.html' %}
+
+{% block main %}
+
+    <div>子页面对话框的内容</div>
+    <div>
+        ID：{{ dialog.name }}
+    </div>
+
+    <div>
+        内容：{{ dialog.description }}
+    </div>
+
+    <div>
+        获取到的ID：{{ request.GET.id }}
+    </div>
+
+    <div id="app" v-loading="loading">
+        <div v-text="message"></div>
+        <el-select v-model="select" placeholder="请选择">
+            <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+        </el-select>
+
+        <div>选择的是：<span v-text="select"></span></div>
+
+
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span>卡片名称</span>
+                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+            </div>
+            <div v-for="item in options">
+                <span v-text="item.label"></span>
+                <span v-text="item.value"></span>
+            </div>
+        </el-card>
+
+
+        <el-button type="primary" @click="closeDialog()">点击模拟ajax请求后关闭对话框</el-button>
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+    {#引入axios#}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+
+
+        //这里是vue的代码，渲染id为app的div，可以在div中加入element-ui的组件
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    loading: false,
+                    message: 'Hello Vue!',
+                    options: [],
+                    select: ''
+                }
+            },
+            created() {
+                let self = this;
+                //异步加载数据
+                self.loading = true;
+                axios.get('{% url 'dialog:ajax' %}').then(res => {
+                    self.options = res.data.ds;
+                }).finally(() => {
+                    self.loading = false;
+                });
+            },
+            methods: {
+                closeDialog() {
+                    this.$message('操作成功！')
+                    //刷新表格的数据
+                    parent.postMessage({type: 'refresh'}, '*');
+
+                    //关闭对话框
+                    parent.postMessage({type: 'close'},'*');
+                }
+            }
+        })
+
+
+    </script>
+{% endblock %}
+

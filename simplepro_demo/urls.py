@@ -15,15 +15,13 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.http import HttpResponse
 from django.conf.urls.static import static
 from django.urls import path, include
 from django.views.generic import RedirectView
+from components import views
 
 admin.site.site_title = '管理后台PRO'
 admin.site.site_header = '员工管理后台PRO'
-from components import views
-from dialog import views as dialog_views
 
 urlpatterns = [
                   path('dialog/', include('dialog.urls')),
