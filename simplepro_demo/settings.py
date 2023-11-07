@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'demo',
     'finance',
     'components',
-    'dialog'
+    'dialog',
+    'app_0309'
 ]
 
 MIDDLEWARE = [
@@ -229,9 +230,6 @@ SIMPLEUI_ICON = {
 
 SIMPLEUI_STATIC_OFFLINE = True
 
-# 隐藏所有simpleui和simplepro相关的信息
-SIMPLEPRO_INFO = False
-
 # 上传文件，如果是ImageField字段，simplepro将默认显示为图片，但是请保证有MEDIA_URL字段，否则图片将会404无法显示
 # urls.py 中需要加入:+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # 参考文章地址：https://www.cnblogs.com/ohahastudy/p/11179493.html
@@ -261,3 +259,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 指定SimplePro以异步的方式获取外键数据，自6.3+ 开始支持
 SIMPLEPRO_FK_ASYNC_DATA = True
+
+# 安全秘钥，登录官方网站点击我的头像，获取秘钥
+SIMPLEPRO_SECRET_KEY = '2c4411a795534e0fbc28720051161434'
+
+# 启用验证码，True和False，默认为True
+SIMPLEPRO_CAPTCHA_ENABLED = True

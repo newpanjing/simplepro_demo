@@ -20,10 +20,9 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.views.generic import RedirectView
 
-admin.site.site_title = '管理后台PRO'
-admin.site.site_header = '员工管理后台PRO'
+admin.site.site_title = 'SimplePro 管理后台'
+admin.site.site_header = 'SimplePro 管理后台 演示'
 from components import views
-from dialog import views as dialog_views
 
 urlpatterns = [
                   path('dialog/', include('dialog.urls')),
@@ -32,7 +31,6 @@ urlpatterns = [
                   path('favicon.ico', RedirectView.as_view(url=r'static/favicon.ico')),
                   # 如果出现sp 未定义，就加入这一句
                   path('sp/', include('simplepro.urls')),
-                  # path('admin', admin.site.urls),
                   path('admin/', admin.site.urls),
                   path('', admin.site.urls),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

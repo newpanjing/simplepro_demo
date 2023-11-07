@@ -11,6 +11,12 @@ class DialogAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'description', 'custom_row_btn', 'dialog_url', 'async_load', 'dialog_lists')
     search_fields = ('name',)
 
+    fields_options = {
+        "id": {
+            "fixed": "left",
+        }
+    }
+
     def custom_row_btn(self, *args, **kwargs):
         # 从4.0开始 支持element-ui的组件
         return format_html(
