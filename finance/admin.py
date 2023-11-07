@@ -52,6 +52,7 @@ class RecordAdmin(ExportActionModelAdmin):
         return redirect('https://simpleui.72wo.com')
 
     def custom_btn(self, request, queryset):
+
         pass
 
     custom_btn.short_description = '测试按钮'

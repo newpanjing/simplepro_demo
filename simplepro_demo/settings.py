@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'finance',
     'components',
     'dialog',
-    'app_0309'
 ]
 
 MIDDLEWARE = [
