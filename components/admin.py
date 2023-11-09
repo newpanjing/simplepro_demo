@@ -26,11 +26,11 @@ class SourceCodeAdmin(object):
     </div>
      <div>
         <b>文档地址：</b>
-        <el-link target="_blank" href="https://simpleui.72wo.com/docs/simplepro" type="primary">https://simpleui.72wo.com/docs/simplepro</el-link>
+        <el-link target="_blank" href="https://www.mldoo.com/docs/simplepro" type="primary">https://www.mldoo.com/docs/simplepro</el-link>
     </div>
      <div>
         <b>购买地址：</b>
-        <el-link target="_blank" href="https://simpleui.72wo.com/simplepro" type="primary">https://simpleui.72wo.com/simplepro</el-link>
+        <el-link target="_blank" href="https://www.mldoo.com/simplepro" type="primary">https://www.mldoo.com/simplepro</el-link>
     </div>
      <div>
         <b>QQ群：</b>
