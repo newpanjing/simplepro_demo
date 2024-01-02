@@ -142,6 +142,7 @@ class StudentManyToManyModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
             queryset |= self.model.objects.filter(f__contains=search_term)
         return queryset, use_distinct
 
+
 @admin.register(StudentModel)
 class StudentModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     search_fields = ('name',)
@@ -498,10 +499,70 @@ class AMapModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
 
 @admin.register(VideoModel)
 class VideoModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
+    native_render = True
     """
     视频支持
     """
     list_display = ('pk', 'name', 'video')
+    actions = ("layer_input_query",)
+    filters_list_display = ('name', 'pk')
+
+    @button('弹出对话框输入')
+    @layer(
+        {
+            'title': '弹出层输入框',
+            'tips': '这个弹出对话框是需要在admin中进行定义，数据新增编辑等功能，需要自己来实现。',
+            'confirm_button': '确认提交',
+            'cancel_button': '取消',
+            'params': [{
+                'type': 'input',
+                'key': 'name',
+                'label': '名称',
+            }]
+        })
+    def layer_input_query(self, request, queryset):
+        query_filters = {}
+        for field in self.filters_list_display:
+            value = request.POST.get(field)
+
+            if not value:
+                for post_key in request.POST:
+                    if post_key.endswith('|' + field):
+                        field_type, field_name = post_key.split('|', 1)
+
+                        # 处理日期区间字段
+                        if 'DateField' in field_type:
+                            start_date = request.POST.get('DateField1|' + field_name)
+                            end_date = request.POST.get('DateField2|' + field_name)
+                            start_date = '123'
+                            end_date = '321'
+                            if start_date and end_date:
+                                query_filters[field_name] = (start_date, end_date)
+
+                        # 处理整数区间字段
+                        elif 'IntegerField' in field_type:
+                            try:
+                                start_number = int(request.POST.get('IntegerField1|' + field_name, 0))
+                                end_number = int(request.POST.get('IntegerField2|' + field_name, 0))
+                                if start_number and end_number:
+                                    query_filters[field_name] = (start_number, end_number)
+                            except ValueError:
+                                # 处理转换为整数时的错误
+                                pass  # 或记录日志，或以其他方式处理错误
+            else:
+                query_filters[field] = value
+
+        # 保存到session
+        session_key = "abc"
+        request.session[session_key] = query_filters
+
+        return JsonResponse({'status': 'success', 'msg': '操作成功'})
+
+    layer_input_query.short_description = '筛选'
+    layer_input_query.type = 'info'
+    layer_input_query.icon = 'el-icon-view'
+    # 设置不选中数据也可以执行操作
+    layer_input_query.enable = True
 
 
 @admin.register(CellActionModel)

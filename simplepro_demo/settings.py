@@ -171,48 +171,116 @@ SIMPLEUI_ANALYSIS = True
 SIMPLEUI_CONFIG = {
     # 在自定义菜单的基础上保留系统模块
     'system_keep': True,
-    'dynamic': False,
-    'menus': [{
-        'name': '社区',
-        'icon': 'fas fa-code',
-        'url': 'https://simpleui.72wo.com',
-        'codename': 'community'
-    }, {
-        'name': '产品',
-        'icon': 'fa fa-file',
-        'codename': 'product',
-        'models': [{
-            'name': 'SimplePro',
-            'codename': 'SimplePro',
-            'icon': 'far fa-surprise',
-            'models': [{
-                'name': 'Pro文档',
-                'url': 'https://simpleui.72wo.com/docs/simplepro'
-            }, {
-                'name': '购买Pro',
-                'url': 'http://simpleui.72wo.com/simplepro'
-            }]
-        }, {
-            'name': 'SimpleUI',
-            'url': 'https://github.com/newpanjing/simpleui',
-            'icon': 'fab fa-github',
-            'codename': 'simpleui',
-            'newTab': True
-        }, {
-            'name': '图片转换器',
-            'url': 'https://convert.72wo.com',
-            'icon': 'fab fa-github',
-            'codename': 'convert',
-            'newTab': True
-        }, {
-            'name': '全文检索',
-            'url': 'https://github.com/sea-team/gofound',
-            'icon': 'fab fa-github',
-            'codename': 'gofound',
-            'newTab': True
-        }]
-    }],
-    "ccc": "ddd"
+    # 用于菜单排序和过滤, 不填此字段为默认排序和全部显示。空列表[] 为全部不显示.
+    # 'menu_display': ['文件管理', '认证与授权', ],
+    # 设置是否开启动态菜单, 默认为False. 如果开启, 则会在每次用户登陆时刷新展示菜单内容。
+    # 一般建议关闭。
+    'dynamic': True,
+    'menus': [
+        {
+            'name': '公文交换',
+            'icon': 'fas fa-user-shield',
+            'codename': '公文交换',
+            'models': [
+                {
+                    'name': '新建发文',
+                    'icon': 'fa fa-user',
+                    'url': 'filesmanage/msgex/1/msgexview/',
+                    'codename': '新建发文',
+                },
+                {
+                    'name': '发件箱',
+                    'icon': 'fa fa-th-list',
+                    'url': 'filesmanage/msgex/0/msgexview/',
+                    'codename': '发件箱',
+                },
+                {
+                    'name': '收件箱',
+                    'icon': 'fa fa-th-list',
+                    'url': 'filesmanage/signmans/',
+                    'codename': '收件箱',
+                },
+                {
+                    'name': '已发文件',
+                    'icon': 'fa fa-th-list',
+                    'url': 'filesmanage/msgex2/',
+                    'codename': '已发文件',
+                },
+                {
+                    'name': '已收文件',
+                    'icon': 'fa fa-th-list',
+                    'url': 'filesmanage/signmans2/',
+                    'codename': '已收文件',
+                },
+
+                {
+                    'name': '文件盖章',
+                    'icon': 'fa fa-th-list',
+                    'codename': '文件盖章',
+                    'models': [
+                        {
+                            'name': '新建盖章',
+                            'icon': 'fa fa-user',
+                            'url': '/filesmanage/view_set_pdf_gz/',
+                            'codename': '新建盖章',
+                        },
+                        {
+                            'name': '待办盖章',
+                            'icon': 'fa fa-user',
+                            'url': '/filesmanage/view_set_pdf_gz/',
+                            'codename': '待办盖章',
+                        },
+                        {
+                            'name': '联合盖章',
+                            'icon': 'fa fa-user',
+                            'url': '/filesmanage/view_set_pdf_gz/',
+                            'codename': '联合盖章',
+                        },
+                        {
+                            'name': '已盖章待发',
+                            'icon': 'fa fa-user',
+                            'url': '/filesmanage/view_set_pdf_gz/',
+                            'codename': '已盖章待发',
+                        },
+                        {
+                            'name': '已盖章已发',
+                            'icon': 'fa fa-user',
+                            'url': '/filesmanage/view_set_pdf_gz/',
+                            'codename': '已盖章已发',
+                        },
+                    ]
+                },
+
+            ],
+        },
+
+        {
+            'name': '权限设定',
+            'icon': 'fas fa-user-shield',
+            'codename': 'community',
+            'models': [
+                {
+                    'name': '权限编辑',
+                    'icon': 'fa fa-user',
+                    'url': 'mainapp/permissiontree/',
+                    'codename': 'simpleui',
+                },
+                {
+                    'name': '系统用户',
+                    'icon': 'fa fa-th-list',
+                    'url': 'mainapp/customuser/',
+                    'codename': 'simpleui',
+                },
+            ],
+        },
+        # {
+        #     'name': '设置',
+        #     'icon': 'fa fa-th-list',
+        #     # 在浏览器新标签中打开
+        #     # 'newTab': True,
+        #     'url': '/config1/',
+        # }
+    ]
 }
 
 # 是否显示默认图标，默认=True

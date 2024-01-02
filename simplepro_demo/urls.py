@@ -32,5 +32,8 @@ urlpatterns = [
                   # 如果出现sp 未定义，就加入这一句
                   path('sp/', include('simplepro.urls')),
                   path('admin/', admin.site.urls),
+                  path('xadmin_1/', admin.site.urls),
+                  path('xadmin_2/', admin.site.urls),
+                  path('xadmin_3/', admin.site.urls),
                   path('', admin.site.urls),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

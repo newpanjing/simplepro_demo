@@ -201,7 +201,7 @@ class TimeModel(models.Model):
                           size='mini')
 
     f3 = fields.TimeField(verbose_name='Time时间选择3', default=timezone.now,
-                          align='right', clearable=False, editable=False, readonly=True, help_text='不可编辑')
+                          align='right', clearable=False, readonly=True, help_text='不可编辑')
 
     class Meta:
         verbose_name = 'Time时间选择'
@@ -349,6 +349,7 @@ class StudentModel(models.Model):
         (1, '女'),
         (2, '未知'),
     )
+
     sex = fields.RadioField(verbose_name='性别', default=0, choices=sex_choices)
 
     star = fields.RateField(verbose_name='评价', default=5, help_text='给用户评级')
