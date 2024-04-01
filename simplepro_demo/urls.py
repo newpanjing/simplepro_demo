@@ -25,13 +25,15 @@ admin.site.site_header = 'SimplePro 管理后台 演示'
 from components import views
 
 urlpatterns = [
+                  # simplepro
+                  path('sp/', include('simplepro.urls')),
+                  # admin界面
+                  path('admin/', admin.site.urls),
+                  # 其他自定义url
                   path('dialog/', include('dialog.urls')),
                   path('area/search', views.area_search, name='area_search'),
                   # 这里可以配置网页收藏夹的图标
                   path('favicon.ico', RedirectView.as_view(url=r'static/favicon.ico')),
-                  # 如果出现sp 未定义，就加入这一句
-                  path('sp/', include('simplepro.urls')),
-                  path('admin/', admin.site.urls),
                   path('xadmin_1/', admin.site.urls),
                   path('xadmin_2/', admin.site.urls),
                   path('xadmin_3/', admin.site.urls),

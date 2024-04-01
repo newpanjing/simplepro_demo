@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'finance',
     'components',
     'dialog',
+    # 三级联动示例
+    'three_cascade'
 ]
 
 MIDDLEWARE = [
@@ -177,109 +179,8 @@ SIMPLEUI_CONFIG = {
     # 一般建议关闭。
     'dynamic': True,
     'menus': [
-        {
-            'name': '公文交换',
-            'icon': 'fas fa-user-shield',
-            'codename': '公文交换',
-            'models': [
-                {
-                    'name': '新建发文',
-                    'icon': 'fa fa-user',
-                    'url': 'filesmanage/msgex/1/msgexview/',
-                    'codename': '新建发文',
-                },
-                {
-                    'name': '发件箱',
-                    'icon': 'fa fa-th-list',
-                    'url': 'filesmanage/msgex/0/msgexview/',
-                    'codename': '发件箱',
-                },
-                {
-                    'name': '收件箱',
-                    'icon': 'fa fa-th-list',
-                    'url': 'filesmanage/signmans/',
-                    'codename': '收件箱',
-                },
-                {
-                    'name': '已发文件',
-                    'icon': 'fa fa-th-list',
-                    'url': 'filesmanage/msgex2/',
-                    'codename': '已发文件',
-                },
-                {
-                    'name': '已收文件',
-                    'icon': 'fa fa-th-list',
-                    'url': 'filesmanage/signmans2/',
-                    'codename': '已收文件',
-                },
 
-                {
-                    'name': '文件盖章',
-                    'icon': 'fa fa-th-list',
-                    'codename': '文件盖章',
-                    'models': [
-                        {
-                            'name': '新建盖章',
-                            'icon': 'fa fa-user',
-                            'url': '/filesmanage/view_set_pdf_gz/',
-                            'codename': '新建盖章',
-                        },
-                        {
-                            'name': '待办盖章',
-                            'icon': 'fa fa-user',
-                            'url': '/filesmanage/view_set_pdf_gz/',
-                            'codename': '待办盖章',
-                        },
-                        {
-                            'name': '联合盖章',
-                            'icon': 'fa fa-user',
-                            'url': '/filesmanage/view_set_pdf_gz/',
-                            'codename': '联合盖章',
-                        },
-                        {
-                            'name': '已盖章待发',
-                            'icon': 'fa fa-user',
-                            'url': '/filesmanage/view_set_pdf_gz/',
-                            'codename': '已盖章待发',
-                        },
-                        {
-                            'name': '已盖章已发',
-                            'icon': 'fa fa-user',
-                            'url': '/filesmanage/view_set_pdf_gz/',
-                            'codename': '已盖章已发',
-                        },
-                    ]
-                },
 
-            ],
-        },
-
-        {
-            'name': '权限设定',
-            'icon': 'fas fa-user-shield',
-            'codename': 'community',
-            'models': [
-                {
-                    'name': '权限编辑',
-                    'icon': 'fa fa-user',
-                    'url': 'mainapp/permissiontree/',
-                    'codename': 'simpleui',
-                },
-                {
-                    'name': '系统用户',
-                    'icon': 'fa fa-th-list',
-                    'url': 'mainapp/customuser/',
-                    'codename': 'simpleui',
-                },
-            ],
-        },
-        # {
-        #     'name': '设置',
-        #     'icon': 'fa fa-th-list',
-        #     # 在浏览器新标签中打开
-        #     # 'newTab': True,
-        #     'url': '/config1/',
-        # }
     ]
 }
 

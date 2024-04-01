@@ -496,9 +496,170 @@ class AMapModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     """
     list_display = ('pk', 'name', 'geo', 'address')
 
+class MyBaseAdmin(AjaxAdmin):
+    """
+    All business object admin derive from this class
+    """
+    extra_buttons = []
+    # 排除字段列表
+    exclude = ['creation_time', 'modification_time']
+    list_per_page = 10
+    actions = ['']
+    # 查询窗口过滤查询字段列表
+    filters_list_display = []
+    # 查询窗口排除字段列表
+    filters_exclude_fields = []
+
+    def get_session_key(self):
+        return f'{self.__class__.__name__}_query_filters'
+
+    def layer_input_query(self, request, queryset):
+        query_filters = {}
+        for field in self.filters_list_display:
+            value = request.POST.get(field)
+
+            if not value:
+                for post_key in request.POST:
+                    if post_key.endswith('|' + field):
+                        field_type, field_name = post_key.split('|', 1)
+
+                        # 处理日期区间字段
+                        if 'DateField' in field_type:
+                            start_date = request.POST.get('DateField1|' + field_name)
+                            end_date = request.POST.get('DateField2|' + field_name)
+                            # start_date = gmt_to_datetime(start_date).isoformat()  # 将 datetime 对象转换为字符串
+                            # end_date = gmt_to_datetime(end_date).isoformat()
+                            if start_date and end_date:
+                                query_filters[field_name] = (start_date, end_date)
+
+                        # 处理整数区间字段
+                        elif 'IntegerField' in field_type:
+                            try:
+                                start_number = int(request.POST.get('IntegerField1|' + field_name, 0))
+                                end_number = int(request.POST.get('IntegerField2|' + field_name, 0))
+                                if start_number and end_number:
+                                    query_filters[field_name] = (start_number, end_number)
+                            except ValueError:
+                                # 处理转换为整数时的错误
+                                pass  # 或记录日志，或以其他方式处理错误
+            else:
+                query_filters[field] = value
+
+        # 保存到session
+        session_key = self.get_session_key()
+        request.session[session_key] = query_filters
+        return {'status': 'success', 'msg': '操作成功'}
+        # return JsonResponse({'status': 'success', 'msg': '操作成功'})
+
+    layer_input_query.short_description = '筛选'
+    layer_input_query.type = 'info'
+    layer_input_query.icon = 'el-icon-view'
+    # 设置不选中数据也可以执行操作
+    layer_input_query.enable = True
+
+    def async_get_layer_config(self, request, queryset):
+        """
+        设定查询窗口参数
+        """
+        return {
+            'title': '筛选设置',
+            'tips': '提示：模糊输入，如有多关键字，中间用空格',
+            'confirm_button': '确认提交',
+            'cancel_button': '取消',
+            'width': '40%',
+            'labelWidth': "100px",
+            # 'params': generate_layer_input_query_config(self.model, self.filters_list_display,
+            #                                             self.filters_exclude_fields)
+            'params':[]
+        }
+
+    # 这里的layer 配置下方法名就可以了，不需要写圆括号()，不然不生效
+    layer_input_query.layer = async_get_layer_config
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+
+        # 使用查询窗口过滤数据
+        session_key = self.get_session_key()
+        query_filters = request.session.get(session_key, {})
+
+        for field, value in query_filters.items():
+            if isinstance(value, str):
+                # 处理字符串值
+                keywords = [keyword.strip() for keyword in value.split() if keyword.strip()]
+                for keyword in keywords:
+                    lookup = f'{field}__icontains'
+                    qs = qs.filter(**{lookup: keyword})
+
+
+            elif (isinstance(value, tuple) or isinstance(value, list)) and len(value) == 2:
+
+                # 处理区间，无论是元组还是列表
+
+                start_value, end_value = value
+
+                if all(isinstance(v, str) for v in value):
+
+                    # 假设是日期区间
+                    # start_value = parse(start_value)
+                    # end_value = parse(end_value)
+
+                    qs = qs.filter(**{
+
+                        f'{field}__gte': start_value,
+
+                        f'{field}__lte': end_value
+
+                    })
+
+                elif all(isinstance(v, int) for v in value):
+
+                    # 假设是整数区间
+
+                    qs = qs.filter(**{
+
+                        f'{field}__gte': start_value,
+
+                        f'{field}__lte': end_value
+
+                    })
+            elif isinstance(value, list):
+                # 处理列表值
+                keywords = [keyword.strip() for keyword in value if isinstance(keyword, str) and keyword.strip()]
+
+        return qs
+
+    # 方法一：隐藏详情页按钮
+    # def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+    #     extra_context = extra_context or {}
+    #
+    #     # 隐藏保存并继续编辑按钮
+    #     extra_context['show_save_and_continue'] = False
+    #     # 隐藏保存并增加另外一个按钮
+    #     extra_context['show_save_and_add_another'] = False
+    #     # 隐藏保存按钮
+    #     extra_context['show_save'] = True
+    #     # 隐藏删除按钮
+    #     extra_context['show_delete'] = True
+    #
+    #     return super().changeform_view(request, object_id, form_url, extra_context)
+
+    # 方法二：隐藏详情页按钮
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        context.update({
+            # 隐藏保存并增加另一个按钮
+            'show_save_and_continue': False,
+            # 隐藏保存并增加另外一个按钮
+            'show_save_and_add_another': False,
+            # 隐藏保存按钮
+            'show_save': True,
+            # 隐藏删除按钮
+            'show_delete': False,
+        })
+        return super().render_change_form(request, context, add, change, form_url, obj)
 
 @admin.register(VideoModel)
-class VideoModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
+class VideoModelAdmin(MyBaseAdmin):
     native_render = True
     """
     视频支持
