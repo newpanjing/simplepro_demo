@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'components',
     'dialog',
     # 三级联动示例
-    'three_cascade'
+    'three_cascade',
 ]
 
 MIDDLEWARE = [
@@ -149,7 +149,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 # SIMPLEUI_HOME_ICON = 'el-icon-date'
 
 # 设置simpleui 点击首页图标跳转的地址
-SIMPLEUI_INDEX = 'https://www.88cto.com'
+SIMPLEUI_INDEX = 'https://www.noondot.com'
 
 # 首页显示服务器、python、django、simpleui相关信息
 # SIMPLEUI_HOME_INFO = False
@@ -229,7 +229,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SIMPLEPRO_FK_ASYNC_DATA = True
 
 # 安全秘钥，登录官方网站点击我的头像，获取秘钥
-SIMPLEPRO_SECRET_KEY = '2c4411a795534e0fbc28720051161434'
+SIMPLEPRO_SECRET_KEY = '84769777fc5148bda5d1a5b8f8f3aed8'
 
 # 启用验证码，True和False，默认为True
 SIMPLEPRO_CAPTCHA_ENABLED = True

@@ -18,7 +18,7 @@ User = get_user_model()
 class Department(models.Model):
     name = fields.CharField(max_length=128, verbose_name='部门名', help_text='一个部门的名字应该唯一', unique=True,
                             db_index=True)
-    create_time = fields.DateTimeField(verbose_name='创建时间', auto_now=True)
+    create_time = fields.DateTimeField(verbose_name='创建时间', auto_now=True,help_text='部门创建的时间')
 
     class Meta:
         verbose_name = "部门"
@@ -109,7 +109,7 @@ class Employe(models.Model):
     update_time = fields.DateTimeField(verbose_name='更新时间', auto_now=True)
 
     def test1(self):
-        return format_html('<img src="{}" height="50" width="50">', 'https://www.88cto.com/static/images/logo.png')
+        return format_html('<img src="{}" height="50" width="50">', 'https://www.noondot.com/img/original.png')
 
     def test2(self):
         if self.title:

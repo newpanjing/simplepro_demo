@@ -34,8 +34,5 @@ urlpatterns = [
                   path('area/search', views.area_search, name='area_search'),
                   # 这里可以配置网页收藏夹的图标
                   path('favicon.ico', RedirectView.as_view(url=r'static/favicon.ico')),
-                  path('xadmin_1/', admin.site.urls),
-                  path('xadmin_2/', admin.site.urls),
-                  path('xadmin_3/', admin.site.urls),
                   path('', admin.site.urls),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

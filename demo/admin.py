@@ -183,10 +183,11 @@ class EmployeAdmin(ImportExportActionModelAdmin, AjaxAdmin):
     message_test.confirm = '你是否执意要点击这个按钮？'
 
     class Media:
-        js = ('/js/test.js',)
-        css = {
-            'all': ('/css/test.css',)
-        }
+        # js = ('/js/test.js',)
+        # css = {
+        #     'all': ('/css/test.css',)
+        # }
+        pass
 
     resource_class = ProxyResource
     list_display = (

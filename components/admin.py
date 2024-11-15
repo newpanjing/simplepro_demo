@@ -26,11 +26,11 @@ class SourceCodeAdmin(object):
     </div>
      <div>
         <b>文档地址：</b>
-        <el-link target="_blank" href="https://www.mldoo.com/docs/simplepro" type="primary">https://www.mldoo.com/docs/simplepro</el-link>
+        <el-link target="_blank" href="https://www.noondot.com/docs/simplepro" type="primary">https://www.noondot.com/docs/simplepro</el-link>
     </div>
      <div>
         <b>购买地址：</b>
-        <el-link target="_blank" href="https://www.mldoo.com/simplepro" type="primary">https://www.mldoo.com/simplepro</el-link>
+        <el-link target="_blank" href="https://www.noondot.com/simplepro" type="primary">https://www.noondot.com/simplepro</el-link>
     </div>
      <div>
         <b>QQ群：</b>
@@ -239,7 +239,23 @@ class LayerAdmin(AjaxAdmin):
                     'key': 0,
                     'label': '新增'
                 }]
+            },{
+            'type': 'select',
+            'key': 'category',
+            'label': '类型',
+            'width': '200px',
+            # size对应elementui的size，取值为：medium / small / mini
+            'size': 'small',
+            # value字段可以指定默认值
+            'value': '0',
+            'options': [{
+                'key': '0',
+                'label': '收入'
+            }, {
+                'key': '1',
+                'label': '支出'
             }]
+        }]
         }
 
     # 从6.0+ 我们支持了装饰器的方式来定义action和layer
@@ -496,6 +512,7 @@ class AMapModelAdmin(admin.ModelAdmin, SourceCodeAdmin):
     """
     list_display = ('pk', 'name', 'geo', 'address')
 
+
 class MyBaseAdmin(AjaxAdmin):
     """
     All business object admin derive from this class
@@ -570,7 +587,7 @@ class MyBaseAdmin(AjaxAdmin):
             'labelWidth': "100px",
             # 'params': generate_layer_input_query_config(self.model, self.filters_list_display,
             #                                             self.filters_exclude_fields)
-            'params':[]
+            'params': []
         }
 
     # 这里的layer 配置下方法名就可以了，不需要写圆括号()，不然不生效
@@ -657,6 +674,7 @@ class MyBaseAdmin(AjaxAdmin):
             'show_delete': False,
         })
         return super().render_change_form(request, context, add, change, form_url, obj)
+
 
 @admin.register(VideoModel)
 class VideoModelAdmin(MyBaseAdmin):
@@ -846,6 +864,9 @@ class TreeTableAdmin(admin.ModelAdmin, SourceCodeAdmin):
     # 指定级联关系的字段，只能一个字段，不能是数组或者元组
     # 这个字段必须有，才会有树形的效果
     list_display_tree_cascade = 'parent'
+
+    # 指定树形显示的字段，默认是name，自从7.6开始，支持指定字段，之前所有版本 固定为字符串：“name”
+    list_display_tree_field = 'name'
 
     # 展开状态，默认不展开
     list_display_tree_expand_all = False
